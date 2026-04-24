@@ -394,7 +394,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="footer">
         <div className="container">
-          <p>© 2025 Ngô Gia Hạo. Built with Next.js.</p>
+          <p>© 2026 Ngô Gia Hạo. Built with Next.js.</p>
         </div>
       </footer>
     </>
