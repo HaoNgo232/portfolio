@@ -1,17 +1,34 @@
 "use client";
 
-import { use } from "react";
+import React, { use } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
 
 /* ─── Data ───────────────────────────────────────────────────────── */
+/* ─── Feature Icons (SVG, no emoji) ─────────────────────────────── */
+const S = { width: 18, height: 18, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+const IcoRocket      = () => <svg {...S}><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>;
+const IcoNetwork     = () => <svg {...S}><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/><path d="M12 12l-6 6M12 12l6 6"/></svg>;
+const IcoShield      = () => <svg {...S}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>;
+const IcoZap         = () => <svg {...S}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>;
+const IcoPackage     = () => <svg {...S}><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>;
+const IcoSearch      = () => <svg {...S}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>;
+const IcoEye         = () => <svg {...S}><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>;
+const IcoCpu         = () => <svg {...S}><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>;
+const IcoTarget      = () => <svg {...S}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>;
+const IcoGitBranch   = () => <svg {...S}><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>;
+const IcoSettings    = () => <svg {...S}><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>;
+const IcoShare       = () => <svg {...S}><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>;
+const IcoLayers      = () => <svg {...S}><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>;
+const IcoShuffle     = () => <svg {...S}><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>;
+
 const PROJECTS: Record<string, {
   title: string;
   subtitle: string;
   desc: string;
   vision: string[];
-  features: { icon: string; title: string; desc: string }[];
+  features: { icon: React.ReactNode; title: string; desc: string }[];
   terminalLines: string[];
   stack: { name: string; icon: string }[];
   github: string;
@@ -26,9 +43,9 @@ const PROJECTS: Record<string, {
       "Engineered using NestJS for the microservices architecture, the system manages elastic scaling, SSL termination, and real-time monitoring via a custom-built dashboard.",
     ],
     features: [
-      { icon: "✦", title: "Zero-Downtime Deployments", desc: "Blue-green deployment strategies managed automatically through K8s ingress controllers." },
-      { icon: "⬡", title: "Multi-Region Replication", desc: "Global data distribution with Redis-backed session management for low-latency user experiences." },
-      { icon: "⬢", title: "Isolated Sandbox Environments", desc: "Docker-based isolation ensures security and environment parity across the entire development lifecycle." },
+      { icon: <IcoRocket />, title: "Zero-Downtime Deployments", desc: "Blue-green deployment strategies managed automatically through K8s ingress controllers." },
+      { icon: <IcoNetwork />, title: "Multi-Region Replication", desc: "Global data distribution with Redis-backed session management for low-latency user experiences." },
+      { icon: <IcoShield />, title: "Isolated Sandbox Environments", desc: "Docker-based isolation ensures security and environment parity across the entire development lifecycle." },
     ],
     terminalLines: [
       "initializing cluster connection...",
@@ -56,9 +73,9 @@ const PROJECTS: Record<string, {
       "System quản lý kho vận với realtime sync, tích hợp payment gateway và SEO-optimized page structure giúp organic traffic tăng trưởng bền vững.",
     ],
     features: [
-      { icon: "⚡", title: "Sub-second Page Loads", desc: "ISR và edge caching đảm bảo tốc độ tải trang dưới 1 giây ngay cả ở peak traffic." },
-      { icon: "📦", title: "Smart Inventory Sync", desc: "Realtime inventory tracking với tự động cảnh báo và reorder suggestion dựa trên AI." },
-      { icon: "🔍", title: "SEO Architecture", desc: "Structured data, canonical URLs, và sitemap tự động giúp tăng organic search traffic." },
+      { icon: <IcoZap />, title: "Sub-second Page Loads", desc: "ISR và edge caching đảm bảo tốc độ tải trang dưới 1 giây ngay cả ở peak traffic." },
+      { icon: <IcoPackage />, title: "Smart Inventory Sync", desc: "Realtime inventory tracking với tự động cảnh báo và reorder suggestion dựa trên AI." },
+      { icon: <IcoSearch />, title: "SEO Architecture", desc: "Structured data, canonical URLs, và sitemap tự động giúp tăng organic search traffic." },
     ],
     terminalLines: [
       "build started: nextgen-laptop-shop",
@@ -85,9 +102,9 @@ const PROJECTS: Record<string, {
       "Computer vision pipeline xử lý hình ảnh sản phẩm và semantic search engine hiểu ý định người dùng, không chỉ keywords.",
     ],
     features: [
-      { icon: "👁", title: "Visual Search", desc: "Upload ảnh để tìm sản phẩm tương tự trong toàn bộ catalog với độ chính xác cao." },
-      { icon: "🧠", title: "Semantic Search", desc: "Tìm kiếm bằng ngôn ngữ tự nhiên — hỏi như hỏi người thật, nhận kết quả chính xác." },
-      { icon: "🎯", title: "Personalised Feed", desc: "AI học từ hành vi người dùng để cá nhân hóa trải nghiệm mua sắm theo thời gian." },
+      { icon: <IcoEye />, title: "Visual Search", desc: "Upload ảnh để tìm sản phẩm tương tự trong toàn bộ catalog với độ chính xác cao." },
+      { icon: <IcoCpu />, title: "Semantic Search", desc: "Tìm kiếm bằng ngôn ngữ tự nhiên — hỏi như hỏi người thật, nhận kết quả chính xác." },
+      { icon: <IcoTarget />, title: "Personalised Feed", desc: "AI học từ hành vi người dùng để cá nhân hóa trải nghiệm mua sắm theo thời gian." },
     ],
     terminalLines: [
       "loading vision model: clip-vit-large...",
@@ -113,9 +130,9 @@ const PROJECTS: Record<string, {
       "NestJS DevTools MCP giải quyết vấn đề này bằng cách expose NestJS module graph, routes, và providers qua Model Context Protocol — cho phép AI hiểu ứng dụng như một developer thực sự.",
     ],
     features: [
-      { icon: "🔌", title: "Module Graph Inspector", desc: "Real-time visualization của toàn bộ dependency graph, circular dependencies và lazy modules." },
-      { icon: "🛣", title: "Route Analyser", desc: "Inspect tất cả HTTP routes, guards, interceptors và middlewares đang active." },
-      { icon: "⚙️", title: "Provider Registry", desc: "Xem toàn bộ providers, scope, và injection tokens trong runtime context." },
+      { icon: <IcoSearch />, title: "Module Graph Inspector", desc: "Real-time visualization của toàn bộ dependency graph, circular dependencies và lazy modules." },
+      { icon: <IcoGitBranch />, title: "Route Analyser", desc: "Inspect tất cả HTTP routes, guards, interceptors và middlewares đang active." },
+      { icon: <IcoSettings />, title: "Provider Registry", desc: "Xem toàn bộ providers, scope, và injection tokens trong runtime context." },
     ],
     terminalLines: [
       "mcp server started on stdio",
@@ -140,9 +157,9 @@ const PROJECTS: Record<string, {
       "Agent Bridge Kit cung cấp một abstraction layer chuẩn hóa cách agents giao tiếp với tools và services. Synapse quản lý context, memory persistence và intelligent tool routing.",
     ],
     features: [
-      { icon: "🌉", title: "Universal Bridge", desc: "Kết nối bất kỳ AI framework (LangChain, CrewAI, AutoGen) với external services qua một interface thống nhất." },
-      { icon: "🧬", title: "Context Synapse", desc: "Shared memory layer giúp agents nhớ và chia sẻ context across sessions và tools." },
-      { icon: "🔀", title: "Smart Tool Routing", desc: "Tự động chọn và chain tools dựa trên agent intent, không cần hardcode workflows." },
+      { icon: <IcoShare />, title: "Universal Bridge", desc: "Kết nối bất kỳ AI framework (LangChain, CrewAI, AutoGen) với external services qua một interface thống nhất." },
+      { icon: <IcoLayers />, title: "Context Synapse", desc: "Shared memory layer giúp agents nhớ và chia sẻ context across sessions và tools." },
+      { icon: <IcoShuffle />, title: "Smart Tool Routing", desc: "Tự động chọn và chain tools dựa trên agent intent, không cần hardcode workflows." },
     ],
     terminalLines: [
       "agent-bridge-kit v0.4.2 starting...",
