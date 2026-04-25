@@ -39,13 +39,13 @@ const PROJECTS: Record<string, {
     subtitle: "A high-performance Platform-as-a-Service designed for seamless container orchestration and automated CI/CD across hybrid cloud environments.",
     desc: "",
     vision: [
-      "The PaaS Project was born out of a need for developer-centric infrastructure that eliminates the complexity of cloud-native deployments. By abstracting the Kubernetes orchestration layer, we created a platform where code goes from 'git push' to 'live URL' in under 60 seconds.",
-      "Engineered using NestJS for the microservices architecture, the system manages elastic scaling, SSL termination, and real-time monitoring via a custom-built dashboard.",
+      "Dự án PaaS ra đời từ nhu cầu xây dựng hạ tầng lấy developer làm trung tâm, loại bỏ sự phức tạp của việc triển khai Cloud-native. Bằng cách trừu tượng hóa tầng Kubernetes orchestration, nền tảng đưa code từ 'git push' đến 'live URL' trong dưới 60 giây.",
+      "Được xây dựng trên NestJS với kiến trúc Microservices, hệ thống quản lý elastic scaling, SSL termination và giám sát realtime thông qua dashboard tùy chỉnh.",
     ],
     features: [
-      { icon: <IcoRocket />, title: "Zero-Downtime Deployments", desc: "Blue-green deployment strategies managed automatically through K8s ingress controllers." },
-      { icon: <IcoNetwork />, title: "Multi-Region Replication", desc: "Global data distribution with Redis-backed session management for low-latency user experiences." },
-      { icon: <IcoShield />, title: "Isolated Sandbox Environments", desc: "Docker-based isolation ensures security and environment parity across the entire development lifecycle." },
+      { icon: <IcoRocket />, title: "Zero-Downtime Deployments", desc: "Chiến lược Blue-green deployment được quản lý tự động thông qua K8s Ingress Controller." },
+      { icon: <IcoNetwork />, title: "Multi-Region Replication", desc: "Phân phối dữ liệu toàn cầu với Redis-backed session management cho trải nghiệm độ trễ thấp." },
+      { icon: <IcoShield />, title: "Isolated Sandbox Environments", desc: "Cách ly dựa trên Docker đảm bảo bảo mật và đồng nhất môi trường xuyên suốt vòng đời phát triển." },
     ],
     terminalLines: [
       "initializing cluster connection...",
@@ -98,8 +98,8 @@ const PROJECTS: Record<string, {
     subtitle: "AI-powered shopping experience with computer vision product matching and personalised semantic search.",
     desc: "",
     vision: [
-      "VisionStore reimagines the shopping experience bằng cách đặt AI ở trung tâm. Thay vì tìm kiếm bằng từ khóa, người dùng upload ảnh hoặc mô tả bằng ngôn ngữ tự nhiên.",
-      "Computer vision pipeline xử lý hình ảnh sản phẩm và semantic search engine hiểu ý định người dùng, không chỉ keywords.",
+      "VisionStore tái định nghĩa trải nghiệm mua sắm bằng cách đặt AI ở trung tâm. Thay vì tìm kiếm bằng từ khóa, người dùng upload ảnh hoặc mô tả bằng ngôn ngữ tự nhiên.",
+      "Computer Vision pipeline xử lý hình ảnh sản phẩm và Semantic Search engine hiểu ý định người dùng, không chỉ keywords.",
     ],
     features: [
       { icon: <IcoEye />, title: "Visual Search", desc: "Upload ảnh để tìm sản phẩm tương tự trong toàn bộ catalog với độ chính xác cao." },
@@ -126,13 +126,13 @@ const PROJECTS: Record<string, {
     subtitle: "Model Context Protocol server enabling AI assistants to inspect, analyse and understand NestJS applications in real-time.",
     desc: "",
     vision: [
-      "Khi làm việc với AI assistants như Claude hay Cursor, một trong những điểm yếu lớn nhất là AI không thể nhìn thấy runtime state của ứng dụng.",
-      "NestJS DevTools MCP giải quyết vấn đề này bằng cách expose NestJS module graph, routes, và providers qua Model Context Protocol — cho phép AI hiểu ứng dụng như một developer thực sự.",
+      "Khi làm việc với AI assistant như Claude hay Cursor, một trong những điểm yếu lớn nhất là AI không thể nhìn thấy runtime state của ứng dụng.",
+      "NestJS DevTools MCP giải quyết vấn đề này bằng cách expose NestJS module graph, routes và providers qua Model Context Protocol — cho phép AI hiểu ứng dụng như một developer thực thụ.",
     ],
     features: [
-      { icon: <IcoSearch />, title: "Module Graph Inspector", desc: "Real-time visualization của toàn bộ dependency graph, circular dependencies và lazy modules." },
-      { icon: <IcoGitBranch />, title: "Route Analyser", desc: "Inspect tất cả HTTP routes, guards, interceptors và middlewares đang active." },
-      { icon: <IcoSettings />, title: "Provider Registry", desc: "Xem toàn bộ providers, scope, và injection tokens trong runtime context." },
+      { icon: <IcoSearch />, title: "Module Graph Inspector", desc: "Trực quan hóa realtime toàn bộ dependency graph, circular dependencies và lazy modules." },
+      { icon: <IcoGitBranch />, title: "Route Analyser", desc: "Kiểm tra tất cả HTTP routes, guards, interceptors và middlewares đang hoạt động." },
+      { icon: <IcoSettings />, title: "Provider Registry", desc: "Xem toàn bộ providers, scope và injection tokens trong runtime context." },
     ],
     terminalLines: [
       "mcp server started on stdio",
@@ -233,7 +233,7 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
       <section className="detail-hero">
         <div className="container">
           <Link href="/#projects" className="back-link">
-            <IconBack /> Back to Projects
+            <IconBack /> Quay lại Dự Án
           </Link>
 
           <p className="section-label">{project.subtitle}</p>
@@ -316,7 +316,7 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
               </svg>
             </div>
             <p style={{ position: "relative", color: "var(--clr-text-muted)", fontSize: "0.875rem", fontFamily: "var(--font-mono)" }}>
-              Demo video
+              Video demo
             </p>
           </div>
         </div>
@@ -325,15 +325,15 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
       {/* THE VISION */}
       <div className="container">
         <section className="detail-section">
-          <p className="section-label">Overview</p>
-          <h2>The Vision</h2>
+          <p className="section-label">Tổng quan</p>
+          <h2>Tầm Nhìn</h2>
           {project.vision.map((para, i) => <p key={i}>{para}</p>)}
         </section>
 
         {/* KEY FEATURES */}
         <section className="detail-section">
-          <p className="section-label">Features</p>
-          <h2>Key Features</h2>
+          <p className="section-label">Tính năng</p>
+          <h2>Tính Năng Chính</h2>
           <div className="feature-list">
             {project.features.map((f) => (
               <div key={f.title} className="feature-item">
@@ -349,8 +349,8 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
 
         {/* TERMINAL */}
         <section className="detail-section">
-          <p className="section-label">Logs</p>
-          <h2>Development Logs</h2>
+          <p className="section-label">Nhật ký</p>
+          <h2>Nhật Ký Phát Triển</h2>
           <div className="terminal">
             <div className="terminal-header">
               <div className="terminal-dot" style={{ background: "#FF5F57" }} />
@@ -373,8 +373,8 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
 
         {/* SCREENSHOTS */}
         <section className="detail-section">
-          <p className="section-label">Gallery</p>
-          <h2>Platform Showcase</h2>
+          <p className="section-label">Thư viện ảnh</p>
+          <h2>Giao Diện Nền Tảng</h2>
           <div className="screenshot-grid">
             {[1, 2, 3].map((n) => (
               <div key={n} className="screenshot-item">
@@ -387,7 +387,7 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
                   justifyContent: "center",
                 }}>
                   <span style={{ color: "var(--clr-text-muted)", fontSize: "0.75rem", fontFamily: "var(--font-mono)" }}>
-                    Screenshot {n}
+                    Ảnh màn hình {n}
                   </span>
                 </div>
               </div>
@@ -398,12 +398,12 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
         {/* CTA */}
         <div className="cta-card">
           <div>
-            <h3 style={{ marginBottom: "0.5rem" }}>Interested in the Architecture?</h3>
-            <p>I'm always open to discussing system design, cloud orchestration, or potential collaborations.</p>
+            <h3 style={{ marginBottom: "0.5rem" }}>Quan tâm đến kiến trúc hệ thống?</h3>
+            <p>Tôi luôn sẵn sàng thảo luận về system design, cloud orchestration hoặc các cơ hội hợp tác.</p>
           </div>
           <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
             <Link href="/#contact" className="btn btn-primary">
-              Get In Touch <IconNE />
+              Liên Hệ Ngay <IconNE />
             </Link>
             <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
               <IconGithub /> GitHub
@@ -415,7 +415,7 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
       {/* FOOTER */}
       <footer className="footer" style={{ marginTop: "4rem" }}>
         <div className="container">
-          <p>© 2025 Ngô Gia Hạo. Built with Next.js.</p>
+          <p>© 2026 Ngô Gia Hạo. Xây dựng với Next.js.</p>
         </div>
       </footer>
     </>

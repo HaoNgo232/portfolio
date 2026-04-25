@@ -27,7 +27,7 @@ const PROJECTS = [
     number: "02",
     title: "NextGen Laptop Shop",
     subtitle: "E-Commerce Platform",
-    desc: "Trang thương mại điện tử chuyên biệt cho thiết bị công nghệ cao. Tối ưu hóa SEO, tốc độ tải trang và hệ thống quản lý kho vận thông minh với realtime inventory sync.",
+    desc: "Nền tảng thương mại điện tử chuyên biệt cho thiết bị công nghệ cao. Tối ưu SEO, tốc độ tải trang nhanh và hệ thống quản lý kho vận thông minh với đồng bộ tồn kho realtime.",
     stack: [
       { name: "Next.js", icon: "/icons/nextjs-original.svg", color: "#FFFFFF" },
       { name: "TypeScript", icon: "/icons/typescript-original.svg", color: "#3178C6" },
@@ -43,7 +43,7 @@ const PROJECTS = [
     number: "03",
     title: "VisionStore",
     subtitle: "AI-Powered Shopping",
-    desc: "Ứng dụng mua sắm thông minh tích hợp AI để gợi ý sản phẩm cá nhân hóa. Computer vision pipeline xử lý hình ảnh sản phẩm và semantic search giúp trải nghiệm mua sắm trực quan.",
+    desc: "Ứng dụng mua sắm thông minh tích hợp AI gợi ý sản phẩm cá nhân hóa. Computer Vision pipeline xử lý hình ảnh sản phẩm kết hợp Semantic Search mang đến trải nghiệm tìm kiếm trực quan.",
     stack: [
       { name: "Python", icon: "/icons/python-original.svg", color: "#3776AB" },
       { name: "React", icon: "/icons/react-original.svg", color: "#61DAFB" },
@@ -59,7 +59,7 @@ const PROJECTS = [
     number: "04",
     title: "NestJS DevTools MCP",
     subtitle: "Developer Tooling",
-    desc: "Model Context Protocol server cho NestJS ecosystem. Cung cấp AI assistants khả năng inspect module dependency graph, controller routes và providers trong thời gian thực.",
+    desc: "Model Context Protocol server dành cho hệ sinh thái NestJS. Cho phép AI assistant truy vấn module dependency graph, controller routes và providers trong thời gian thực.",
     stack: [
       { name: "NestJS", icon: "/icons/nestjs-original.svg", color: "#E0234E" },
       { name: "TypeScript", icon: "/icons/typescript-original.svg", color: "#3178C6" },
@@ -74,7 +74,7 @@ const PROJECTS = [
     number: "05",
     title: "Agent Bridge Kit & Synapse",
     subtitle: "AI Infrastructure",
-    desc: "Bộ công cụ kết nối các AI agent với external services. Synapse layer quản lý context, memory và tool routing cho multi-agent systems một cách hiệu quả và đáng tin cậy.",
+    desc: "Bộ công cụ kết nối AI agent với các dịch vụ bên ngoài. Synapse layer quản lý context, memory và tool routing cho hệ thống multi-agent một cách hiệu quả và đáng tin cậy.",
     stack: [
       { name: "Python", icon: "/icons/python-original.svg", color: "#3776AB" },
       { name: "TypeScript", icon: "/icons/typescript-original.svg", color: "#3178C6" },
@@ -250,7 +250,7 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[number]; ind
 
         <div className="project-card-actions">
           <Link href={`/projects/${project.slug}`} className="btn btn-primary">
-            View Case Study <IconArrowRight />
+            Xem Chi Tiết <IconArrowRight />
           </Link>
           <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
             <IconGithub /> GitHub
@@ -292,7 +292,7 @@ export default function Home() {
       <section className="hero">
         <div className="container">
           <div className="hero-inner">
-            <p className="section-label">Available for work</p>
+            <p className="section-label">Sẵn sàng nhận việc</p>
             <h1>
               <span className="hero-name">Ngô Gia Hạo</span>
             </h1>
@@ -309,7 +309,7 @@ export default function Home() {
               </a>
             </div>
             <div className="hero-scroll-hint">
-              <IconArrowDown /> Scroll to explore
+              <IconArrowDown /> Kéo xuống để khám phá
             </div>
           </div>
         </div>
@@ -319,8 +319,8 @@ export default function Home() {
       <section id="projects" className="projects-section">
         <div className="container">
           <div className="projects-header">
-            <p className="section-label">Selected work</p>
-            <h2>Projects</h2>
+            <p className="section-label">Dự án tiêu biểu</p>
+            <h2>Dự Án</h2>
           </div>
           <div className="projects-list">
             {PROJECTS.map((p, i) => (
@@ -335,22 +335,17 @@ export default function Home() {
         <div className="container">
           <div ref={aboutRef} className="fade-up about-grid">
             <div className="about-text">
-              <p className="section-label">About me</p>
+              <p className="section-label">Về tôi</p>
               <h2>Về Tôi</h2>
               <p>
-                Tôi là một Web Developer đam mê việc giải quyết các bài toán kỹ thuật phức tạp
-                bằng mã nguồn tinh gọn. Với kinh nghiệm trong các hệ sinh thái Microservices
-                và Cloud-native, tôi luôn hướng tới việc xây dựng các sản phẩm không chỉ
-                đẹp mắt mà còn phải cực kỳ bền vững.
+                Tôi là Web Developer đam mê giải quyết các bài toán kỹ thuật phức tạp bằng mã nguồn tinh gọn. Với kinh nghiệm trong hệ sinh thái Microservices và Cloud-native, tôi luôn hướng tới xây dựng sản phẩm không chỉ đẹp mắt mà còn bền vững về mặt kỹ thuật.
               </p>
               <p>
-                Sở trường của tôi nằm ở việc làm chủ các công nghệ Backend như NestJS, Node.js
-                kết hợp với khả năng vận hành hệ thống trên Docker và Kubernetes. Tôi tin rằng
-                code tốt là code đơn giản, dễ đọc và dễ maintain.
+                Thế mạnh của tôi nằm ở việc làm chủ các công nghệ Backend như NestJS, Node.js kết hợp với khả năng vận hành hệ thống trên Docker và Kubernetes. Tôi tin rằng code tốt là code đơn giản, dễ đọc và dễ bảo trì.
               </p>
             </div>
             <div className="about-stack">
-              <p className="section-label">Core Stack</p>
+              <p className="section-label">Công nghệ chính</p>
               {Object.entries(ABOUT_STACK).map(([group, items]) => (
                 <div key={group}>
                   <p className="stack-group-label">{group}</p>
@@ -370,11 +365,10 @@ export default function Home() {
       <section id="contact" className="contact-section">
         <div className="container">
           <div ref={contactRef} className="fade-up contact-inner">
-            <p className="section-label">Get in touch</p>
-            <h2>Ready to start a project?</h2>
+            <p className="section-label">Liên hệ</p>
+            <h2>Sẵn sàng bắt đầu dự án?</h2>
             <p style={{ marginTop: "1rem", color: "var(--clr-text-secondary)" }}>
-              Tôi luôn sẵn sàng thảo luận về những cơ hội mới và những thách thức kỹ thuật
-              thú vị. Hãy kết nối với tôi qua các kênh bên dưới.
+              Tôi luôn sẵn sàng thảo luận về những cơ hội mới và thử thách kỹ thuật thú vị. Hãy kết nối với tôi qua các kênh bên dưới.
             </p>
             <div className="contact-links">
               <a href="mailto:contact@ngogiahao.dev" className="contact-link">
@@ -394,7 +388,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="footer">
         <div className="container">
-          <p>© 2026 Ngô Gia Hạo. Built with Next.js.</p>
+          <p>© 2026 Ngô Gia Hạo. Xây dựng với Next.js.</p>
         </div>
       </footer>
     </>
