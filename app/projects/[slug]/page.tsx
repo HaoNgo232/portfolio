@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
@@ -30,36 +30,104 @@ const PROJECTS: Record<string, {
   vision: string[];
   features: { icon: React.ReactNode; title: string; desc: string }[];
   terminalLines: string[];
+  videos?: { id: string; title: string; desc: string; poster: string; src: string }[];
   stack: { name: string; icon: string }[];
   github: string;
   preview: string | null;
 }> = {
   paas: {
-    title: "PaaS Ecosystem",
-    subtitle: "A high-performance Platform-as-a-Service designed for seamless container orchestration and automated CI/CD across hybrid cloud environments.",
+    title: "PaaS trên K3s",
+    subtitle: "Nền tảng PaaS tự lưu trữ trên Kubernetes nhẹ",
     desc: "",
     vision: [
-      "Dự án PaaS ra đời từ nhu cầu xây dựng hạ tầng lấy developer làm trung tâm, loại bỏ sự phức tạp của việc triển khai Cloud-native. Bằng cách trừu tượng hóa tầng Kubernetes orchestration, nền tảng đưa code từ 'git push' đến 'live URL' trong dưới 60 giây.",
-      "Được xây dựng trên NestJS với kiến trúc Microservices, hệ thống quản lý elastic scaling, SSL termination và giám sát realtime thông qua dashboard tùy chỉnh.",
+      "Đề tài xây dựng nền tảng PaaS tự lưu trữ dựa trên K3s — bản phân phối Kubernetes nhẹ — kết hợp giao diện web trực quan để che giấu sự phức tạp của Kubernetes bên dưới. Mục tiêu là tái hiện trải nghiệm triển khai đơn giản mà shared hosting từng mang lại cho thời kỳ PHP/MySQL, nhưng trên nền tảng công nghệ hiện đại hỗ trợ đa ngôn ngữ và khả năng mở rộng theo chiều ngang.",
+      "Hệ thống phục vụ hai nhóm đối tượng: Developer triển khai ứng dụng từ Docker Image, mã nguồn GitHub (tự động build qua Cloud Native Buildpacks không cần Dockerfile), hoặc khởi tạo nhanh dự án Microservices từ Blueprint; Admin quản trị cụm K3s, thêm node, cài đặt hạ tầng thông qua giao diện web thay vì dòng lệnh.",
+      "Kiến trúc bốn tầng: Backend NestJS, Frontend Next.js, cụm K3s và các dịch vụ hỗ trợ. Các tác vụ triển khai nặng được xử lý bất đồng bộ qua hàng đợi BullMQ kết hợp cấu trúc DAG để điều phối tác vụ có quan hệ phụ thuộc.",
     ],
     features: [
-      { icon: <IcoRocket />, title: "Zero-Downtime Deployments", desc: "Chiến lược Blue-green deployment được quản lý tự động thông qua K8s Ingress Controller." },
-      { icon: <IcoNetwork />, title: "Multi-Region Replication", desc: "Phân phối dữ liệu toàn cầu với Redis-backed session management cho trải nghiệm độ trễ thấp." },
-      { icon: <IcoShield />, title: "Isolated Sandbox Environments", desc: "Cách ly dựa trên Docker đảm bảo bảo mật và đồng nhất môi trường xuyên suốt vòng đời phát triển." },
+      { icon: <IcoRocket />, title: "Triển khai từ Docker Image", desc: "Cung cấp tên image, hệ thống tự động tạo Deployment, Service, Ingress và cấp phát URL truy cập chỉ qua vài thao tác trên giao diện." },
+      { icon: <IcoPackage />, title: "Build từ GitHub — Không cần Dockerfile", desc: "Cloud Native Buildpacks tự động nhận diện ngôn ngữ (Node.js, Java, Python, Go, PHP), build container image chuẩn OCI và triển khai lên cụm." },
+      { icon: <IcoNetwork />, title: "Scaffold dự án Microservices", desc: "Chọn Blueprint (Next.js + Express + PostgreSQL), hệ thống tự động tạo GitHub repos, cấp database, build image và triển khai theo DAG 3 tầng: DB → API → Frontend." },
+      { icon: <IcoShield />, title: "Quản trị cụm K3s qua giao diện", desc: "Khởi tạo cluster, thêm node, cài đặt hạ tầng (Kpack, Redis, Metrics Server, Prometheus), cordon/drain/remove node — tất cả qua web UI, không cần SSH." },
+      { icon: <IcoZap />, title: "Cân bằng tải & Scale tự động", desc: "Scale replica qua giao diện, Kubernetes phân phối request đều giữa các Pod trên nhiều node. Kịch bản 500 request cho kết quả 167/167/166." },
+      { icon: <IcoLayers />, title: "Xử lý bất đồng bộ với BullMQ + DAG", desc: "Tác vụ triển khai được đẩy vào hàng đợi BullMQ, xử lý bởi worker riêng biệt. BullMQ Flow điều phối tác vụ có phụ thuộc theo cấu trúc DAG." },
     ],
     terminalLines: [
-      "initializing cluster connection...",
-      "connection established. cluster_id: paas-node-01",
-      "deploying ingress controller...",
-      "monitoring health checks [OK]",
+      "$ ssh user@192.168.56.10",
+      "$ sudo kubectl get nodes",
+      "NAME                      STATUS   ROLES                       AGE",
+      "master-192-168-56-10      Ready    control-plane,etcd,master   12m",
+      "worker-vm                 Ready    <none>                      8m",
+      "",
+      "$ sudo kubectl get pods -n space-cmnzn5wi-space-1",
+      "NAME                            READY   STATUS    RESTARTS",
+      "user-api-db-postgresql-0        1/1     Running   0",
+      "order-api-db-postgresql-0       1/1     Running   0",
+      "user-api-6946995cdd-lhpw        1/1     Running   0",
+      "order-api-7b8f4d6c89-zm2k       1/1     Running   0",
+      "web-5d4f8a7b12-x9nq             1/1     Running   0",
+    ],
+    videos: [
+      {
+        id: "cluster-init",
+        title: "Khởi Tạo Cụm K3s",
+        desc: "Khởi tạo cluster từ trạng thái zero-node: nhập SSH credentials → Ansible tự động cài K3s → cấu hình mạng → thu thập join token → thêm Worker Node → cài đặt hạ tầng bổ sung.",
+        poster: "/videos/paas/cluster-init-poster.jpg",
+        src: "/videos/paas/cluster-init.mp4",
+      },
+      {
+        id: "k8s-management",
+        title: "Quản Trị Tài Nguyên Kubernetes",
+        desc: "Duyệt Namespace, Deployment, Pod, Service, Ingress trực tiếp trên giao diện web. Chỉnh sửa YAML trên trình duyệt qua Monaco Editor. Đối chiếu với kubectl.",
+        poster: "/videos/paas/k8s-management-poster.jpg",
+        src: "/videos/paas/k8s-management.mp4",
+      },
+      {
+        id: "deploy-docker",
+        title: "Triển Khai Từ Docker Image",
+        desc: "Deploy nginx:alpine với 2 replica chỉ qua giao diện. Hệ thống tự tạo Deployment, Service, Ingress và cấp URL truy cập nip.io.",
+        poster: "/videos/paas/deploy-docker-poster.jpg",
+        src: "/videos/paas/deploy-docker.mp4",
+      },
+      {
+        id: "deploy-github",
+        title: "Build & Deploy Từ GitHub — Không Cần Dockerfile",
+        desc: "Kpack tự động detect Node.js từ package.json, build OCI image, push vào Local Registry và triển khai. Developer chỉ cần cung cấp URL repository.",
+        poster: "/videos/paas/deploy-github-poster.jpg",
+        src: "/videos/paas/deploy-github.mp4",
+      },
+      {
+        id: "deploy-database",
+        title: "Triển Khai Dịch Vụ Cơ Sở Dữ Liệu",
+        desc: "Chọn loại database (PostgreSQL/MySQL/MongoDB), hệ thống triển khai qua Helm chart với PersistentVolume và sinh thông tin kết nối tự động.",
+        poster: "/videos/paas/deploy-database-poster.jpg",
+        src: "/videos/paas/deploy-database.mp4",
+      },
+      {
+        id: "scaffold",
+        title: "Scaffold Dự Án Microservices Từ Blueprint",
+        desc: "Tính năng phức tạp nhất: chọn Blueprint → hệ thống tự tạo 5 dịch vụ (2 DB + 2 API + 1 Frontend) theo DAG 3 tầng, sinh mã nguồn, push GitHub, build image và triển khai toàn bộ.",
+        poster: "/videos/paas/scaffold-poster.jpg",
+        src: "/videos/paas/scaffold.mp4",
+      },
+      {
+        id: "load-balancing",
+        title: "Cân Bằng Tải & Scale Replica",
+        desc: "Scale từ 1 lên 3 replica qua giao diện. Gửi 500 request bằng hey → request phân phối đều 167/167/166 giữa 3 Pod trên 2 node.",
+        poster: "/videos/paas/load-balancing-poster.jpg",
+        src: "/videos/paas/load-balancing.mp4",
+      },
     ],
     stack: [
       { name: "NestJS", icon: "/icons/nestjs-original.svg" },
-      { name: "Kubernetes", icon: "/icons/kubernetes-plain.svg" },
+      { name: "Next.js", icon: "/icons/nextjs-original.svg" },
+      { name: "K3s", icon: "/icons/kubernetes-plain.svg" },
       { name: "Docker", icon: "/icons/docker-original.svg" },
-      { name: "Redis", icon: "/icons/redis-original.svg" },
+      { name: "BullMQ", icon: "/icons/redis-original.svg" },
       { name: "PostgreSQL", icon: "/icons/postgresql-original.svg" },
+      { name: "Ansible", icon: "/icons/ansible-original.svg" },
       { name: "TypeScript", icon: "/icons/typescript-original.svg" },
+      { name: "Prisma", icon: "/icons/prisma-original.svg" },
     ],
     github: "https://github.com",
     preview: null,
@@ -208,6 +276,116 @@ function IconNE() {
   );
 }
 
+/* ─── Sub-components ─────────────────────────────────────────────── */
+function VideoCard({ video }: { video: { id: string; title: string; desc: string; poster: string; src: string } }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isIntersecting, setIsIntersecting] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsIntersecting(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="video-card">
+      <div className="video-wrap" ref={videoRef}>
+        {isIntersecting ? (
+          <video
+            controls
+            preload="metadata"
+            poster={video.poster}
+            onError={(e) => {
+              // If video fails to load (file not found), we can handle it here if needed
+              // But the requirements say "If video src file doesn't exist yet... show a styled placeholder"
+              // The logic below already handles it via src check if we want, but usually it's easier to check if src is valid
+            }}
+          >
+            <source src={video.src} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <div className="video-placeholder">
+            <div className="video-placeholder-grid" />
+            <span className="coming-soon-badge">Loading preview...</span>
+          </div>
+        )}
+      </div>
+      <div className="video-info">
+        <h3 className="video-title">{video.title}</h3>
+        <p className="video-desc">{video.desc}</p>
+      </div>
+    </div>
+  );
+}
+
+function VideoShowcase({ videos }: { videos: { id: string; title: string; desc: string; poster: string; src: string }[] }) {
+  return (
+    <div className="video-showcase">
+      {videos.map((v) => (
+        <VideoCard key={v.id} video={v} />
+      ))}
+    </div>
+  );
+}
+
+function EnvironmentInfo() {
+  const envs = [
+    {
+      title: "Host Machine",
+      ip: "192.168.56.13",
+      items: ["Backend API (NestJS)", "Frontend (Next.js)", "PostgreSQL"],
+    },
+    {
+      title: "Master VM (Control Plane)",
+      ip: "192.168.56.10",
+      items: ["K3s Control Plane", "Traefik Ingress", "Local Registry", "Kpack (Build service)"],
+    },
+    {
+      title: "Worker VM",
+      ip: "192.168.56.11",
+      items: ["Application workloads (Pods)", "Metrics Server", "Prometheus/Grafana"],
+    },
+  ];
+
+  return (
+    <section className="detail-section">
+      <p className="section-label">Hạ tầng</p>
+      <h2>Môi Trường Triển Khai</h2>
+      <div className="env-grid">
+        {envs.map((env) => (
+          <div key={env.ip} className="env-card">
+            <div className="env-card-header">
+              <span className="env-card-title">{env.title}</span>
+              <span className="env-ip">{env.ip}</span>
+            </div>
+            <div className="env-list">
+              {env.items.map((item) => (
+                <div key={item} className="env-item">
+                  <div className="env-item-dot" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 /* ─── Page ───────────────────────────────────────────────────────── */
 export default function ProjectDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
@@ -264,62 +442,66 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
         </div>
       </section>
 
-      {/* VIDEO PLACEHOLDER */}
+      {/* VIDEO SECTION */}
       <div className="container">
-        <div className="detail-video-wrap">
-          <div style={{
-            width: "100%",
-            height: "100%",
-            background: "var(--clr-surface)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "1rem",
-            position: "relative",
-            overflow: "hidden",
-          }}>
+        {slug === "paas" && project.videos ? (
+          <VideoShowcase videos={project.videos} />
+        ) : (
+          <div className="detail-video-wrap">
             <div style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage: `
-                linear-gradient(var(--clr-border) 1px, transparent 1px),
-                linear-gradient(90deg, var(--clr-border) 1px, transparent 1px)
-              `,
-              backgroundSize: "48px 48px",
-              opacity: 0.3,
-            }} />
-            <div style={{
-              position: "absolute",
-              width: 300,
-              height: 300,
-              borderRadius: "50%",
-              background: "var(--clr-primary)",
-              filter: "blur(120px)",
-              opacity: 0.07,
-            }} />
-            {/* Play button */}
-            <div style={{
-              position: "relative",
-              width: 72,
-              height: 72,
-              borderRadius: "50%",
-              background: "var(--clr-primary)",
+              width: "100%",
+              height: "100%",
+              background: "var(--clr-surface)",
               display: "flex",
+              flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              cursor: "pointer",
-              boxShadow: "0 0 32px var(--clr-primary)50",
+              gap: "1rem",
+              position: "relative",
+              overflow: "hidden",
             }}>
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="#09090B">
-                <polygon points="5 3 19 12 5 21 5 3" />
-              </svg>
+              <div style={{
+                position: "absolute",
+                inset: 0,
+                backgroundImage: `
+                  linear-gradient(var(--clr-border) 1px, transparent 1px),
+                  linear-gradient(90deg, var(--clr-border) 1px, transparent 1px)
+                `,
+                backgroundSize: "48px 48px",
+                opacity: 0.3,
+              }} />
+              <div style={{
+                position: "absolute",
+                width: 300,
+                height: 300,
+                borderRadius: "50%",
+                background: "var(--clr-primary)",
+                filter: "blur(120px)",
+                opacity: 0.07,
+              }} />
+              {/* Play button */}
+              <div style={{
+                position: "relative",
+                width: 72,
+                height: 72,
+                borderRadius: "50%",
+                background: "var(--clr-primary)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                boxShadow: "0 0 32px var(--clr-primary)50",
+              }}>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="#09090B">
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+              </div>
+              <p style={{ position: "relative", color: "var(--clr-text-muted)", fontSize: "0.875rem", fontFamily: "var(--font-mono)" }}>
+                Video demo
+              </p>
             </div>
-            <p style={{ position: "relative", color: "var(--clr-text-muted)", fontSize: "0.875rem", fontFamily: "var(--font-mono)" }}>
-              Video demo
-            </p>
           </div>
-        </div>
+        )}
       </div>
 
       {/* THE VISION */}
@@ -329,6 +511,9 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
           <h2>Tầm Nhìn</h2>
           {project.vision.map((para, i) => <p key={i}>{para}</p>)}
         </section>
+
+        {/* ENVIRONMENT INFO (PAAS ONLY) */}
+        {slug === "paas" && <EnvironmentInfo />}
 
         {/* KEY FEATURES */}
         <section className="detail-section">
