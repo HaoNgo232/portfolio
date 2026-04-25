@@ -36,19 +36,19 @@ const PROJECTS: Record<string, {
   preview: string | null;
 }> = {
   paas: {
-    title: "PaaS trên K3s",
-    subtitle: "Nền tảng PaaS tự lưu trữ trên Kubernetes nhẹ",
+    title: "PaaS trên Kubernetes",
+    subtitle: "Nền tảng PaaS tự lưu trữ trên Kubernetes",
     desc: "",
     vision: [
-      "Đề tài xây dựng nền tảng PaaS tự lưu trữ dựa trên K3s — bản phân phối Kubernetes nhẹ — kết hợp giao diện web trực quan để che giấu sự phức tạp của Kubernetes bên dưới. Mục tiêu là tái hiện trải nghiệm triển khai đơn giản mà shared hosting từng mang lại cho thời kỳ PHP/MySQL, nhưng trên nền tảng công nghệ hiện đại hỗ trợ đa ngôn ngữ và khả năng mở rộng theo chiều ngang.",
-      "Hệ thống phục vụ hai nhóm đối tượng: Developer triển khai ứng dụng từ Docker Image, mã nguồn GitHub (tự động build qua Cloud Native Buildpacks không cần Dockerfile), hoặc khởi tạo nhanh dự án Microservices từ Blueprint; Admin quản trị cụm K3s, thêm node, cài đặt hạ tầng thông qua giao diện web thay vì dòng lệnh.",
-      "Kiến trúc bốn tầng: Backend NestJS, Frontend Next.js, cụm K3s và các dịch vụ hỗ trợ. Các tác vụ triển khai nặng được xử lý bất đồng bộ qua hàng đợi BullMQ kết hợp cấu trúc DAG để điều phối tác vụ có quan hệ phụ thuộc.",
+      "Đề tài xây dựng nền tảng PaaS tự lưu trữ dựa trên Kubernetes kết hợp giao diện web trực quan để che giấu sự phức tạp của hệ thống bên dưới. Mục tiêu là tái hiện trải nghiệm triển khai đơn giản mà shared hosting từng mang lại cho thời kỳ PHP/MySQL, nhưng trên nền tảng công nghệ hiện đại hỗ trợ đa ngôn ngữ và khả năng mở rộng theo chiều ngang.",
+      "Hệ thống phục vụ hai nhóm đối tượng: Developer triển khai ứng dụng từ Docker Image, mã nguồn GitHub (tự động build qua Cloud Native Buildpacks không cần Dockerfile), hoặc khởi tạo nhanh dự án Microservices từ Blueprint; Admin quản trị cụm Kubernetes, thêm node, cài đặt hạ tầng thông qua giao diện web thay vì dòng lệnh.",
+      "Kiến trúc bốn tầng: Backend NestJS, Frontend Next.js, cụm Kubernetes và các dịch vụ hỗ trợ. Các tác vụ triển khai nặng được xử lý bất đồng bộ qua hàng đợi BullMQ kết hợp cấu trúc DAG để điều phối tác vụ có quan hệ phụ thuộc.",
     ],
     features: [
       { icon: <IcoRocket />, title: "Triển khai từ Docker Image", desc: "Cung cấp tên image, hệ thống tự động tạo Deployment, Service, Ingress và cấp phát URL truy cập chỉ qua vài thao tác trên giao diện." },
       { icon: <IcoPackage />, title: "Build từ GitHub — Không cần Dockerfile", desc: "Cloud Native Buildpacks tự động nhận diện ngôn ngữ (Node.js, Java, Python, Go, PHP), build container image chuẩn OCI và triển khai lên cụm." },
       { icon: <IcoNetwork />, title: "Scaffold dự án Microservices", desc: "Chọn Blueprint (Next.js + Express + PostgreSQL), hệ thống tự động tạo GitHub repos, cấp database, build image và triển khai theo DAG 3 tầng: DB → API → Frontend." },
-      { icon: <IcoShield />, title: "Quản trị cụm K3s qua giao diện", desc: "Khởi tạo cluster, thêm node, cài đặt hạ tầng (Kpack, Redis, Metrics Server, Prometheus), cordon/drain/remove node — tất cả qua web UI, không cần SSH." },
+      { icon: <IcoShield />, title: "Quản trị cụm Kubernetes qua giao diện", desc: "Khởi tạo cluster, thêm node, cài đặt hạ tầng (Kpack, Redis, Metrics Server, Prometheus), cordon/drain/remove node — tất cả qua web UI, không cần SSH." },
       { icon: <IcoZap />, title: "Cân bằng tải & Scale tự động", desc: "Scale replica qua giao diện, Kubernetes phân phối request đều giữa các Pod trên nhiều node. Kịch bản 500 request cho kết quả 167/167/166." },
       { icon: <IcoLayers />, title: "Xử lý bất đồng bộ với BullMQ + DAG", desc: "Tác vụ triển khai được đẩy vào hàng đợi BullMQ, xử lý bởi worker riêng biệt. BullMQ Flow điều phối tác vụ có phụ thuộc theo cấu trúc DAG." },
     ],
@@ -70,8 +70,8 @@ const PROJECTS: Record<string, {
     videos: [
       {
         id: "cluster-init",
-        title: "Khởi Tạo Cụm K3s",
-        desc: "Khởi tạo cluster từ trạng thái zero-node: nhập SSH credentials → Ansible tự động cài K3s → cấu hình mạng → thu thập join token → thêm Worker Node → cài đặt hạ tầng bổ sung.",
+        title: "Khởi Tạo Cụm Kubernetes",
+        desc: "Khởi tạo cluster từ trạng thái zero-node: nhập SSH credentials → Ansible tự động cài Kubernetes → cấu hình mạng → thu thập join token → thêm Worker Node → cài đặt hạ tầng bổ sung.",
         poster: "/videos/paas/cluster-init-poster.jpg",
         src: "/videos/paas/cluster-init.mp4",
       },
@@ -121,7 +121,7 @@ const PROJECTS: Record<string, {
     stack: [
       { name: "NestJS", icon: "/icons/nestjs-original.svg" },
       { name: "Next.js", icon: "/icons/nextjs-original.svg" },
-      { name: "K3s", icon: "/icons/kubernetes-plain.svg" },
+      { name: "Kubernetes", icon: "/icons/kubernetes-plain.svg" },
       { name: "Docker", icon: "/icons/docker-original.svg" },
       { name: "BullMQ", icon: "/icons/redis-original.svg" },
       { name: "PostgreSQL", icon: "/icons/postgresql-original.svg" },
@@ -351,7 +351,7 @@ function EnvironmentInfo() {
     {
       title: "Master VM (Control Plane)",
       ip: "192.168.56.10",
-      items: ["K3s Control Plane", "Traefik Ingress", "Local Registry", "Kpack (Build service)"],
+      items: ["Kubernetes Control Plane", "Traefik Ingress", "Local Registry", "Kpack (Build service)"],
     },
     {
       title: "Worker VM",
@@ -410,9 +410,11 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
       {/* HERO */}
       <section className="detail-hero">
         <div className="container">
-          <Link href="/#projects" className="back-link">
-            <IconBack /> Quay lại Dự Án
-          </Link>
+          <div>
+            <Link href="/#projects" className="back-link">
+              <IconBack /> Quay lại Dự Án
+            </Link>
+          </div>
 
           <p className="section-label">{project.subtitle}</p>
           <h1 className="detail-title">{project.title}</h1>
