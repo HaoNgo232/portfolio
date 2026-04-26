@@ -609,36 +609,66 @@ ul { list-style: none; }
 .video-showcase {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
-  margin-bottom: 4rem;
+  gap: 4rem;
+  margin-bottom: 5rem;
 }
 
-.video-card {
+.yt-card {
   background: var(--clr-surface);
   border: 1px solid var(--clr-border);
   border-radius: var(--r-lg);
-  overflow: hidden;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  transition: border-color var(--t-fast);
+  gap: 1.5rem;
+  transition: transform var(--t-base), border-color var(--t-fast);
+  margin-bottom: 2rem;
 }
 
-.video-card:hover {
-  border-color: var(--clr-primary);
+.yt-card:hover {
+  border-color: rgba(0, 229, 255, 0.3);
 }
 
-.video-wrap {
+.yt-info {
+  border-left: 3px solid var(--clr-primary);
+  padding-left: 1.25rem;
+}
+
+.yt-title {
+  color: var(--clr-text);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.yt-desc {
+  font-size: 0.9375rem;
+  color: var(--clr-text-secondary);
+  line-height: 1.6;
+  max-width: 85ch;
+  margin: 0;
+}
+
+.yt-frame-wrap {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  background: var(--clr-bg);
-  border-bottom: 1px solid var(--clr-border);
+  background: #000;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--clr-primary-dim);
+  box-shadow:
+    0 0 0 1px rgba(0, 229, 255, 0.1),
+    0 20px 40px -20px rgba(0, 0, 0, 0.5);
 }
 
-.video-wrap video {
+.yt-frame-wrap iframe {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  border: 0;
+  display: block;
 }
 
 .video-placeholder {
@@ -661,23 +691,6 @@ ul { list-style: none; }
     linear-gradient(90deg, var(--clr-border) 1px, transparent 1px);
   background-size: 40px 40px;
   opacity: 0.2;
-}
-
-.video-info {
-  padding: 1.5rem 2rem;
-}
-
-.video-title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: var(--clr-text);
-}
-
-.video-desc {
-  font-size: 0.9rem;
-  color: var(--clr-text-secondary);
-  line-height: 1.6;
 }
 
 .coming-soon-badge {

@@ -281,15 +281,21 @@ function VideoCard({ video }: { video: { id: string; title: string; desc: string
   }, []);
 
   return (
-    <div className="video-card">
-      <div className="video-wrap" ref={videoRef}>
+    <div className="yt-card">
+      <div className="yt-info">
+        <h3 className="yt-title">{video.title}</h3>
+        <p className="yt-desc">{video.desc}</p>
+      </div>
+
+      <div className="yt-divider" />
+
+      <div className="yt-frame-wrap" ref={videoRef}>
         {isIntersecting ? (
           <iframe
-            src={`https://www.youtube.com/embed/${video.youtubeId}?rel=0&modestbranding=1`}
+            src={`https://www.youtube.com/embed/${video.youtubeId}?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=1`}
             title={video.title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            style={{ width: "100%", height: "100%", border: "none" }}
           />
         ) : (
           <div className="video-placeholder">
@@ -297,10 +303,6 @@ function VideoCard({ video }: { video: { id: string; title: string; desc: string
             <span className="coming-soon-badge">Loading preview...</span>
           </div>
         )}
-      </div>
-      <div className="video-info">
-        <h3 className="video-title">{video.title}</h3>
-        <p className="video-desc">{video.desc}</p>
       </div>
     </div>
   );
