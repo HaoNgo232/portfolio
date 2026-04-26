@@ -31,6 +31,7 @@ const PROJECTS: Record<string, {
   features: { icon: React.ReactNode; title: string; desc: string }[];
   terminalLines: string[];
   videos?: { id: string; title: string; desc: string; youtubeId: string }[];
+  screenshots?: string[];
   stack: { name: string; icon: string }[];
   github: string;
   preview: string | null;
@@ -98,6 +99,14 @@ const PROJECTS: Record<string, {
         desc: "Tính năng phức tạp nhất: chọn Blueprint → hệ thống tự tạo 5 dịch vụ (2 DB + 2 API + 1 Frontend) theo DAG 3 tầng, sinh mã nguồn, push GitHub, build image và triển khai toàn bộ.",
         youtubeId: "YBXgYm5sEK0",
       },
+    ],
+    screenshots: [
+      "/image/paas_project/trang_chu.jpg",
+      "/image/paas_project/dashboard.jpg",
+      "/image/paas_project/space.jpg",
+      "/image/paas_project/kubernetes_resource_manager.jpg",
+      "/image/paas_project/node_manager.jpg",
+      "/image/paas_project/node_detail.jpg",
     ],
     stack: [
       { name: "NestJS", icon: "/icons/nestjs-original.svg" },
@@ -536,28 +545,20 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
         </section>
 
         {/* SCREENSHOTS */}
-        <section className="detail-section">
-          <p className="section-label">Thư viện ảnh</p>
-          <h2>Giao Diện Nền Tảng</h2>
-          <div className="screenshot-grid">
-            {[1, 2, 3].map((n) => (
-              <div key={n} className="screenshot-item">
-                <div style={{
-                  width: "100%",
-                  height: "100%",
-                  background: `linear-gradient(135deg, var(--clr-surface) 0%, var(--clr-surface-hover) 100%)`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}>
-                  <span style={{ color: "var(--clr-text-muted)", fontSize: "0.75rem", fontFamily: "var(--font-mono)" }}>
-                    Ảnh màn hình {n}
-                  </span>
+        {project.screenshots && (
+          <section className="detail-section">
+            <p className="section-label">Thư viện ảnh</p>
+            <h2>Giao Diện Nền Tảng</h2>
+            <div className="screenshot-grid">
+              {project.screenshots.map((src, i) => (
+                <div key={src} className="screenshot-item">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={src} alt={`Screenshot ${i + 1}`} />
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* CTA */}
         <div className="cta-card">

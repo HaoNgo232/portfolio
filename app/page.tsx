@@ -20,6 +20,7 @@ const PROJECTS = [
     ],
     github: "https://github.com",
     preview: null,
+    image: "/image/paas_project/trang_chu.jpg",
     gradient: "from-cyan-500/10 to-blue-600/5",
   },
   {
@@ -183,55 +184,59 @@ function Badge({ icon, name }: { icon: string; name: string }) {
   );
 }
 
-function ProjectCard({ project, index }: { project: typeof PROJECTS[number]; index: number }) {
+function ProjectCard({ project, index }: { project: typeof PROJECTS[number] & { image?: string }; index: number }) {
   const ref = useFadeIn();
   return (
     <div ref={ref} className="fade-up project-card" style={{ transitionDelay: `${index * 60}ms` }}>
       {/* Media */}
       <div className="project-card-media">
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            background: `linear-gradient(135deg, var(--clr-surface) 0%, var(--clr-surface-hover) 100%)`,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          {/* Decorative grid */}
-          <div style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage: `
-              linear-gradient(var(--clr-border) 1px, transparent 1px),
-              linear-gradient(90deg, var(--clr-border) 1px, transparent 1px)
-            `,
-            backgroundSize: "40px 40px",
-            opacity: 0.4,
-          }} />
-          {/* Glow orb */}
-          <div style={{
-            position: "absolute",
-            width: 200,
-            height: 200,
-            borderRadius: "50%",
-            background: "var(--clr-primary)",
-            filter: "blur(80px)",
-            opacity: 0.07,
-          }} />
-          <span style={{
-            position: "relative",
-            fontFamily: "var(--font-space)",
-            fontSize: "clamp(2rem, 5vw, 3rem)",
-            fontWeight: 700,
-            color: "var(--clr-primary)",
-            opacity: 0.25,
-            letterSpacing: "-0.02em",
-          }}>{project.number}</span>
-        </div>
+        {project.image ? (
+          <img src={project.image} alt={project.title} />
+        ) : (
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              background: `linear-gradient(135deg, var(--clr-surface) 0%, var(--clr-surface-hover) 100%)`,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            {/* Decorative grid */}
+            <div style={{
+              position: "absolute",
+              inset: 0,
+              backgroundImage: `
+                linear-gradient(var(--clr-border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--clr-border) 1px, transparent 1px)
+              `,
+              backgroundSize: "40px 40px",
+              opacity: 0.4,
+            }} />
+            {/* Glow orb */}
+            <div style={{
+              position: "absolute",
+              width: 200,
+              height: 200,
+              borderRadius: "50%",
+              background: "var(--clr-primary)",
+              filter: "blur(80px)",
+              opacity: 0.07,
+            }} />
+            <span style={{
+              position: "relative",
+              fontFamily: "var(--font-space)",
+              fontSize: "clamp(2rem, 5vw, 3rem)",
+              fontWeight: 700,
+              color: "var(--clr-primary)",
+              opacity: 0.25,
+              letterSpacing: "-0.02em",
+            }}>{project.number}</span>
+          </div>
+        )}
       </div>
 
       {/* Body */}
