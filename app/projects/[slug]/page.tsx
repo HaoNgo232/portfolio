@@ -30,7 +30,7 @@ const PROJECTS: Record<string, {
   vision: string[];
   features: { icon: React.ReactNode; title: string; desc: string }[];
   terminalLines: string[];
-  videos?: { id: string; title: string; desc: string; poster: string; src: string }[];
+  videos?: { id: string; title: string; desc: string; youtubeId: string }[];
   stack: { name: string; icon: string }[];
   github: string;
   preview: string | null;
@@ -72,50 +72,31 @@ const PROJECTS: Record<string, {
         id: "cluster-init",
         title: "Khởi Tạo Cụm Kubernetes",
         desc: "Khởi tạo cluster từ trạng thái zero-node: nhập SSH credentials → Ansible tự động cài Kubernetes → cấu hình mạng → thu thập join token → thêm Worker Node → cài đặt hạ tầng bổ sung.",
-        poster: "/videos/paas/cluster-init-poster.jpg",
-        src: "/videos/paas/cluster-init.mp4",
+        youtubeId: "6hkUHJolqnQ",
       },
       {
         id: "k8s-management",
         title: "Quản Trị Tài Nguyên Kubernetes",
         desc: "Duyệt Namespace, Deployment, Pod, Service, Ingress trực tiếp trên giao diện web. Chỉnh sửa YAML trên trình duyệt qua Monaco Editor. Đối chiếu với kubectl.",
-        poster: "/videos/paas/k8s-management-poster.jpg",
-        src: "/videos/paas/k8s-management.mp4",
+        youtubeId: "i2GFYuC8duw",
       },
       {
-        id: "deploy-docker",
-        title: "Triển Khai Từ Docker Image",
-        desc: "Deploy nginx:alpine với 2 replica chỉ qua giao diện. Hệ thống tự tạo Deployment, Service, Ingress và cấp URL truy cập nip.io.",
-        poster: "/videos/paas/deploy-docker-poster.jpg",
-        src: "/videos/paas/deploy-docker.mp4",
+        id: "deploy-fullstack",
+        title: "Triển Khai App Full-stack",
+        desc: "Deploy ứng dụng full-stack gồm React + Vite (frontend), NestJS (backend) và PostgreSQL (database) lên cụm Kubernetes hoàn toàn qua giao diện web. Hệ thống tự động tạo Deployment, Service, Ingress, cấp phát database và URL truy cập.",
+        youtubeId: "tipTp5xoJok",
       },
       {
-        id: "deploy-github",
-        title: "Build & Deploy Từ GitHub — Không Cần Dockerfile",
-        desc: "Kpack tự động detect Node.js từ package.json, build OCI image, push vào Local Registry và triển khai. Developer chỉ cần cung cấp URL repository.",
-        poster: "/videos/paas/deploy-github-poster.jpg",
-        src: "/videos/paas/deploy-github.mp4",
-      },
-      {
-        id: "deploy-database",
-        title: "Triển Khai Dịch Vụ Cơ Sở Dữ Liệu",
-        desc: "Chọn loại database (PostgreSQL/MySQL/MongoDB), hệ thống triển khai qua Helm chart với PersistentVolume và sinh thông tin kết nối tự động.",
-        poster: "/videos/paas/deploy-database-poster.jpg",
-        src: "/videos/paas/deploy-database.mp4",
+        id: "deploy-springboot",
+        title: "Build & Deploy Spring Boot Từ GitHub — Không Cần Dockerfile",
+        desc: "Kpack tự động nhận diện ứng dụng Spring Boot từ repository GitHub, build OCI image chuẩn không cần Dockerfile, push vào Local Registry và triển khai lên cụm. Developer chỉ cần cung cấp URL repository.",
+        youtubeId: "ifERTaV9740",
       },
       {
         id: "scaffold",
         title: "Scaffold Dự Án Microservices Từ Blueprint",
         desc: "Tính năng phức tạp nhất: chọn Blueprint → hệ thống tự tạo 5 dịch vụ (2 DB + 2 API + 1 Frontend) theo DAG 3 tầng, sinh mã nguồn, push GitHub, build image và triển khai toàn bộ.",
-        poster: "/videos/paas/scaffold-poster.jpg",
-        src: "/videos/paas/scaffold.mp4",
-      },
-      {
-        id: "load-balancing",
-        title: "Cân Bằng Tải & Scale Replica",
-        desc: "Scale từ 1 lên 3 replica qua giao diện. Gửi 500 request bằng hey → request phân phối đều 167/167/166 giữa 3 Pod trên 2 node.",
-        poster: "/videos/paas/load-balancing-poster.jpg",
-        src: "/videos/paas/load-balancing.mp4",
+        youtubeId: "YBXgYm5sEK0",
       },
     ],
     stack: [
@@ -277,8 +258,8 @@ function IconNE() {
 }
 
 /* ─── Sub-components ─────────────────────────────────────────────── */
-function VideoCard({ video }: { video: { id: string; title: string; desc: string; poster: string; src: string } }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
+function VideoCard({ video }: { video: { id: string; title: string; desc: string; youtubeId: string } }) {
+  const videoRef = useRef<HTMLDivElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
 
   useEffect(() => {
@@ -303,19 +284,13 @@ function VideoCard({ video }: { video: { id: string; title: string; desc: string
     <div className="video-card">
       <div className="video-wrap" ref={videoRef}>
         {isIntersecting ? (
-          <video
-            controls
-            preload="metadata"
-            poster={video.poster}
-            onError={(e) => {
-              // If video fails to load (file not found), we can handle it here if needed
-              // But the requirements say "If video src file doesn't exist yet... show a styled placeholder"
-              // The logic below already handles it via src check if we want, but usually it's easier to check if src is valid
-            }}
-          >
-            <source src={video.src} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          <iframe
+            src={`https://www.youtube.com/embed/${video.youtubeId}?rel=0&modestbranding=1`}
+            title={video.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ width: "100%", height: "100%", border: "none" }}
+          />
         ) : (
           <div className="video-placeholder">
             <div className="video-placeholder-grid" />
@@ -331,7 +306,7 @@ function VideoCard({ video }: { video: { id: string; title: string; desc: string
   );
 }
 
-function VideoShowcase({ videos }: { videos: { id: string; title: string; desc: string; poster: string; src: string }[] }) {
+function VideoShowcase({ videos }: { videos: { id: string; title: string; desc: string; youtubeId: string }[] }) {
   return (
     <div className="video-showcase">
       {videos.map((v) => (
