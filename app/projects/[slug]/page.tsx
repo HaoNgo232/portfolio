@@ -4,6 +4,7 @@ import React, { use, useEffect, useRef, useState } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 
 /* ─── Data ───────────────────────────────────────────────────────── */
@@ -34,7 +35,7 @@ const PROJECTS: Record<string, {
   videos?: { id: string; title: string; desc: string; youtubeId: string }[];
   screenshots?: string[];
   stack: { name: string; icon: string }[];
-  github: string;
+  github: string | null;
   preview: string | null;
 }> = {
   paas: {
@@ -120,7 +121,7 @@ const PROJECTS: Record<string, {
       { name: "TypeScript", icon: "/icons/typescript-original.svg" },
       { name: "Prisma", icon: "/icons/prisma-original.svg" },
     ],
-    github: "https://github.com",
+    github: null,
     preview: null,
   },
   "laptop-shop": {
@@ -268,6 +269,10 @@ function IconNE() {
 }
 
 /* ─── Sub-components ─────────────────────────────────────────────── */
+/**
+ * Thành phần hiển thị card cho từng video demo từ YouTube
+ * Thao tác với IntersectionObserver để tối ưu hiệu suất tải (Lazy loading)
+ */
 function VideoCard({ video }: { video: { id: string; title: string; desc: string; youtubeId: string } }) {
   const videoRef = useRef<HTMLDivElement>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
@@ -318,6 +323,9 @@ function VideoCard({ video }: { video: { id: string; title: string; desc: string
   );
 }
 
+/**
+ * Thành phần hiển thị danh sách các video demo của dự án
+ */
 function VideoShowcase({ videos }: { videos: { id: string; title: string; desc: string; youtubeId: string }[] }) {
   return (
     <div className="video-showcase">
@@ -328,6 +336,9 @@ function VideoShowcase({ videos }: { videos: { id: string; title: string; desc: 
   );
 }
 
+/**
+ * Thành phần hiển thị thông tin về hạ tầng triển khai (Dành riêng cho dự án PaaS)
+ */
 function EnvironmentInfo() {
   const envs = [
     {
@@ -374,6 +385,10 @@ function EnvironmentInfo() {
 }
 
 /* ─── Page ───────────────────────────────────────────────────────── */
+/**
+ * Thành phần trang chi tiết dự án (Page Component)
+ * Tự động lấy dữ liệu dựa trên slug từ URL và render giao diện tương ứng
+ */
 export default function ProjectDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const project = PROJECTS[slug];
@@ -440,17 +455,18 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
                 Live Preview <IconExternal />
               </a>
             )}
-            <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
-              <IconGithub /> GitHub
-            </a>
+            {project.github && (
+              <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                <IconGithub /> GitHub
+              </a>
+            )}
           </div>
 
           {/* Tech stack badges */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "3rem" }}>
             {project.stack.map((t) => (
               <span key={t.name} className="badge">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={t.icon} alt={t.name} width={16} height={16} />
+                <Image src={t.icon} alt={t.name} width={16} height={16} />
                 {t.name}
               </span>
             ))}
@@ -579,15 +595,13 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
             <h2>Giao Diện Nền Tảng</h2>
             <div className="screenshot-grid">
               {project.screenshots.map((src, i) => (
-                <motion.div
+                <div
                   key={src}
                   className="screenshot-item"
                   onClick={() => setSelectedImgIdx(i)}
-                  layoutId={`img-${src}`}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <motion.img src={src} alt={`Screenshot ${i + 1}`} />
-                </motion.div>
+                  <Image src={src} alt={`Screenshot ${i + 1}`} width={800} height={500} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} sizes="(max-width: 768px) 100vw, 33vw" />
+                </div>
               ))}
             </div>
           </section>
@@ -626,14 +640,18 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
 
                 <motion.div
                   className="lightbox-img-container"
-                  layoutId={`img-${project.screenshots[selectedImgIdx]}`}
+                  initial={{ opacity: 0, scale: 0.92 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.92 }}
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={project.screenshots[selectedImgIdx]}
                     alt="Large view"
-                    style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: "var(--r-md)" }}
+                    width={1920}
+                    height={1080}
+                    style={{ width: "100%", height: "auto", maxHeight: "85vh", objectFit: "contain", borderRadius: "var(--r-md)" }}
+                    sizes="90vw"
                   />
                 </motion.div>
 
@@ -670,9 +688,11 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
             <Link href="/#contact" className="btn btn-primary">
               Liên Hệ Ngay <IconNE />
             </Link>
-            <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
-              <IconGithub /> GitHub
-            </a>
+            {project.github && (
+              <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                <IconGithub /> GitHub
+              </a>
+            )}
           </div>
         </div>
       </div>

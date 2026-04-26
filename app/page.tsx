@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 /* ─── Data ───────────────────────────────────────────────────────── */
 const PROJECTS = [
@@ -10,15 +11,16 @@ const PROJECTS = [
     number: "01",
     title: "PaaS Ecosystem",
     subtitle: "Platform-as-a-Service",
-    desc: "Nền tảng dịch vụ (PaaS) mạnh mẽ hỗ trợ triển khai ứng dụng tự động. Tích hợp NestJS cho backend ổn định và Kubernetes để quản lý container linh hoạt, từ git push đến live URL trong dưới 60 giây.",
+    desc: "Nền tảng dịch vụ (PaaS) hỗ trợ triển khai ứng dụng tự động. Tích hợp NestJS cho backend ổn định và Kubernetes để quản lý container linh hoạt, từ git push đến live URL.",
     stack: [
+      { name: "Next.js", icon: "/icons/nextjs-original.svg", color: "#FFFFFF" },
       { name: "NestJS", icon: "/icons/nestjs-original.svg", color: "#E0234E" },
       { name: "Kubernetes", icon: "/icons/kubernetes-plain.svg", color: "#326CE5" },
       { name: "Docker", icon: "/icons/docker-original.svg", color: "#2496ED" },
       { name: "Redis", icon: "/icons/redis-original.svg", color: "#DC382D" },
       { name: "PostgreSQL", icon: "/icons/postgresql-original.svg", color: "#336791" },
     ],
-    github: "https://github.com",
+    github: null,
     preview: null,
     image: "/image/paas_project/trang_chu.jpg",
     gradient: "from-cyan-500/10 to-blue-600/5",
@@ -191,7 +193,7 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[number] & { 
       {/* Media */}
       <div className="project-card-media">
         {project.image ? (
-          <img src={project.image} alt={project.title} />
+          <Image src={project.image} alt={project.title} fill style={{ objectFit: "cover" }} sizes="50vw" priority={index === 0} />
         ) : (
           <div
             style={{
@@ -257,9 +259,11 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[number] & { 
           <Link href={`/projects/${project.slug}`} className="btn btn-primary">
             Xem Chi Tiết <IconArrowRight />
           </Link>
-          <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
-            <IconGithub /> GitHub
-          </a>
+          {project.github && (
+            <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+              <IconGithub /> GitHub
+            </a>
+          )}
           {project.preview && (
             <a href={project.preview} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
               Live <IconExternal />

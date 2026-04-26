@@ -584,8 +584,8 @@ ul { list-style: none; }
 
 .lightbox-content {
   position: relative;
-  width: 100%;
-  max-width: 1100px;
+  width: 95vw;
+  max-width: 1400px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -594,14 +594,14 @@ ul { list-style: none; }
 
 .lightbox-img-container {
   width: 100%;
-  max-height: 85vh;
+  max-height: 90vh;
   display: flex;
   justify-content: center;
 }
 
 .lightbox-img-container img {
   max-width: 100%;
-  max-height: 85vh;
+  max-height: 90vh;
   object-fit: contain;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
 }
@@ -665,6 +665,12 @@ ul { list-style: none; }
 }
 
 .screenshot-item {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--clr-border);
+  background: var(--clr-surface);
   cursor: zoom-in;
   transition: transform var(--t-fast), border-color var(--t-fast);
 }
