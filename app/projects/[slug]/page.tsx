@@ -7,144 +7,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { getProjectBySlug } from "@/lib/projects/data";
 import { IconGithub, IconExternal, Badge } from "@/components/ui/icons";
-
-/* ─── Feature Icons (SVG, no emoji) ─────────────────────────────── */
-const S = { width: 18, height: 18, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
-const IcoRocket = () => <svg {...S}><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" /><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" /><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" /><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" /></svg>;
-const IcoNetwork = () => <svg {...S}><circle cx="12" cy="5" r="3" /><line x1="12" y1="8" x2="12" y2="12" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="18" r="3" /><path d="M12 12l-6 6M12 12l6 6" /></svg>;
-const IcoShield = () => <svg {...S}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>;
-const IcoZap = () => <svg {...S}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>;
-const IcoPackage = () => <svg {...S}><line x1="16.5" y1="9.4" x2="7.5" y2="4.21" /><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /><line x1="12" y1="22.08" x2="12" y2="12" /></svg>;
-const IcoSearch = () => <svg {...S}><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>;
-const IcoEye = () => <svg {...S}><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>;
-const IcoCpu = () => <svg {...S}><rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" /><line x1="9" y1="1" x2="9" y2="4" /><line x1="15" y1="1" x2="15" y2="4" /><line x1="9" y1="20" x2="9" y2="23" /><line x1="15" y1="20" x2="15" y2="23" /><line x1="20" y1="9" x2="23" y2="9" /><line x1="20" y1="14" x2="23" y2="14" /><line x1="1" y1="9" x2="4" y2="9" /><line x1="1" y1="14" x2="4" y2="14" /></svg>;
-const IcoTarget = () => <svg {...S}><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /></svg>;
-const IcoGitBranch = () => <svg {...S}><line x1="6" y1="3" x2="6" y2="15" /><circle cx="18" cy="6" r="3" /><circle cx="6" cy="18" r="3" /><path d="M18 9a9 9 0 0 1-9 9" /></svg>;
-const IcoSettings = () => <svg {...S}><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg>;
-const IcoShare = () => <svg {...S}><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></svg>;
-const IcoLayers = () => <svg {...S}><polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /><polyline points="2 12 12 17 22 12" /></svg>;
-const IcoShuffle = () => <svg {...S}><polyline points="16 3 21 3 21 8" /><line x1="4" y1="20" x2="21" y2="3" /><polyline points="21 16 21 21 16 21" /><line x1="15" y1="15" x2="21" y2="21" /><line x1="4" y1="4" x2="9" y2="9" /></svg>;
-
-const FEATURE_ICONS: Record<string, React.ReactNode> = {
-  "Triển khai từ Docker Image": <IcoRocket />,
-  "Build từ GitHub — Không cần Dockerfile": <IcoPackage />,
-  "Scaffold dự án Microservices": <IcoNetwork />,
-  "Quản trị cụm Kubernetes qua giao diện": <IcoShield />,
-  "Cân bằng tải & Scale tự động": <IcoZap />,
-  "Xử lý bất đồng bộ với BullMQ + DAG": <IcoLayers />,
-  "Sub-second Page Loads": <IcoZap />,
-  "Smart Inventory Sync": <IcoPackage />,
-  "SEO Architecture": <IcoSearch />,
-  "Visual Search": <IcoEye />,
-  "Semantic Search": <IcoCpu />,
-  "Personalised Feed": <IcoTarget />,
-  "Module Graph Inspector": <IcoSearch />,
-  "Route Analyser": <IcoGitBranch />,
-  "Provider Registry": <IcoSettings />,
-  "Universal Bridge": <IcoShare />,
-  "Context Synapse": <IcoLayers />,
-  "Smart Tool Routing": <IcoShuffle />,
-};
-
-const STACK_ICONS: Record<string, string> = {
-  "NestJS": "/icons/nestjs-original.svg",
-  "Next.js": "/icons/nextjs-original.svg",
-  "Kubernetes": "/icons/kubernetes-plain.svg",
-  "Docker": "/icons/docker-original.svg",
-  "BullMQ": "/icons/redis-original.svg",
-  "PostgreSQL": "/icons/postgresql-original.svg",
-  "Ansible": "/icons/ansible-original.svg",
-  "TypeScript": "/icons/typescript-original.svg",
-  "Prisma": "/icons/prisma-original.svg",
-  "MongoDB": "/icons/mongodb-original.svg",
-  "Redis": "/icons/redis-original.svg",
-  "Python": "/icons/python-original.svg",
-  "React": "/icons/react-original.svg",
-  "FastAPI": "/icons/fastapi-original.svg",
-  "Node.js": "/icons/nodejs-original.svg",
-};
-
-const PROJECT_METADATA: Record<string, {
-  subtitle: string;
-  vision: string[];
-  terminalLines: string[];
-}> = {
-  paas: {
-    subtitle: "Nền tảng PaaS tự lưu trữ trên Kubernetes",
-    vision: [
-      "Đề tài xây dựng nền tảng PaaS tự lưu trữ dựa trên Kubernetes kết hợp giao diện web trực quan để che giấu sự phức tạp của hệ thống bên dưới. Mục tiêu là tái hiện trải nghiệm triển khai đơn giản mà shared hosting từng mang lại cho thời kỳ PHP/MySQL, nhưng trên nền tảng công nghệ hiện đại hỗ trợ đa ngôn ngữ và khả năng mở rộng theo chiều ngang.",
-      "Hệ thống phục vụ hai nhóm đối tượng: Developer triển khai ứng dụng từ Docker Image, mã nguồn GitHub (tự động build qua Cloud Native Buildpacks không cần Dockerfile), hoặc khởi tạo nhanh dự án Microservices từ Blueprint; Admin quản trị cụm Kubernetes, thêm node, cài đặt hạ tầng thông qua giao diện web thay vì dòng lệnh.",
-      "Kiến trúc bốn tầng: Backend NestJS, Frontend Next.js, cụm Kubernetes và các dịch vụ hỗ trợ. Các tác vụ triển khai nặng được xử lý bất đồng bộ qua hàng đợi BullMQ kết hợp cấu trúc DAG để điều phối tác vụ có quan hệ phụ thuộc.",
-    ],
-    terminalLines: [
-      "$ ssh user@192.168.56.10",
-      "$ sudo kubectl get nodes",
-      "NAME                      STATUS   ROLES                       AGE",
-      "master-192-168-56-10      Ready    control-plane,etcd,master   12m",
-      "worker-vm                 Ready    <none>                      8m",
-      "",
-      "$ sudo kubectl get pods -n space-cmnzn5wi-space-1",
-      "NAME                            READY   STATUS    RESTARTS",
-      "user-api-db-postgresql-0        1/1     Running   0",
-      "order-api-db-postgresql-0       1/1     Running   0",
-      "user-api-6946995cdd-lhpw        1/1     Running   0",
-      "order-api-7b8f4d6c89-zm2k       1/1     Running   0",
-      "web-5d4f8a7b12-x9nq             1/1     Running   0",
-    ],
-  },
-  "laptop-shop": {
-    subtitle: "E-commerce platform optimised for high-end tech hardware with intelligent inventory management and lightning-fast page loads.",
-    vision: [
-      "Được xây dựng từ đầu với triết lý performance-first. Mỗi millisecond đều quan trọng trong e-commerce — trang có thể mất doanh thu nếu load chậm hơn 1 giây.",
-      "System quản lý kho vận với realtime sync, tích hợp payment gateway và SEO-optimized page structure giúp organic traffic tăng trưởng bền vững.",
-    ],
-    terminalLines: [
-      "build started: nextgen-laptop-shop",
-      "compiling 247 routes...",
-      "optimizing images: 1,240 assets",
-      "lighthouse score: 98/100 [PASS]",
-    ],
-  },
-  visionstore: {
-    subtitle: "AI-powered shopping experience with computer vision product matching and personalised semantic search.",
-    vision: [
-      "VisionStore tái định nghĩa trải nghiệm mua sắm bằng cách đặt AI ở trung tâm. Thay vì tìm kiếm bằng từ khóa, người dùng upload ảnh hoặc mô tả bằng ngôn ngữ tự nhiên.",
-      "Computer Vision pipeline xử lý hình ảnh sản phẩm và Semantic Search engine hiểu ý định người dùng, không chỉ keywords.",
-    ],
-    terminalLines: [
-      "loading vision model: clip-vit-large...",
-      "indexing 50,000 products...",
-      "semantic index ready",
-      "search latency: 42ms [FAST]",
-    ],
-  },
-  "nestjs-devtools-mcp": {
-    subtitle: "Model Context Protocol server enabling AI assistants to inspect, analyse and understand NestJS applications in real-time.",
-    vision: [
-      "Khi làm việc với AI assistant như Claude hay Cursor, một trong những điểm yếu lớn nhất là AI không thể nhìn thấy runtime state của ứng dụng.",
-      "NestJS DevTools MCP giải quyết vấn đề này bằng cách expose NestJS module graph, routes và providers qua Model Context Protocol — cho phép AI hiểu ứng dụng như một developer thực thụ.",
-    ],
-    terminalLines: [
-      "mcp server started on stdio",
-      "tools registered: 8",
-      "awaiting AI client connection...",
-      "client connected: claude-3-5-sonnet",
-    ],
-  },
-  "agent-bridge-kit": {
-    subtitle: "Infrastructure toolkit for connecting AI agents with external services through a reliable, context-aware routing layer.",
-    vision: [
-      "Khi xây dựng multi-agent systems, vấn đề không phải là viết một agent — mà là kết nối nhiều agents lại với nhau một cách đáng tin cậy.",
-      "Agent Bridge Kit cung cấp một abstraction layer chuẩn hóa cách agents giao tiếp với tools và services. Synapse quản lý context, memory persistence và intelligent tool routing.",
-    ],
-    terminalLines: [
-      "agent-bridge-kit v0.4.2 starting...",
-      "synapse layer initialized",
-      "tools loaded: 24",
-      "routing engine ready [OK]",
-    ],
-  },
-};
+import { FEATURE_ICONS } from "@/lib/projects/icons";
+import { STACK_ICONS } from "@/lib/projects/stack-icons";
+import { parseYouTubeId } from "@/lib/projects/youtube";
+import type { EnvironmentMachine } from "@/lib/projects/types";
 
 /* ─── Icons ─────────────────────────────────────────────────────── */
 function IconBack() {
@@ -231,45 +97,25 @@ function VideoShowcase({ videos }: { videos: { id: string; title: string; desc: 
 }
 
 /**
- * Thành phần hiển thị thông tin về hạ tầng triển khai (Dành riêng cho dự án PaaS)
+ * Thành phần hiển thị thông tin về hạ tầng triển khai
  */
-function EnvironmentInfo() {
-  const envs = [
-    {
-      title: "Host Machine",
-      ip: "192.168.56.13",
-      items: ["Backend API (NestJS)", "Frontend (Next.js)", "PostgreSQL"],
-    },
-    {
-      title: "Master VM (Control Plane)",
-      ip: "192.168.56.10",
-      items: ["Kubernetes Control Plane", "Traefik Ingress", "Local Registry", "Kpack (Build service)"],
-    },
-    {
-      title: "Worker VM",
-      ip: "192.168.56.11",
-      items: ["Application workloads (Pods)", "Metrics Server", "Prometheus/Grafana"],
-    },
-  ];
-
+function EnvironmentInfo({ machines }: { machines: EnvironmentMachine[] }) {
   return (
     <section className="detail-section">
       <p className="section-label">Hạ tầng</p>
       <h2>Môi Trường Triển Khai</h2>
       <div className="env-grid">
-        {envs.map((env) => (
-          <div key={env.ip} className="env-card">
+        {machines.map((machine) => (
+          <div key={machine.ip} className="env-card">
             <div className="env-card-header">
-              <span className="env-card-title">{env.title}</span>
-              <span className="env-ip">{env.ip}</span>
+              <span className="env-card-title">{machine.name}</span>
+              <span className="env-ip">{machine.ip}</span>
             </div>
             <div className="env-list">
-              {env.items.map((item) => (
-                <div key={item} className="env-item">
-                  <div className="env-item-dot" />
-                  {item}
-                </div>
-              ))}
+              <div className="env-item">
+                <div className="env-item-dot" />
+                {machine.role}
+              </div>
             </div>
           </div>
         ))}
@@ -282,10 +128,9 @@ function EnvironmentInfo() {
 export default function ProjectDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const project = getProjectBySlug(slug);
-  const metadata = PROJECT_METADATA[slug];
   const [selectedImgIdx, setSelectedImgIdx] = useState<number | null>(null);
 
-  if (!project || !metadata) notFound();
+  if (!project) notFound();
 
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -336,9 +181,9 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
             </Link>
           </div>
 
-          <p className="section-label">{metadata.subtitle}</p>
+          <p className="section-label">{project.displaySubtitle}</p>
           <h1 className="detail-title">{project.title}</h1>
-          <p className="detail-subtitle">{metadata.subtitle}</p>
+          <p className="detail-subtitle">{project.subtitle}</p>
 
           <div className="detail-action-row">
             {project.demo && (
@@ -356,9 +201,9 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
           {/* Tech stack badges */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "3rem" }}>
             {project.techStack?.map((t) => {
-              const icon = STACK_ICONS[t.name];
-              return icon ? (
-                <Badge key={t.name} icon={icon} name={t.name} />
+              const stackIcon = STACK_ICONS[t.name];
+              return stackIcon ? (
+                <Badge key={t.name} icon={stackIcon.icon} name={t.name} />
               ) : null;
             })}
           </div>
@@ -367,12 +212,12 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
 
       {/* VIDEO SECTION */}
       <div className="container">
-        {slug === "paas" && project.videos && project.videos.length > 0 ? (
+        {project.videos && project.videos.length > 0 ? (
           <VideoShowcase videos={project.videos.map(v => ({
-            id: v.url.split('v=')[1] || '',
+            id: parseYouTubeId(v.url) || '',
             title: v.title,
             desc: v.description || '',
-            youtubeId: v.url.split('v=')[1] || '',
+            youtubeId: parseYouTubeId(v.url) || '',
           }))} />
         ) : (
           <div className="detail-video-wrap">
@@ -437,11 +282,11 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
         <section className="detail-section">
           <h2 className="section-label">Tổng quan</h2>
           {/* <h2>Tầm Nhìn</h2> */}
-          {metadata.vision.map((para: string, i: number) => <p key={i}>{para}</p>)}
+          {project.vision.map((para: string, i: number) => <p key={i}>{para}</p>)}
         </section>
 
         {/* ENVIRONMENT INFO (PAAS ONLY) */}
-        {slug === "paas" && <EnvironmentInfo />}
+        {project.environment && <EnvironmentInfo machines={project.environment} />}
 
         {/* KEY FEATURES */}
         <section className="detail-section">
@@ -450,7 +295,7 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
           <div className="feature-list">
             {project.features?.map((f) => (
               <div key={f.title} className="feature-item">
-                <div className="feature-icon">{FEATURE_ICONS[f.title]}</div>
+                <div className="feature-icon">{FEATURE_ICONS[f.icon]}</div>
                 <div className="feature-content">
                   <h3>{f.title}</h3>
                   <p>{f.description}</p>
@@ -474,7 +319,7 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
               </span>
             </div>
             <div className="terminal-body">
-              {metadata.terminalLines.map((line: string, i: number) => (
+              {project.terminalLines.map((line: string, i: number) => (
                 <div key={i}>
                   <span className="t-prompt">❯ </span>{line}
                 </div>

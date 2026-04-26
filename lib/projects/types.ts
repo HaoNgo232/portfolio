@@ -1,3 +1,24 @@
+// Icon keys for feature icons (type-safe lookup)
+export type IconKey =
+  | "Deployment"
+  | "Build"
+  | "Scaffold"
+  | "Cluster"
+  | "LoadBalancer"
+  | "Queue"
+  | "FastLoad"
+  | "Sync"
+  | "SEO"
+  | "VisualSearch"
+  | "SemanticSearch"
+  | "Personalized"
+  | "ModuleGraph"
+  | "RouteAnalyzer"
+  | "ProviderRegistry"
+  | "UniversalBridge"
+  | "ContextSynapse"
+  | "SmartRouting";
+
 // Value Objects
 export interface TechStack {
   name: string;
@@ -7,6 +28,7 @@ export interface TechStack {
 export interface Feature {
   title: string;
   description: string;
+  icon: IconKey;
 }
 
 export interface Screenshot {
@@ -21,28 +43,38 @@ export interface Video {
   description?: string;
 }
 
-export interface Environment {
-  frontend?: string;
-  backend?: string;
-  database?: string;
+export interface EnvironmentMachine {
+  name: string;
+  ip: string;
+  role: string;
+  status: string;
 }
 
 // Entity
 export interface Project {
-  // Core fields (dùng cho cả list và detail)
-  slug: string;              // unique identifier
+  // Core fields
+  slug: string;
   title: string;
-  desc: string;              // short description cho card
-  image: string;             // thumbnail
+  desc: string;
+  image: string;
   tags: string[];
   github?: string | null;
   demo?: string | null;
 
-  // Detail-only fields (optional, chỉ dùng ở detail page)
-  longDescription?: string;
+  // Display fields (from PROJECT_DISPLAY_DATA)
+  displayNumber: string;
+  displaySubtitle: string;
+  gradient: string;
+
+  // Detail fields (from PROJECT_METADATA)
+  subtitle: string;
+  vision: string[];
+  terminalLines: string[];
+
+  // Optional detail fields
   features?: Feature[];
   techStack?: TechStack[];
   screenshots?: Screenshot[];
   videos?: Video[];
-  environment?: Environment;
+  environment?: EnvironmentMachine[];
 }

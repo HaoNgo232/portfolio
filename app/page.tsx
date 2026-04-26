@@ -1,55 +1,13 @@
 "use client";
 
 import { PROJECTS } from "@/lib/projects/data";
+import { STACK_ICONS } from "@/lib/projects/stack-icons";
 import { IconGithub, IconExternal, Badge, IconEmail, IconLinkedIn } from "@/components/ui/icons";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 /* ─── Data ───────────────────────────────────────────────────────── */
-const PROJECT_DISPLAY_DATA = [
-  {
-    number: "01",
-    subtitle: "Platform-as-a-Service",
-    gradient: "from-cyan-500/10 to-blue-600/5",
-  },
-  {
-    number: "02",
-    subtitle: "E-Commerce Platform",
-    gradient: "from-purple-500/10 to-pink-600/5",
-  },
-  {
-    number: "03",
-    subtitle: "AI-Powered Shopping",
-    gradient: "from-emerald-500/10 to-teal-600/5",
-  },
-  {
-    number: "04",
-    subtitle: "Developer Tooling",
-    gradient: "from-red-500/10 to-orange-600/5",
-  },
-  {
-    number: "05",
-    subtitle: "AI Infrastructure",
-    gradient: "from-violet-500/10 to-purple-600/5",
-  },
-];
-
-const STACK_ICONS: Record<string, { icon: string; color: string }> = {
-  "Next.js": { icon: "/icons/nextjs-original.svg", color: "#FFFFFF" },
-  NestJS: { icon: "/icons/nestjs-original.svg", color: "#E0234E" },
-  Kubernetes: { icon: "/icons/kubernetes-plain.svg", color: "#326CE5" },
-  Docker: { icon: "/icons/docker-original.svg", color: "#2496ED" },
-  Redis: { icon: "/icons/redis-original.svg", color: "#DC382D" },
-  PostgreSQL: { icon: "/icons/postgresql-original.svg", color: "#336791" },
-  TypeScript: { icon: "/icons/typescript-original.svg", color: "#3178C6" },
-  MongoDB: { icon: "/icons/mongodb-original.svg", color: "#47A248" },
-  Python: { icon: "/icons/python-original.svg", color: "#3776AB" },
-  React: { icon: "/icons/react-original.svg", color: "#61DAFB" },
-  FastAPI: { icon: "/icons/fastapi-original.svg", color: "#009688" },
-  "Node.js": { icon: "/icons/nodejs-original.svg", color: "#339933" },
-};
-
 const ABOUT_STACK = {
   Backend: [
     { name: "NestJS", icon: "/icons/nestjs-original.svg" },
@@ -141,7 +99,6 @@ function ProjectCard({
   index: number;
 }) {
   const ref = useFadeIn();
-  const displayData = PROJECT_DISPLAY_DATA[index];
 
   return (
     <div
@@ -209,7 +166,7 @@ function ProjectCard({
                 letterSpacing: "-0.02em",
               }}
             >
-              {displayData.number}
+              {project.displayNumber}
             </span>
           </div>
         )}
@@ -219,7 +176,7 @@ function ProjectCard({
       <div className="project-card-body">
         <div>
           <p className="project-card-number">
-            {displayData.number} — {displayData.subtitle}
+            {project.displayNumber} — {project.displaySubtitle}
           </p>
           <h3 className="project-card-title">{project.title}</h3>
           <p className="project-card-desc">{project.desc}</p>
