@@ -1,31 +1,52 @@
 "use client";
 
+import { PROJECTS } from "@/lib/projects/data";
+import { IconGithub, IconExternal, Badge, IconEmail, IconLinkedIn } from "@/components/ui/icons";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { PROJECTS } from "@/lib/projects/data";
 
 /* ─── Data ───────────────────────────────────────────────────────── */
 const PROJECT_DISPLAY_DATA = [
-  { number: "01", subtitle: "Platform-as-a-Service", gradient: "from-cyan-500/10 to-blue-600/5" },
-  { number: "02", subtitle: "E-Commerce Platform", gradient: "from-purple-500/10 to-pink-600/5" },
-  { number: "03", subtitle: "AI-Powered Shopping", gradient: "from-emerald-500/10 to-teal-600/5" },
-  { number: "04", subtitle: "Developer Tooling", gradient: "from-red-500/10 to-orange-600/5" },
-  { number: "05", subtitle: "AI Infrastructure", gradient: "from-violet-500/10 to-purple-600/5" },
+  {
+    number: "01",
+    subtitle: "Platform-as-a-Service",
+    gradient: "from-cyan-500/10 to-blue-600/5",
+  },
+  {
+    number: "02",
+    subtitle: "E-Commerce Platform",
+    gradient: "from-purple-500/10 to-pink-600/5",
+  },
+  {
+    number: "03",
+    subtitle: "AI-Powered Shopping",
+    gradient: "from-emerald-500/10 to-teal-600/5",
+  },
+  {
+    number: "04",
+    subtitle: "Developer Tooling",
+    gradient: "from-red-500/10 to-orange-600/5",
+  },
+  {
+    number: "05",
+    subtitle: "AI Infrastructure",
+    gradient: "from-violet-500/10 to-purple-600/5",
+  },
 ];
 
 const STACK_ICONS: Record<string, { icon: string; color: string }> = {
   "Next.js": { icon: "/icons/nextjs-original.svg", color: "#FFFFFF" },
-  "NestJS": { icon: "/icons/nestjs-original.svg", color: "#E0234E" },
-  "Kubernetes": { icon: "/icons/kubernetes-plain.svg", color: "#326CE5" },
-  "Docker": { icon: "/icons/docker-original.svg", color: "#2496ED" },
-  "Redis": { icon: "/icons/redis-original.svg", color: "#DC382D" },
-  "PostgreSQL": { icon: "/icons/postgresql-original.svg", color: "#336791" },
-  "TypeScript": { icon: "/icons/typescript-original.svg", color: "#3178C6" },
-  "MongoDB": { icon: "/icons/mongodb-original.svg", color: "#47A248" },
-  "Python": { icon: "/icons/python-original.svg", color: "#3776AB" },
-  "React": { icon: "/icons/react-original.svg", color: "#61DAFB" },
-  "FastAPI": { icon: "/icons/fastapi-original.svg", color: "#009688" },
+  NestJS: { icon: "/icons/nestjs-original.svg", color: "#E0234E" },
+  Kubernetes: { icon: "/icons/kubernetes-plain.svg", color: "#326CE5" },
+  Docker: { icon: "/icons/docker-original.svg", color: "#2496ED" },
+  Redis: { icon: "/icons/redis-original.svg", color: "#DC382D" },
+  PostgreSQL: { icon: "/icons/postgresql-original.svg", color: "#336791" },
+  TypeScript: { icon: "/icons/typescript-original.svg", color: "#3178C6" },
+  MongoDB: { icon: "/icons/mongodb-original.svg", color: "#47A248" },
+  Python: { icon: "/icons/python-original.svg", color: "#3776AB" },
+  React: { icon: "/icons/react-original.svg", color: "#61DAFB" },
+  FastAPI: { icon: "/icons/fastapi-original.svg", color: "#009688" },
   "Node.js": { icon: "/icons/nodejs-original.svg", color: "#339933" },
 };
 
@@ -57,47 +78,38 @@ const ABOUT_STACK = {
 /* ─── Icons (inline SVG) ─────────────────────────────────────────── */
 function IconArrowDown() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="12" y1="5" x2="12" y2="19" /><polyline points="19 12 12 19 5 12" />
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="12" y1="5" x2="12" y2="19" />
+      <polyline points="19 12 12 19 5 12" />
     </svg>
   );
 }
 function IconArrowRight() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="5" y1="12" x2="19" y2="12" />
+      <polyline points="12 5 19 12 12 19" />
     </svg>
   );
 }
-function IconGithub() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-    </svg>
-  );
-}
-function IconExternal() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
-    </svg>
-  );
-}
-function IconEmail() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
-    </svg>
-  );
-}
-function IconLinkedIn() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" />
-    </svg>
-  );
-}
-
 /* ─── Hook: scroll fade-in ───────────────────────────────────────── */
 function useFadeIn() {
   const ref = useRef<HTMLDivElement>(null);
@@ -105,8 +117,13 @@ function useFadeIn() {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { el.classList.add("visible"); obs.disconnect(); } },
-      { threshold: 0.1 }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("visible");
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.1 },
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -115,26 +132,34 @@ function useFadeIn() {
 }
 
 /* ─── Sub-components ─────────────────────────────────────────────── */
-function Badge({ icon, name }: { icon: string; name: string }) {
-  return (
-    <span className="badge">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={icon} alt={name} width={16} height={16} />
-      {name}
-    </span>
-  );
-}
 
-function ProjectCard({ project, index }: { project: typeof PROJECTS[number]; index: number }) {
+function ProjectCard({
+  project,
+  index,
+}: {
+  project: (typeof PROJECTS)[number];
+  index: number;
+}) {
   const ref = useFadeIn();
   const displayData = PROJECT_DISPLAY_DATA[index];
 
   return (
-    <div ref={ref} className="fade-up project-card" style={{ transitionDelay: `${index * 60}ms` }}>
+    <div
+      ref={ref}
+      className="fade-up project-card"
+      style={{ transitionDelay: `${index * 60}ms` }}
+    >
       {/* Media */}
       <div className="project-card-media">
         {project.image ? (
-          <Image src={project.image} alt={project.title} fill style={{ objectFit: "cover" }} sizes="50vw" priority={index === 0} />
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            style={{ objectFit: "cover" }}
+            sizes="50vw"
+            priority={index === 0}
+          />
         ) : (
           <div
             style={{
@@ -149,35 +174,43 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[number]; ind
             }}
           >
             {/* Decorative grid */}
-            <div style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage: `
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                backgroundImage: `
                 linear-gradient(var(--clr-border) 1px, transparent 1px),
                 linear-gradient(90deg, var(--clr-border) 1px, transparent 1px)
               `,
-              backgroundSize: "40px 40px",
-              opacity: 0.4,
-            }} />
+                backgroundSize: "40px 40px",
+                opacity: 0.4,
+              }}
+            />
             {/* Glow orb */}
-            <div style={{
-              position: "absolute",
-              width: 200,
-              height: 200,
-              borderRadius: "50%",
-              background: "var(--clr-primary)",
-              filter: "blur(80px)",
-              opacity: 0.07,
-            }} />
-            <span style={{
-              position: "relative",
-              fontFamily: "var(--font-space)",
-              fontSize: "clamp(2rem, 5vw, 3rem)",
-              fontWeight: 700,
-              color: "var(--clr-primary)",
-              opacity: 0.25,
-              letterSpacing: "-0.02em",
-            }}>{displayData.number}</span>
+            <div
+              style={{
+                position: "absolute",
+                width: 200,
+                height: 200,
+                borderRadius: "50%",
+                background: "var(--clr-primary)",
+                filter: "blur(80px)",
+                opacity: 0.07,
+              }}
+            />
+            <span
+              style={{
+                position: "relative",
+                fontFamily: "var(--font-space)",
+                fontSize: "clamp(2rem, 5vw, 3rem)",
+                fontWeight: 700,
+                color: "var(--clr-primary)",
+                opacity: 0.25,
+                letterSpacing: "-0.02em",
+              }}
+            >
+              {displayData.number}
+            </span>
           </div>
         )}
       </div>
@@ -185,7 +218,9 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[number]; ind
       {/* Body */}
       <div className="project-card-body">
         <div>
-          <p className="project-card-number">{displayData.number} — {displayData.subtitle}</p>
+          <p className="project-card-number">
+            {displayData.number} — {displayData.subtitle}
+          </p>
           <h3 className="project-card-title">{project.title}</h3>
           <p className="project-card-desc">{project.desc}</p>
         </div>
@@ -193,7 +228,9 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[number]; ind
         <div className="project-card-stack">
           {project.tags.map((tag) => {
             const iconData = STACK_ICONS[tag];
-            return iconData ? <Badge key={tag} icon={iconData.icon} name={tag} /> : null;
+            return iconData ? (
+              <Badge key={tag} icon={iconData.icon} name={tag} />
+            ) : null;
           })}
         </div>
 
@@ -202,12 +239,22 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[number]; ind
             Xem Chi Tiết <IconArrowRight />
           </Link>
           {project.github && (
-            <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline"
+            >
               <IconGithub /> GitHub
             </a>
           )}
           {project.demo && (
-            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-ghost"
+            >
               Live <IconExternal />
             </a>
           )}
@@ -229,10 +276,22 @@ export default function Home() {
         <div className="container nav-inner">
           <span className="nav-logo">NGÔ GIA HẠO</span>
           <div className="nav-links">
-            <a href="#projects" className="nav-link">Projects</a>
-            <a href="#about" className="nav-link">About</a>
-            <a href="#contact" className="nav-link">Contact</a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ padding: "0.45rem 1rem", fontSize: "0.8125rem" }}>
+            <a href="#projects" className="nav-link">
+              Projects
+            </a>
+            <a href="#about" className="nav-link">
+              About
+            </a>
+            <a href="#contact" className="nav-link">
+              Contact
+            </a>
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline"
+              style={{ padding: "0.45rem 1rem", fontSize: "0.8125rem" }}
+            >
               <IconGithub /> GitHub
             </a>
           </div>
@@ -248,8 +307,9 @@ export default function Home() {
               <span className="hero-name">Ngô Gia Hạo</span>
             </h1>
             <p className="hero-subtitle">
-              Web Developer chuyên nghiệp kiến tạo các giải pháp kỹ thuật hiệu suất cao,
-              tập trung vào kiến trúc hệ thống hiện đại và trải nghiệm người dùng tối ưu.
+              Web Developer chuyên nghiệp kiến tạo các giải pháp kỹ thuật hiệu
+              suất cao, tập trung vào kiến trúc hệ thống hiện đại và trải nghiệm
+              người dùng tối ưu.
             </p>
             <div className="hero-actions">
               <a href="#projects" className="btn btn-primary">
@@ -289,10 +349,16 @@ export default function Home() {
               <p className="section-label">Về tôi</p>
               <h2>Về Tôi</h2>
               <p>
-                Tôi là Web Developer đam mê giải quyết các bài toán kỹ thuật phức tạp bằng mã nguồn tinh gọn. Với kinh nghiệm trong hệ sinh thái Microservices và Cloud-native, tôi luôn hướng tới xây dựng sản phẩm không chỉ đẹp mắt mà còn bền vững về mặt kỹ thuật.
+                Tôi là Web Developer đam mê giải quyết các bài toán kỹ thuật
+                phức tạp bằng mã nguồn tinh gọn. Với kinh nghiệm trong hệ sinh
+                thái Microservices và Cloud-native, tôi luôn hướng tới xây dựng
+                sản phẩm không chỉ đẹp mắt mà còn bền vững về mặt kỹ thuật.
               </p>
               <p>
-                Thế mạnh của tôi nằm ở việc làm chủ các công nghệ Backend như NestJS, Node.js kết hợp với khả năng vận hành hệ thống trên Docker và Kubernetes. Tôi tin rằng code tốt là code đơn giản, dễ đọc và dễ bảo trì.
+                Thế mạnh của tôi nằm ở việc làm chủ các công nghệ Backend như
+                NestJS, Node.js kết hợp với khả năng vận hành hệ thống trên
+                Docker và Kubernetes. Tôi tin rằng code tốt là code đơn giản, dễ
+                đọc và dễ bảo trì.
               </p>
             </div>
             <div className="about-stack">
@@ -318,17 +384,30 @@ export default function Home() {
           <div ref={contactRef} className="fade-up contact-inner">
             <p className="section-label">Liên hệ</p>
             <h2>Sẵn sàng bắt đầu dự án?</h2>
-            <p style={{ marginTop: "1rem", color: "var(--clr-text-secondary)" }}>
-              Tôi luôn sẵn sàng thảo luận về những cơ hội mới và thử thách kỹ thuật thú vị. Hãy kết nối với tôi qua các kênh bên dưới.
+            <p
+              style={{ marginTop: "1rem", color: "var(--clr-text-secondary)" }}
+            >
+              Tôi luôn sẵn sàng thảo luận về những cơ hội mới và thử thách kỹ
+              thuật thú vị. Hãy kết nối với tôi qua các kênh bên dưới.
             </p>
             <div className="contact-links">
               <a href="mailto:contact@ngogiahao.dev" className="contact-link">
                 <IconEmail /> contact@ngogiahao.dev
               </a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="contact-link">
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-link"
+              >
                 <IconGithub /> GitHub
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="contact-link">
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-link"
+              >
                 <IconLinkedIn /> LinkedIn
               </a>
             </div>
