@@ -1,13 +1,12 @@
 "use client";
 
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, use } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { getProjectBySlug } from "@/lib/projects/data";
 
-
-/* ─── Data ───────────────────────────────────────────────────────── */
 /* ─── Feature Icons (SVG, no emoji) ─────────────────────────────── */
 const S = { width: 18, height: 18, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
 const IcoRocket = () => <svg {...S}><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" /><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" /><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" /><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" /></svg>;
@@ -25,35 +24,56 @@ const IcoShare = () => <svg {...S}><circle cx="18" cy="5" r="3" /><circle cx="6"
 const IcoLayers = () => <svg {...S}><polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /><polyline points="2 12 12 17 22 12" /></svg>;
 const IcoShuffle = () => <svg {...S}><polyline points="16 3 21 3 21 8" /><line x1="4" y1="20" x2="21" y2="3" /><polyline points="21 16 21 21 16 21" /><line x1="15" y1="15" x2="21" y2="21" /><line x1="4" y1="4" x2="9" y2="9" /></svg>;
 
-const PROJECTS: Record<string, {
-  title: string;
+const FEATURE_ICONS: Record<string, React.ReactNode> = {
+  "Triển khai từ Docker Image": <IcoRocket />,
+  "Build từ GitHub — Không cần Dockerfile": <IcoPackage />,
+  "Scaffold dự án Microservices": <IcoNetwork />,
+  "Quản trị cụm Kubernetes qua giao diện": <IcoShield />,
+  "Cân bằng tải & Scale tự động": <IcoZap />,
+  "Xử lý bất đồng bộ với BullMQ + DAG": <IcoLayers />,
+  "Sub-second Page Loads": <IcoZap />,
+  "Smart Inventory Sync": <IcoPackage />,
+  "SEO Architecture": <IcoSearch />,
+  "Visual Search": <IcoEye />,
+  "Semantic Search": <IcoCpu />,
+  "Personalised Feed": <IcoTarget />,
+  "Module Graph Inspector": <IcoSearch />,
+  "Route Analyser": <IcoGitBranch />,
+  "Provider Registry": <IcoSettings />,
+  "Universal Bridge": <IcoShare />,
+  "Context Synapse": <IcoLayers />,
+  "Smart Tool Routing": <IcoShuffle />,
+};
+
+const STACK_ICONS: Record<string, string> = {
+  "NestJS": "/icons/nestjs-original.svg",
+  "Next.js": "/icons/nextjs-original.svg",
+  "Kubernetes": "/icons/kubernetes-plain.svg",
+  "Docker": "/icons/docker-original.svg",
+  "BullMQ": "/icons/redis-original.svg",
+  "PostgreSQL": "/icons/postgresql-original.svg",
+  "Ansible": "/icons/ansible-original.svg",
+  "TypeScript": "/icons/typescript-original.svg",
+  "Prisma": "/icons/prisma-original.svg",
+  "MongoDB": "/icons/mongodb-original.svg",
+  "Redis": "/icons/redis-original.svg",
+  "Python": "/icons/python-original.svg",
+  "React": "/icons/react-original.svg",
+  "FastAPI": "/icons/fastapi-original.svg",
+  "Node.js": "/icons/nodejs-original.svg",
+};
+
+const PROJECT_METADATA: Record<string, {
   subtitle: string;
-  desc: string;
   vision: string[];
-  features: { icon: React.ReactNode; title: string; desc: string }[];
   terminalLines: string[];
-  videos?: { id: string; title: string; desc: string; youtubeId: string }[];
-  screenshots?: string[];
-  stack: { name: string; icon: string }[];
-  github: string | null;
-  preview: string | null;
 }> = {
   paas: {
-    title: "PaaS trên Kubernetes",
     subtitle: "Nền tảng PaaS tự lưu trữ trên Kubernetes",
-    desc: "",
     vision: [
       "Đề tài xây dựng nền tảng PaaS tự lưu trữ dựa trên Kubernetes kết hợp giao diện web trực quan để che giấu sự phức tạp của hệ thống bên dưới. Mục tiêu là tái hiện trải nghiệm triển khai đơn giản mà shared hosting từng mang lại cho thời kỳ PHP/MySQL, nhưng trên nền tảng công nghệ hiện đại hỗ trợ đa ngôn ngữ và khả năng mở rộng theo chiều ngang.",
       "Hệ thống phục vụ hai nhóm đối tượng: Developer triển khai ứng dụng từ Docker Image, mã nguồn GitHub (tự động build qua Cloud Native Buildpacks không cần Dockerfile), hoặc khởi tạo nhanh dự án Microservices từ Blueprint; Admin quản trị cụm Kubernetes, thêm node, cài đặt hạ tầng thông qua giao diện web thay vì dòng lệnh.",
       "Kiến trúc bốn tầng: Backend NestJS, Frontend Next.js, cụm Kubernetes và các dịch vụ hỗ trợ. Các tác vụ triển khai nặng được xử lý bất đồng bộ qua hàng đợi BullMQ kết hợp cấu trúc DAG để điều phối tác vụ có quan hệ phụ thuộc.",
-    ],
-    features: [
-      { icon: <IcoRocket />, title: "Triển khai từ Docker Image", desc: "Cung cấp tên image, hệ thống tự động tạo Deployment, Service, Ingress và cấp phát URL truy cập chỉ qua vài thao tác trên giao diện." },
-      { icon: <IcoPackage />, title: "Build từ GitHub — Không cần Dockerfile", desc: "Cloud Native Buildpacks tự động nhận diện ngôn ngữ (Node.js, Java, Python, Go, PHP), build container image chuẩn OCI và triển khai lên cụm." },
-      { icon: <IcoNetwork />, title: "Scaffold dự án Microservices", desc: "Chọn Blueprint (Next.js + Express + PostgreSQL), hệ thống tự động tạo GitHub repos, cấp database, build image và triển khai theo DAG 3 tầng: DB → API → Frontend." },
-      { icon: <IcoShield />, title: "Quản trị cụm Kubernetes qua giao diện", desc: "Khởi tạo cluster, thêm node, cài đặt hạ tầng (Kpack, Redis, Metrics Server, Prometheus), cordon/drain/remove node — tất cả qua web UI, không cần SSH." },
-      { icon: <IcoZap />, title: "Cân bằng tải & Scale tự động", desc: "Scale replica qua giao diện, Kubernetes phân phối request đều giữa các Pod trên nhiều node. Kịch bản 500 request cho kết quả 167/167/166." },
-      { icon: <IcoLayers />, title: "Xử lý bất đồng bộ với BullMQ + DAG", desc: "Tác vụ triển khai được đẩy vào hàng đợi BullMQ, xử lý bởi worker riêng biệt. BullMQ Flow điều phối tác vụ có phụ thuộc theo cấu trúc DAG." },
     ],
     terminalLines: [
       "$ ssh user@192.168.56.10",
@@ -70,72 +90,12 @@ const PROJECTS: Record<string, {
       "order-api-7b8f4d6c89-zm2k       1/1     Running   0",
       "web-5d4f8a7b12-x9nq             1/1     Running   0",
     ],
-    videos: [
-      {
-        id: "cluster-init",
-        title: "Khởi Tạo Cụm Kubernetes",
-        desc: "Khởi tạo cluster từ trạng thái zero-node: nhập SSH credentials → Ansible tự động cài Kubernetes → cấu hình mạng → thu thập join token → thêm Worker Node → cài đặt hạ tầng bổ sung.",
-        youtubeId: "6hkUHJolqnQ",
-      },
-      {
-        id: "k8s-management",
-        title: "Quản Trị Tài Nguyên Kubernetes",
-        desc: "Duyệt Namespace, Deployment, Pod, Service, Ingress trực tiếp trên giao diện web. Chỉnh sửa YAML trên trình duyệt qua Monaco Editor. Đối chiếu với kubectl.",
-        youtubeId: "i2GFYuC8duw",
-      },
-      {
-        id: "deploy-fullstack",
-        title: "Triển Khai App Full-stack",
-        desc: "Deploy ứng dụng full-stack gồm React + Vite (frontend), NestJS (backend) và PostgreSQL (database) lên cụm Kubernetes hoàn toàn qua giao diện web. Hệ thống tự động tạo Deployment, Service, Ingress, cấp phát database và URL truy cập.",
-        youtubeId: "tipTp5xoJok",
-      },
-      {
-        id: "deploy-springboot",
-        title: "Build & Deploy Spring Boot Từ GitHub — Không Cần Dockerfile",
-        desc: "Kpack tự động nhận diện ứng dụng Spring Boot từ repository GitHub, build OCI image chuẩn không cần Dockerfile, push vào Local Registry và triển khai lên cụm. Developer chỉ cần cung cấp URL repository.",
-        youtubeId: "ifERTaV9740",
-      },
-      {
-        id: "scaffold",
-        title: "Scaffold Dự Án Microservices Từ Blueprint",
-        desc: "Tính năng phức tạp nhất: chọn Blueprint → hệ thống tự tạo 5 dịch vụ (2 DB + 2 API + 1 Frontend) theo DAG 3 tầng, sinh mã nguồn, push GitHub, build image và triển khai toàn bộ.",
-        youtubeId: "YBXgYm5sEK0",
-      },
-    ],
-    screenshots: [
-      "/image/paas_project/trang_chu.jpg",
-      "/image/paas_project/dashboard.jpg",
-      "/image/paas_project/space.jpg",
-      "/image/paas_project/kubernetes_resource_manager.jpg",
-      "/image/paas_project/node_manager.jpg",
-      "/image/paas_project/node_detail.jpg",
-    ],
-    stack: [
-      { name: "NestJS", icon: "/icons/nestjs-original.svg" },
-      { name: "Next.js", icon: "/icons/nextjs-original.svg" },
-      { name: "Kubernetes", icon: "/icons/kubernetes-plain.svg" },
-      { name: "Docker", icon: "/icons/docker-original.svg" },
-      { name: "BullMQ", icon: "/icons/redis-original.svg" },
-      { name: "PostgreSQL", icon: "/icons/postgresql-original.svg" },
-      { name: "Ansible", icon: "/icons/ansible-original.svg" },
-      { name: "TypeScript", icon: "/icons/typescript-original.svg" },
-      { name: "Prisma", icon: "/icons/prisma-original.svg" },
-    ],
-    github: null,
-    preview: null,
   },
   "laptop-shop": {
-    title: "NextGen Laptop Shop",
     subtitle: "E-commerce platform optimised for high-end tech hardware with intelligent inventory management and lightning-fast page loads.",
-    desc: "",
     vision: [
       "Được xây dựng từ đầu với triết lý performance-first. Mỗi millisecond đều quan trọng trong e-commerce — trang có thể mất doanh thu nếu load chậm hơn 1 giây.",
       "System quản lý kho vận với realtime sync, tích hợp payment gateway và SEO-optimized page structure giúp organic traffic tăng trưởng bền vững.",
-    ],
-    features: [
-      { icon: <IcoZap />, title: "Sub-second Page Loads", desc: "ISR và edge caching đảm bảo tốc độ tải trang dưới 1 giây ngay cả ở peak traffic." },
-      { icon: <IcoPackage />, title: "Smart Inventory Sync", desc: "Realtime inventory tracking với tự động cảnh báo và reorder suggestion dựa trên AI." },
-      { icon: <IcoSearch />, title: "SEO Architecture", desc: "Structured data, canonical URLs, và sitemap tự động giúp tăng organic search traffic." },
     ],
     terminalLines: [
       "build started: nextgen-laptop-shop",
@@ -143,28 +103,12 @@ const PROJECTS: Record<string, {
       "optimizing images: 1,240 assets",
       "lighthouse score: 98/100 [PASS]",
     ],
-    stack: [
-      { name: "Next.js", icon: "/icons/nextjs-original.svg" },
-      { name: "TypeScript", icon: "/icons/typescript-original.svg" },
-      { name: "MongoDB", icon: "/icons/mongodb-original.svg" },
-      { name: "Redis", icon: "/icons/redis-original.svg" },
-      { name: "Docker", icon: "/icons/docker-original.svg" },
-    ],
-    github: "https://github.com",
-    preview: "https://example.com",
   },
   visionstore: {
-    title: "VisionStore",
     subtitle: "AI-powered shopping experience with computer vision product matching and personalised semantic search.",
-    desc: "",
     vision: [
       "VisionStore tái định nghĩa trải nghiệm mua sắm bằng cách đặt AI ở trung tâm. Thay vì tìm kiếm bằng từ khóa, người dùng upload ảnh hoặc mô tả bằng ngôn ngữ tự nhiên.",
       "Computer Vision pipeline xử lý hình ảnh sản phẩm và Semantic Search engine hiểu ý định người dùng, không chỉ keywords.",
-    ],
-    features: [
-      { icon: <IcoEye />, title: "Visual Search", desc: "Upload ảnh để tìm sản phẩm tương tự trong toàn bộ catalog với độ chính xác cao." },
-      { icon: <IcoCpu />, title: "Semantic Search", desc: "Tìm kiếm bằng ngôn ngữ tự nhiên — hỏi như hỏi người thật, nhận kết quả chính xác." },
-      { icon: <IcoTarget />, title: "Personalised Feed", desc: "AI học từ hành vi người dùng để cá nhân hóa trải nghiệm mua sắm theo thời gian." },
     ],
     terminalLines: [
       "loading vision model: clip-vit-large...",
@@ -172,27 +116,12 @@ const PROJECTS: Record<string, {
       "semantic index ready",
       "search latency: 42ms [FAST]",
     ],
-    stack: [
-      { name: "Python", icon: "/icons/python-original.svg" },
-      { name: "React", icon: "/icons/react-original.svg" },
-      { name: "FastAPI", icon: "/icons/fastapi-original.svg" },
-      { name: "PostgreSQL", icon: "/icons/postgresql-original.svg" },
-    ],
-    github: "https://github.com",
-    preview: null,
   },
   "nestjs-devtools-mcp": {
-    title: "NestJS DevTools MCP",
     subtitle: "Model Context Protocol server enabling AI assistants to inspect, analyse and understand NestJS applications in real-time.",
-    desc: "",
     vision: [
       "Khi làm việc với AI assistant như Claude hay Cursor, một trong những điểm yếu lớn nhất là AI không thể nhìn thấy runtime state của ứng dụng.",
       "NestJS DevTools MCP giải quyết vấn đề này bằng cách expose NestJS module graph, routes và providers qua Model Context Protocol — cho phép AI hiểu ứng dụng như một developer thực thụ.",
-    ],
-    features: [
-      { icon: <IcoSearch />, title: "Module Graph Inspector", desc: "Trực quan hóa realtime toàn bộ dependency graph, circular dependencies và lazy modules." },
-      { icon: <IcoGitBranch />, title: "Route Analyser", desc: "Kiểm tra tất cả HTTP routes, guards, interceptors và middlewares đang hoạt động." },
-      { icon: <IcoSettings />, title: "Provider Registry", desc: "Xem toàn bộ providers, scope và injection tokens trong runtime context." },
     ],
     terminalLines: [
       "mcp server started on stdio",
@@ -200,26 +129,12 @@ const PROJECTS: Record<string, {
       "awaiting AI client connection...",
       "client connected: claude-3-5-sonnet",
     ],
-    stack: [
-      { name: "NestJS", icon: "/icons/nestjs-original.svg" },
-      { name: "TypeScript", icon: "/icons/typescript-original.svg" },
-      { name: "Node.js", icon: "/icons/nodejs-original.svg" },
-    ],
-    github: "https://github.com",
-    preview: null,
   },
   "agent-bridge-kit": {
-    title: "Agent Bridge Kit & Synapse",
     subtitle: "Infrastructure toolkit for connecting AI agents with external services through a reliable, context-aware routing layer.",
-    desc: "",
     vision: [
       "Khi xây dựng multi-agent systems, vấn đề không phải là viết một agent — mà là kết nối nhiều agents lại với nhau một cách đáng tin cậy.",
       "Agent Bridge Kit cung cấp một abstraction layer chuẩn hóa cách agents giao tiếp với tools và services. Synapse quản lý context, memory persistence và intelligent tool routing.",
-    ],
-    features: [
-      { icon: <IcoShare />, title: "Universal Bridge", desc: "Kết nối bất kỳ AI framework (LangChain, CrewAI, AutoGen) với external services qua một interface thống nhất." },
-      { icon: <IcoLayers />, title: "Context Synapse", desc: "Shared memory layer giúp agents nhớ và chia sẻ context across sessions và tools." },
-      { icon: <IcoShuffle />, title: "Smart Tool Routing", desc: "Tự động chọn và chain tools dựa trên agent intent, không cần hardcode workflows." },
     ],
     terminalLines: [
       "agent-bridge-kit v0.4.2 starting...",
@@ -227,14 +142,6 @@ const PROJECTS: Record<string, {
       "tools loaded: 24",
       "routing engine ready [OK]",
     ],
-    stack: [
-      { name: "Python", icon: "/icons/python-original.svg" },
-      { name: "TypeScript", icon: "/icons/typescript-original.svg" },
-      { name: "Docker", icon: "/icons/docker-original.svg" },
-      { name: "Redis", icon: "/icons/redis-original.svg" },
-    ],
-    github: "https://github.com",
-    preview: null,
   },
 };
 
@@ -385,16 +292,13 @@ function EnvironmentInfo() {
 }
 
 /* ─── Page ───────────────────────────────────────────────────────── */
-/**
- * Thành phần trang chi tiết dự án (Page Component)
- * Tự động lấy dữ liệu dựa trên slug từ URL và render giao diện tương ứng
- */
 export default function ProjectDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
-  const project = PROJECTS[slug];
+  const project = getProjectBySlug(slug);
+  const metadata = PROJECT_METADATA[slug];
   const [selectedImgIdx, setSelectedImgIdx] = useState<number | null>(null);
 
-  if (!project) notFound();
+  if (!project || !metadata) notFound();
 
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -445,13 +349,13 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
             </Link>
           </div>
 
-          <p className="section-label">{project.subtitle}</p>
+          <p className="section-label">{metadata.subtitle}</p>
           <h1 className="detail-title">{project.title}</h1>
-          <p className="detail-subtitle">{project.subtitle}</p>
+          <p className="detail-subtitle">{metadata.subtitle}</p>
 
           <div className="detail-action-row">
-            {project.preview && (
-              <a href={project.preview} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+            {project.demo && (
+              <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
                 Live Preview <IconExternal />
               </a>
             )}
@@ -464,20 +368,28 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
 
           {/* Tech stack badges */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "3rem" }}>
-            {project.stack.map((t) => (
-              <span key={t.name} className="badge">
-                <Image src={t.icon} alt={t.name} width={16} height={16} />
-                {t.name}
-              </span>
-            ))}
+            {project.techStack?.map((t) => {
+              const icon = STACK_ICONS[t.name];
+              return icon ? (
+                <span key={t.name} className="badge">
+                  <Image src={icon} alt={t.name} width={16} height={16} />
+                  {t.name}
+                </span>
+              ) : null;
+            })}
           </div>
         </div>
       </section>
 
       {/* VIDEO SECTION */}
       <div className="container">
-        {slug === "paas" && project.videos ? (
-          <VideoShowcase videos={project.videos} />
+        {slug === "paas" && project.videos && project.videos.length > 0 ? (
+          <VideoShowcase videos={project.videos.map(v => ({
+            id: v.url.split('v=')[1] || '',
+            title: v.title,
+            desc: v.description || '',
+            youtubeId: v.url.split('v=')[1] || '',
+          }))} />
         ) : (
           <div className="detail-video-wrap">
             <div style={{
@@ -541,7 +453,7 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
         <section className="detail-section">
           <h2 className="section-label">Tổng quan</h2>
           {/* <h2>Tầm Nhìn</h2> */}
-          {project.vision.map((para, i) => <p key={i}>{para}</p>)}
+          {metadata.vision.map((para: string, i: number) => <p key={i}>{para}</p>)}
         </section>
 
         {/* ENVIRONMENT INFO (PAAS ONLY) */}
@@ -552,12 +464,12 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
           <p className="section-label">Tính năng</p>
           <h2>Tính Năng Chính</h2>
           <div className="feature-list">
-            {project.features.map((f) => (
+            {project.features?.map((f) => (
               <div key={f.title} className="feature-item">
-                <div className="feature-icon">{f.icon}</div>
+                <div className="feature-icon">{FEATURE_ICONS[f.title]}</div>
                 <div className="feature-content">
                   <h3>{f.title}</h3>
-                  <p>{f.desc}</p>
+                  <p>{f.description}</p>
                 </div>
               </div>
             ))}
@@ -578,7 +490,7 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
               </span>
             </div>
             <div className="terminal-body">
-              {project.terminalLines.map((line, i) => (
+              {metadata.terminalLines.map((line: string, i: number) => (
                 <div key={i}>
                   <span className="t-prompt">❯ </span>{line}
                 </div>
@@ -594,13 +506,13 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
             <p className="section-label">Thư viện ảnh</p>
             <h2>Giao Diện Nền Tảng</h2>
             <div className="screenshot-grid">
-              {project.screenshots.map((src, i) => (
+              {project.screenshots.map((screenshot, i) => (
                 <div
-                  key={src}
+                  key={i}
                   className="screenshot-item"
                   onClick={() => setSelectedImgIdx(i)}
                 >
-                  <Image src={src} alt={`Screenshot ${i + 1}`} width={800} height={500} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} sizes="(max-width: 768px) 100vw, 33vw" />
+                  <Image src={screenshot.url} alt={screenshot.alt} width={800} height={500} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} sizes="(max-width: 768px) 100vw, 33vw" />
                 </div>
               ))}
             </div>
@@ -646,8 +558,8 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 >
                   <Image
-                    src={project.screenshots[selectedImgIdx]}
-                    alt="Large view"
+                    src={project.screenshots[selectedImgIdx].url}
+                    alt={project.screenshots[selectedImgIdx].alt}
                     width={1920}
                     height={1080}
                     style={{ width: "100%", height: "auto", maxHeight: "85vh", objectFit: "contain", borderRadius: "var(--r-md)" }}

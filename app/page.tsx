@@ -3,92 +3,31 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { PROJECTS } from "@/lib/projects/data";
 
 /* ─── Data ───────────────────────────────────────────────────────── */
-const PROJECTS = [
-  {
-    slug: "paas",
-    number: "01",
-    title: "PaaS Ecosystem",
-    subtitle: "Platform-as-a-Service",
-    desc: "Nền tảng dịch vụ (PaaS) hỗ trợ triển khai ứng dụng tự động. Tích hợp NestJS cho backend ổn định và Kubernetes để quản lý container linh hoạt, từ git push đến live URL.",
-    stack: [
-      { name: "Next.js", icon: "/icons/nextjs-original.svg", color: "#FFFFFF" },
-      { name: "NestJS", icon: "/icons/nestjs-original.svg", color: "#E0234E" },
-      { name: "Kubernetes", icon: "/icons/kubernetes-plain.svg", color: "#326CE5" },
-      { name: "Docker", icon: "/icons/docker-original.svg", color: "#2496ED" },
-      { name: "Redis", icon: "/icons/redis-original.svg", color: "#DC382D" },
-      { name: "PostgreSQL", icon: "/icons/postgresql-original.svg", color: "#336791" },
-    ],
-    github: null,
-    preview: null,
-    image: "/image/paas_project/trang_chu.jpg",
-    gradient: "from-cyan-500/10 to-blue-600/5",
-  },
-  {
-    slug: "laptop-shop",
-    number: "02",
-    title: "NextGen Laptop Shop",
-    subtitle: "E-Commerce Platform",
-    desc: "Nền tảng thương mại điện tử chuyên biệt cho thiết bị công nghệ cao. Tối ưu SEO, tốc độ tải trang nhanh và hệ thống quản lý kho vận thông minh với đồng bộ tồn kho realtime.",
-    stack: [
-      { name: "Next.js", icon: "/icons/nextjs-original.svg", color: "#FFFFFF" },
-      { name: "TypeScript", icon: "/icons/typescript-original.svg", color: "#3178C6" },
-      { name: "MongoDB", icon: "/icons/mongodb-original.svg", color: "#47A248" },
-      { name: "Redis", icon: "/icons/redis-original.svg", color: "#DC382D" },
-    ],
-    github: "https://github.com",
-    preview: "https://example.com",
-    gradient: "from-purple-500/10 to-pink-600/5",
-  },
-  {
-    slug: "visionstore",
-    number: "03",
-    title: "VisionStore",
-    subtitle: "AI-Powered Shopping",
-    desc: "Ứng dụng mua sắm thông minh tích hợp AI gợi ý sản phẩm cá nhân hóa. Computer Vision pipeline xử lý hình ảnh sản phẩm kết hợp Semantic Search mang đến trải nghiệm tìm kiếm trực quan.",
-    stack: [
-      { name: "Python", icon: "/icons/python-original.svg", color: "#3776AB" },
-      { name: "React", icon: "/icons/react-original.svg", color: "#61DAFB" },
-      { name: "FastAPI", icon: "/icons/fastapi-original.svg", color: "#009688" },
-      { name: "PostgreSQL", icon: "/icons/postgresql-original.svg", color: "#336791" },
-    ],
-    github: "https://github.com",
-    preview: null,
-    gradient: "from-emerald-500/10 to-teal-600/5",
-  },
-  {
-    slug: "nestjs-devtools-mcp",
-    number: "04",
-    title: "NestJS DevTools MCP",
-    subtitle: "Developer Tooling",
-    desc: "Model Context Protocol server dành cho hệ sinh thái NestJS. Cho phép AI assistant truy vấn module dependency graph, controller routes và providers trong thời gian thực.",
-    stack: [
-      { name: "NestJS", icon: "/icons/nestjs-original.svg", color: "#E0234E" },
-      { name: "TypeScript", icon: "/icons/typescript-original.svg", color: "#3178C6" },
-      { name: "Node.js", icon: "/icons/nodejs-original.svg", color: "#339933" },
-    ],
-    github: "https://github.com",
-    preview: null,
-    gradient: "from-red-500/10 to-orange-600/5",
-  },
-  {
-    slug: "agent-bridge-kit",
-    number: "05",
-    title: "Agent Bridge Kit & Synapse",
-    subtitle: "AI Infrastructure",
-    desc: "Bộ công cụ kết nối AI agent với các dịch vụ bên ngoài. Synapse layer quản lý context, memory và tool routing cho hệ thống multi-agent một cách hiệu quả và đáng tin cậy.",
-    stack: [
-      { name: "Python", icon: "/icons/python-original.svg", color: "#3776AB" },
-      { name: "TypeScript", icon: "/icons/typescript-original.svg", color: "#3178C6" },
-      { name: "Docker", icon: "/icons/docker-original.svg", color: "#2496ED" },
-      { name: "Redis", icon: "/icons/redis-original.svg", color: "#DC382D" },
-    ],
-    github: "https://github.com",
-    preview: null,
-    gradient: "from-violet-500/10 to-purple-600/5",
-  },
+const PROJECT_DISPLAY_DATA = [
+  { number: "01", subtitle: "Platform-as-a-Service", gradient: "from-cyan-500/10 to-blue-600/5" },
+  { number: "02", subtitle: "E-Commerce Platform", gradient: "from-purple-500/10 to-pink-600/5" },
+  { number: "03", subtitle: "AI-Powered Shopping", gradient: "from-emerald-500/10 to-teal-600/5" },
+  { number: "04", subtitle: "Developer Tooling", gradient: "from-red-500/10 to-orange-600/5" },
+  { number: "05", subtitle: "AI Infrastructure", gradient: "from-violet-500/10 to-purple-600/5" },
 ];
+
+const STACK_ICONS: Record<string, { icon: string; color: string }> = {
+  "Next.js": { icon: "/icons/nextjs-original.svg", color: "#FFFFFF" },
+  "NestJS": { icon: "/icons/nestjs-original.svg", color: "#E0234E" },
+  "Kubernetes": { icon: "/icons/kubernetes-plain.svg", color: "#326CE5" },
+  "Docker": { icon: "/icons/docker-original.svg", color: "#2496ED" },
+  "Redis": { icon: "/icons/redis-original.svg", color: "#DC382D" },
+  "PostgreSQL": { icon: "/icons/postgresql-original.svg", color: "#336791" },
+  "TypeScript": { icon: "/icons/typescript-original.svg", color: "#3178C6" },
+  "MongoDB": { icon: "/icons/mongodb-original.svg", color: "#47A248" },
+  "Python": { icon: "/icons/python-original.svg", color: "#3776AB" },
+  "React": { icon: "/icons/react-original.svg", color: "#61DAFB" },
+  "FastAPI": { icon: "/icons/fastapi-original.svg", color: "#009688" },
+  "Node.js": { icon: "/icons/nodejs-original.svg", color: "#339933" },
+};
 
 const ABOUT_STACK = {
   Backend: [
@@ -186,8 +125,10 @@ function Badge({ icon, name }: { icon: string; name: string }) {
   );
 }
 
-function ProjectCard({ project, index }: { project: typeof PROJECTS[number] & { image?: string }; index: number }) {
+function ProjectCard({ project, index }: { project: typeof PROJECTS[number]; index: number }) {
   const ref = useFadeIn();
+  const displayData = PROJECT_DISPLAY_DATA[index];
+
   return (
     <div ref={ref} className="fade-up project-card" style={{ transitionDelay: `${index * 60}ms` }}>
       {/* Media */}
@@ -236,7 +177,7 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[number] & { 
               color: "var(--clr-primary)",
               opacity: 0.25,
               letterSpacing: "-0.02em",
-            }}>{project.number}</span>
+            }}>{displayData.number}</span>
           </div>
         )}
       </div>
@@ -244,15 +185,16 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[number] & { 
       {/* Body */}
       <div className="project-card-body">
         <div>
-          <p className="project-card-number">{project.number} — {project.subtitle}</p>
+          <p className="project-card-number">{displayData.number} — {displayData.subtitle}</p>
           <h3 className="project-card-title">{project.title}</h3>
           <p className="project-card-desc">{project.desc}</p>
         </div>
 
         <div className="project-card-stack">
-          {project.stack.map((t) => (
-            <Badge key={t.name} icon={t.icon} name={t.name} />
-          ))}
+          {project.tags.map((tag) => {
+            const iconData = STACK_ICONS[tag];
+            return iconData ? <Badge key={tag} icon={iconData.icon} name={tag} /> : null;
+          })}
         </div>
 
         <div className="project-card-actions">
@@ -264,8 +206,8 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[number] & { 
               <IconGithub /> GitHub
             </a>
           )}
-          {project.preview && (
-            <a href={project.preview} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+          {project.demo && (
+            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
               Live <IconExternal />
             </a>
           )}
