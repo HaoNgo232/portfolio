@@ -3,6 +3,7 @@
 import React, { use, useEffect, useRef, useState } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
 
 /* ─── Data ───────────────────────────────────────────────────────── */
@@ -376,7 +377,34 @@ function EnvironmentInfo() {
 export default function ProjectDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const project = PROJECTS[slug];
+  const [selectedImgIdx, setSelectedImgIdx] = useState<number | null>(null);
+
   if (!project) notFound();
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (project.screenshots) {
+      setSelectedImgIdx((prev) => (prev !== null ? (prev - 1 + project.screenshots!.length) % project.screenshots!.length : null));
+    }
+  };
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (project.screenshots) {
+      setSelectedImgIdx((prev) => (prev !== null ? (prev + 1) % project.screenshots!.length : null));
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImgIdx === null || !project.screenshots) return;
+      if (e.key === "Escape") setSelectedImgIdx(null);
+      if (e.key === "ArrowLeft") setSelectedImgIdx((prev) => (prev !== null ? (prev - 1 + project.screenshots!.length) % project.screenshots!.length : null));
+      if (e.key === "ArrowRight") setSelectedImgIdx((prev) => (prev !== null ? (prev + 1) % project.screenshots!.length : null));
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedImgIdx, project.screenshots]);
 
 
   return (
@@ -551,14 +579,86 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
             <h2>Giao Diện Nền Tảng</h2>
             <div className="screenshot-grid">
               {project.screenshots.map((src, i) => (
-                <div key={src} className="screenshot-item">
+                <motion.div
+                  key={src}
+                  className="screenshot-item"
+                  onClick={() => setSelectedImgIdx(i)}
+                  layoutId={`img-${src}`}
+                >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={src} alt={`Screenshot ${i + 1}`} />
-                </div>
+                  <motion.img src={src} alt={`Screenshot ${i + 1}`} />
+                </motion.div>
               ))}
             </div>
           </section>
         )}
+
+        {/* LIGHTBOX */}
+        <AnimatePresence>
+          {selectedImgIdx !== null && project.screenshots && (
+            <motion.div
+              className="lightbox-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedImgIdx(null)}
+            >
+              <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+                <motion.button
+                  className="lightbox-close"
+                  onClick={() => setSelectedImgIdx(null)}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </motion.button>
+
+                <motion.button
+                  className="lightbox-nav lightbox-prev"
+                  onClick={handlePrev}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </motion.button>
+
+                <motion.div
+                  className="lightbox-img-container"
+                  layoutId={`img-${project.screenshots[selectedImgIdx]}`}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={project.screenshots[selectedImgIdx]}
+                    alt="Large view"
+                    style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: "var(--r-md)" }}
+                  />
+                </motion.div>
+
+                <motion.button
+                  className="lightbox-nav lightbox-next"
+                  onClick={handleNext}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </motion.button>
+
+                <motion.div
+                  className="lightbox-counter"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  {selectedImgIdx + 1} / {project.screenshots.length}
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* CTA */}
         <div className="cta-card">
