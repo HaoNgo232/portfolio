@@ -505,9 +505,7 @@ ul { list-style: none; }
   background: var(--clr-surface);
   border: 1px solid var(--clr-border);
   border-radius: var(--r-md);
-  transition: border-color var(--t-fast);
 }
-.feature-item:hover { border-color: var(--clr-primary); }
 .feature-icon {
   flex-shrink: 0;
   width: 36px;
@@ -635,12 +633,13 @@ ul { list-style: none; }
 }
 
 .yt-title {
+  font-family: var(--font-heading);
   color: var(--clr-text);
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1.375rem;
+  font-weight: 600;
   margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
 }
 
 .yt-desc {
