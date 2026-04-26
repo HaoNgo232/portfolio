@@ -18,7 +18,14 @@ export const metadata: Metadata = {
   title: "Ngô Gia Hạo — Web Developer",
   description:
     "Portfolio của Ngô Gia Hạo — Web Developer chuyên về hệ thống hiệu suất cao, kiến trúc microservices và frontend hiện đại.",
-  keywords: ["web developer", "portfolio", "NestJS", "Next.js", "Kubernetes", "fullstack"],
+  keywords: [
+    "web developer",
+    "portfolio",
+    "NestJS",
+    "Next.js",
+    "Kubernetes",
+    "fullstack",
+  ],
 };
 
 export default function RootLayout({

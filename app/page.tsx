@@ -2,7 +2,13 @@
 
 import { PROJECTS } from "@/lib/projects/data";
 import { STACK_ICONS } from "@/lib/projects/stack-icons";
-import { IconGithub, IconExternal, Badge, IconEmail, IconLinkedIn } from "@/components/ui/icons";
+import {
+  IconGithub,
+  IconExternal,
+  Badge,
+  IconEmail,
+  IconLinkedIn,
+} from "@/components/ui/icons";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -183,10 +189,10 @@ function ProjectCard({
         </div>
 
         <div className="project-card-stack">
-          {project.tags.map((tag) => {
-            const iconData = STACK_ICONS[tag];
-            return iconData ? (
-              <Badge key={tag} icon={iconData.icon} name={tag} />
+          {project.techStack?.map((tech) => {
+            const stackIcon = STACK_ICONS[tech.name];
+            return stackIcon ? (
+              <Badge key={tech.name} icon={stackIcon.icon} name={tech.name} />
             ) : null;
           })}
         </div>

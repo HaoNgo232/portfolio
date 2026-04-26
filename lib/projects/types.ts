@@ -22,7 +22,7 @@ export type IconKey =
 // Value Objects
 export interface TechStack {
   name: string;
-  category: 'frontend' | 'backend' | 'database' | 'devops' | 'other';
+  category: "frontend" | "backend" | "database" | "devops" | "other";
 }
 
 export interface Feature {
@@ -34,7 +34,6 @@ export interface Feature {
 export interface Screenshot {
   url: string;
   alt: string;
-  caption?: string;
 }
 
 export interface Video {
@@ -47,7 +46,6 @@ export interface EnvironmentMachine {
   name: string;
   ip: string;
   role: string;
-  status: string;
 }
 
 // Entity
@@ -57,14 +55,12 @@ export interface Project {
   title: string;
   desc: string;
   image: string;
-  tags: string[];
   github?: string | null;
   demo?: string | null;
 
   // Display fields (from PROJECT_DISPLAY_DATA)
   displayNumber: string;
   displaySubtitle: string;
-  gradient: string;
 
   // Detail fields (from PROJECT_METADATA)
   subtitle: string;

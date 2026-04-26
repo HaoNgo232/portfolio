@@ -7,18 +7,18 @@ export function parseYouTubeId(url: string): string | null {
     const urlObj = new URL(url);
 
     // youtu.be/ID
-    if (urlObj.hostname === 'youtu.be') {
+    if (urlObj.hostname === "youtu.be") {
       return urlObj.pathname.slice(1);
     }
 
     // youtube.com/watch?v=ID
-    if (urlObj.hostname.includes('youtube.com')) {
-      if (urlObj.pathname === '/watch') {
-        return urlObj.searchParams.get('v');
+    if (urlObj.hostname.includes("youtube.com")) {
+      if (urlObj.pathname === "/watch") {
+        return urlObj.searchParams.get("v");
       }
       // youtube.com/embed/ID
-      if (urlObj.pathname.startsWith('/embed/')) {
-        return urlObj.pathname.split('/')[2];
+      if (urlObj.pathname.startsWith("/embed/")) {
+        return urlObj.pathname.split("/")[2];
       }
     }
 
