@@ -306,62 +306,62 @@ export const PROJECTS: Project[] = [
       { name: "PostgreSQL", category: "database" },
     ],
   },
-  {
-    slug: "nestjs-devtools-mcp",
-    title: "NestJS DevTools MCP",
-    desc: "Plugin và MCP server cho phép AI assistant (Claude, Cursor) quan sát runtime state của NestJS app. Truy vấn logs, routes và application context trực tiếp từ AI mà không cần copy-paste terminal output.",
-    image: "/image/nestjs-mcp-thumbnail.jpg",
-    github: "https://github.com/HaoNgo232/nestjs-devtools-mcp",
-    demo: null,
-    displayNumber: "04",
-    displaySubtitle: "Developer Tooling",
-    subtitle:
-      "MCP bridge giúp AI assistant quan sát runtime state của NestJS applications.",
-    vision: [
-      "Khi làm việc với AI coding assistant (Claude, Cursor), một điểm yếu lớn là AI không thể tự động truy cập runtime state của ứng dụng đang chạy. Developer phải liên tục copy-paste logs, routes, hoặc dependency graph từ terminal sang chat.",
-      "NestJS DevTools MCP giải quyết vấn đề này bằng cách cung cấp một cầu nối (bridge) giữa NestJS runtime và AI assistant thông qua Model Context Protocol. AI có thể chủ động query logs, routes, và application metadata mà không cần can thiệp thủ công.",
-      "Kiến trúc 2-package đảm bảo an toàn: Plugin chạy trong NestJS process thu thập dữ liệu vào circular buffer và expose HTTP endpoint nội bộ; MCP Server là CLI bridge quản lý STDIO communication với AI và proxy tool calls qua HTTP. Toàn bộ giao tiếp chỉ diễn ra trên localhost.",
-    ],
-    terminalLines: [
-      "$ npx nestjs-devtools-mcp@latest",
-      "MCP Server started on STDIO",
-      "Listening for tool calls from AI client...",
-      "Tool: discover_servers → Found 1 NestJS app on :3000",
-      "Tool: get_logs → Returned 50 recent log entries",
-      "Tool: get_routes → Listed 12 HTTP routes",
-    ],
-    features: [
-      {
-        title: "Runtime Log Streaming",
-        description:
-          "AI assistant có thể truy vấn logs gần đây từ NestJS app đang chạy, lọc theo level (error, warn, debug) mà không cần mở terminal.",
-        icon: "SEO",
-      },
-      {
-        title: "Route Discovery",
-        description:
-          "Liệt kê tất cả HTTP routes đã đăng ký (method, path, controller, handler) để AI hiểu cấu trúc API của ứng dụng.",
-        icon: "RouteAnalyzer",
-      },
-      {
-        title: "Server Auto-Discovery",
-        description:
-          "Tự động phát hiện các NestJS server đang chạy với plugin enabled trên localhost, không cần cấu hình thủ công.",
-        icon: "ModuleGraph",
-      },
-      {
-        title: "Zero-Config Integration",
-        description:
-          "Chỉ cần thêm module vào NestJS app và cấu hình MCP client (claude_desktop_config.json), không cần setup phức tạp.",
-        icon: "ProviderRegistry",
-      },
-    ],
-    techStack: [
-      { name: "NestJS", category: "backend" },
-      { name: "TypeScript", category: "backend" },
-      { name: "Node.js", category: "backend" },
-    ],
-  },
+  // {
+  //   slug: "nestjs-devtools-mcp",
+  //   title: "NestJS DevTools MCP",
+  //   desc: "Plugin và MCP server cho phép AI assistant (Claude, Cursor) quan sát runtime state của NestJS app. Truy vấn logs, routes và application context trực tiếp từ AI mà không cần copy-paste terminal output.",
+  //   image: "/image/nestjs-mcp-thumbnail.jpg",
+  //   github: "https://github.com/HaoNgo232/nestjs-devtools-mcp",
+  //   demo: null,
+  //   displayNumber: "04",
+  //   displaySubtitle: "Developer Tooling",
+  //   subtitle:
+  //     "MCP bridge giúp AI assistant quan sát runtime state của NestJS applications.",
+  //   vision: [
+  //     "Khi làm việc với AI coding assistant (Claude, Cursor), một điểm yếu lớn là AI không thể tự động truy cập runtime state của ứng dụng đang chạy. Developer phải liên tục copy-paste logs, routes, hoặc dependency graph từ terminal sang chat.",
+  //     "NestJS DevTools MCP giải quyết vấn đề này bằng cách cung cấp một cầu nối (bridge) giữa NestJS runtime và AI assistant thông qua Model Context Protocol. AI có thể chủ động query logs, routes, và application metadata mà không cần can thiệp thủ công.",
+  //     "Kiến trúc 2-package đảm bảo an toàn: Plugin chạy trong NestJS process thu thập dữ liệu vào circular buffer và expose HTTP endpoint nội bộ; MCP Server là CLI bridge quản lý STDIO communication với AI và proxy tool calls qua HTTP. Toàn bộ giao tiếp chỉ diễn ra trên localhost.",
+  //   ],
+  //   terminalLines: [
+  //     "$ npx nestjs-devtools-mcp@latest",
+  //     "MCP Server started on STDIO",
+  //     "Listening for tool calls from AI client...",
+  //     "Tool: discover_servers → Found 1 NestJS app on :3000",
+  //     "Tool: get_logs → Returned 50 recent log entries",
+  //     "Tool: get_routes → Listed 12 HTTP routes",
+  //   ],
+  //   features: [
+  //     {
+  //       title: "Runtime Log Streaming",
+  //       description:
+  //         "AI assistant có thể truy vấn logs gần đây từ NestJS app đang chạy, lọc theo level (error, warn, debug) mà không cần mở terminal.",
+  //       icon: "SEO",
+  //     },
+  //     {
+  //       title: "Route Discovery",
+  //       description:
+  //         "Liệt kê tất cả HTTP routes đã đăng ký (method, path, controller, handler) để AI hiểu cấu trúc API của ứng dụng.",
+  //       icon: "RouteAnalyzer",
+  //     },
+  //     {
+  //       title: "Server Auto-Discovery",
+  //       description:
+  //         "Tự động phát hiện các NestJS server đang chạy với plugin enabled trên localhost, không cần cấu hình thủ công.",
+  //       icon: "ModuleGraph",
+  //     },
+  //     {
+  //       title: "Zero-Config Integration",
+  //       description:
+  //         "Chỉ cần thêm module vào NestJS app và cấu hình MCP client (claude_desktop_config.json), không cần setup phức tạp.",
+  //       icon: "ProviderRegistry",
+  //     },
+  //   ],
+  //   techStack: [
+  //     { name: "NestJS", category: "backend" },
+  //     { name: "TypeScript", category: "backend" },
+  //     { name: "Node.js", category: "backend" },
+  //   ],
+  // },
   {
     slug: "agent-bridge-kit",
     title: "Agent Bridge Kit & Synapse",

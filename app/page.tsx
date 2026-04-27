@@ -249,7 +249,7 @@ export default function Home() {
               Contact
             </a>
             <a
-              href="https://github.com"
+              href="https://github.com/HaoNgo232"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-outline"
@@ -354,25 +354,28 @@ export default function Home() {
               thuật thú vị. Hãy kết nối với tôi qua các kênh bên dưới.
             </p>
             <div className="contact-links">
-              <a href="mailto:contact@ngogiahao.dev" className="contact-link">
-                <IconEmail /> contact@ngogiahao.dev
+              <a
+                href="mailto:hao.ngo.n.personal@gmail.com"
+                className="contact-link"
+              >
+                <IconEmail /> hao.ngo.n.personal@gmail.com
               </a>
               <a
-                href="https://github.com"
+                href="https://github.com/HaoNgo232"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-link"
               >
                 <IconGithub /> GitHub
               </a>
-              <a
+              {/* <a
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-link"
               >
                 <IconLinkedIn /> LinkedIn
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
