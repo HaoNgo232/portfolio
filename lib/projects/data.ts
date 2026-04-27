@@ -259,109 +259,94 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    slug: "visionstore",
-    title: "VisionStore",
-    desc: "Ứng dụng mua sắm thông minh tích hợp AI gợi ý sản phẩm cá nhân hóa. Computer Vision pipeline xử lý hình ảnh sản phẩm kết hợp Semantic Search mang đến trải nghiệm tìm kiếm trực quan.",
-    image: "/image/visionstore-thumbnail.jpg",
-    github: "https://github.com",
-    demo: null,
+    slug: "vision-store",
+    title: "Vision Store",
+    desc: "Hệ thống thương mại điện tử kính mắt triển khai trên kiến trúc đa dịch vụ. Dự án tập trung vào việc phân tách các miền nghiệp vụ và tối ưu hóa quy trình quản lý tài nguyên tĩnh.",
+    image: "/image/vision-store-thumbnail.jpg",
+    github:
+      "https://github.com/HaoNgo232/VisionStore-E-Commerce-Microservices-Backend",
+    demo: "https://v0-eyewear-store-website-kohl.vercel.app",
     displayNumber: "03",
-    displaySubtitle: "AI-Powered Shopping",
+    displaySubtitle: "Multi-service E-Commerce",
     subtitle:
-      "AI-powered shopping experience with computer vision product matching and personalised semantic search.",
+      "Hệ thống thương mại điện tử kính mắt dựa trên kiến trúc đa dịch vụ.",
     vision: [
-      "VisionStore tái định nghĩa trải nghiệm mua sắm bằng cách đặt AI ở trung tâm. Thay vì tìm kiếm bằng từ khóa, người dùng upload ảnh hoặc mô tả bằng ngôn ngữ tự nhiên.",
-      "Computer Vision pipeline xử lý hình ảnh sản phẩm và Semantic Search engine hiểu ý định người dùng, không chỉ keywords.",
+      "Vision Store là dự án thương mại điện tử tập trung vào trải nghiệm người dùng thông qua giao diện trực quan và cấu trúc dữ liệu chặt chẽ. Mục tiêu của dự án là hiện thực hóa quy trình mua sắm từ khâu chọn lọc sản phẩm đến quản lý giỏ hàng.",
+      "Hệ thống sử dụng kiến trúc đa dịch vụ để module hóa các thành phần như Sản phẩm, Đơn hàng, Giỏ hàng và Người dùng. Cấu trúc này cho phép các dịch vụ hoạt động độc lập, sử dụng cơ sở dữ liệu riêng biệt và giao tiếp qua API Gateway.",
+      "Dữ liệu hình ảnh và tài nguyên tĩnh được lưu trữ tập trung trên Object Storage (MinIO), giúp quản lý tệp tin hiệu quả và giảm tải cho máy chủ ứng dụng.",
     ],
     terminalLines: [
-      "loading vision model: clip-vit-large...",
-      "indexing 50,000 products...",
-      "semantic index ready",
-      "search latency: 42ms [FAST]",
+      "Initializing Vision Store Ecosystem...",
+      "Service [ProductApp] is healthy on port 3001",
+      "Service [CartApp] is healthy on port 3002",
+      "Service [UserApp] is healthy on port 3003",
+      "API Gateway routing active on port 8000",
+      "Frontend Next.js application ready",
     ],
     features: [
       {
-        title: "Visual Search",
+        title: "Giao diện Trực quan",
         description:
-          "Upload ảnh để tìm sản phẩm tương tự trong toàn bộ catalog với độ chính xác cao.",
+          "Thiết kế tập trung vào tính khả dụng, sử dụng các thành phần UI tinh gọn để tối ưu hóa việc hiển thị sản phẩm.",
+        icon: "FastLoad",
+      },
+      {
+        title: "Kiến trúc đa dịch vụ",
+        description:
+          "Hệ thống được chia thành các service độc lập, quản lý database riêng biệt cho từng domain (Product, User, Order).",
+        icon: "ModuleGraph",
+      },
+      {
+        title: "Bộ lọc Thuộc tính",
+        description:
+          "Tính năng lọc sản phẩm theo các thông số kỹ thuật như chất liệu gọng, hình dáng và đặc tính tròng kính.",
         icon: "VisualSearch",
       },
       {
-        title: "Semantic Search",
+        title: "Object Storage (MinIO)",
         description:
-          "Tìm kiếm bằng ngôn ngữ tự nhiên — hỏi như hỏi người thật, nhận kết quả chính xác.",
-        icon: "SemanticSearch",
-      },
-      {
-        title: "Personalised Feed",
-        description:
-          "AI học từ hành vi người dùng để cá nhân hóa trải nghiệm mua sắm theo thời gian.",
-        icon: "Personalized",
+          "Lưu trữ tài nguyên tĩnh tập trung, hỗ trợ việc phân phối dữ liệu hình ảnh một cách nhất quán.",
+        icon: "Cluster",
       },
     ],
     techStack: [
-      { name: "Python", category: "backend" },
-      { name: "React", category: "frontend" },
-      { name: "FastAPI", category: "backend" },
+      { name: "NestJS", category: "backend" },
+      { name: "Next.js", category: "frontend" },
       { name: "PostgreSQL", category: "database" },
+      { name: "MinIO", category: "devops" },
+      { name: "Docker", category: "devops" },
+      { name: "TypeScript", category: "backend" },
+    ],
+    screenshots: [
+      { url: "/image/vision-store/home.png", alt: "Trang chủ Vision Store" },
+      { url: "/image/vision-store/product_list.png", alt: "Danh mục sản phẩm" },
+      {
+        url: "/image/vision-store/product_detail.png",
+        alt: "Chi tiết sản phẩm",
+      },
+      { url: "/image/vision-store/cart.png", alt: "Giỏ hàng" },
+      {
+        url: "/image/vision-store/trang_thanh_toan.png",
+        alt: "Giao diện thanh toán",
+      },
+      {
+        url: "/image/vision-store/dat_hang_thanh_cong.png",
+        alt: "Xác nhận đặt hàng",
+      },
+      {
+        url: "/image/vision-store/chi_tiet_don_hang.png",
+        alt: "Chi tiết đơn hàng",
+      },
+    ],
+    videos: [
+      {
+        url: "https://youtu.be/QQEMBoGbbOU",
+        title: "Giao diện & Tính năng cơ bản",
+        description:
+          "Video minh họa giao diện người dùng và các tính năng cốt lõi của hệ thống thương mại điện tử Vision Store.",
+      },
     ],
   },
-  // {
-  //   slug: "nestjs-devtools-mcp",
-  //   title: "NestJS DevTools MCP",
-  //   desc: "Plugin và MCP server cho phép AI assistant (Claude, Cursor) quan sát runtime state của NestJS app. Truy vấn logs, routes và application context trực tiếp từ AI mà không cần copy-paste terminal output.",
-  //   image: "/image/nestjs-mcp-thumbnail.jpg",
-  //   github: "https://github.com/HaoNgo232/nestjs-devtools-mcp",
-  //   demo: null,
-  //   displayNumber: "04",
-  //   displaySubtitle: "Developer Tooling",
-  //   subtitle:
-  //     "MCP bridge giúp AI assistant quan sát runtime state của NestJS applications.",
-  //   vision: [
-  //     "Khi làm việc với AI coding assistant (Claude, Cursor), một điểm yếu lớn là AI không thể tự động truy cập runtime state của ứng dụng đang chạy. Developer phải liên tục copy-paste logs, routes, hoặc dependency graph từ terminal sang chat.",
-  //     "NestJS DevTools MCP giải quyết vấn đề này bằng cách cung cấp một cầu nối (bridge) giữa NestJS runtime và AI assistant thông qua Model Context Protocol. AI có thể chủ động query logs, routes, và application metadata mà không cần can thiệp thủ công.",
-  //     "Kiến trúc 2-package đảm bảo an toàn: Plugin chạy trong NestJS process thu thập dữ liệu vào circular buffer và expose HTTP endpoint nội bộ; MCP Server là CLI bridge quản lý STDIO communication với AI và proxy tool calls qua HTTP. Toàn bộ giao tiếp chỉ diễn ra trên localhost.",
-  //   ],
-  //   terminalLines: [
-  //     "$ npx nestjs-devtools-mcp@latest",
-  //     "MCP Server started on STDIO",
-  //     "Listening for tool calls from AI client...",
-  //     "Tool: discover_servers → Found 1 NestJS app on :3000",
-  //     "Tool: get_logs → Returned 50 recent log entries",
-  //     "Tool: get_routes → Listed 12 HTTP routes",
-  //   ],
-  //   features: [
-  //     {
-  //       title: "Runtime Log Streaming",
-  //       description:
-  //         "AI assistant có thể truy vấn logs gần đây từ NestJS app đang chạy, lọc theo level (error, warn, debug) mà không cần mở terminal.",
-  //       icon: "SEO",
-  //     },
-  //     {
-  //       title: "Route Discovery",
-  //       description:
-  //         "Liệt kê tất cả HTTP routes đã đăng ký (method, path, controller, handler) để AI hiểu cấu trúc API của ứng dụng.",
-  //       icon: "RouteAnalyzer",
-  //     },
-  //     {
-  //       title: "Server Auto-Discovery",
-  //       description:
-  //         "Tự động phát hiện các NestJS server đang chạy với plugin enabled trên localhost, không cần cấu hình thủ công.",
-  //       icon: "ModuleGraph",
-  //     },
-  //     {
-  //       title: "Zero-Config Integration",
-  //       description:
-  //         "Chỉ cần thêm module vào NestJS app và cấu hình MCP client (claude_desktop_config.json), không cần setup phức tạp.",
-  //       icon: "ProviderRegistry",
-  //     },
-  //   ],
-  //   techStack: [
-  //     { name: "NestJS", category: "backend" },
-  //     { name: "TypeScript", category: "backend" },
-  //     { name: "Node.js", category: "backend" },
-  //   ],
-  // },
   {
     slug: "agent-bridge-kit",
     title: "Agent Bridge Kit & Synapse",
@@ -369,13 +354,13 @@ export const PROJECTS: Project[] = [
     image: "/image/agent-bridge-thumbnail.jpg",
     github: "https://github.com",
     demo: null,
-    displayNumber: "05",
+    displayNumber: "04",
     displaySubtitle: "AI Infrastructure",
     subtitle:
       "Infrastructure toolkit for connecting AI agents with external services through a reliable, context-aware routing layer.",
     vision: [
       "Khi xây dựng multi-agent systems, vấn đề không phải là viết một agent — mà là kết nối nhiều agents lại với nhau một cách đáng tin cậy.",
-      "Agent Bridge Kit cung cấp một abstraction layer chuẩn hóa cách agents giao tiếp với tools và services. Synapse quản lý context, memory persistence và intelligent tool routing.",
+      "Agent Bridge Kit cung cấp một abstraction layer chuẩn hóa cách agents giao tiếp with tools và services. Synapse quản lý context, memory persistence và intelligent tool routing.",
     ],
     terminalLines: [
       "agent-bridge-kit v0.4.2 starting...",
