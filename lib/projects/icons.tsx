@@ -122,6 +122,38 @@ const IcoShuffle = () => (
   </svg>
 );
 
+const IcoLock = () => (
+  <svg {...S}>
+    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+  </svg>
+);
+const IcoMail = () => (
+  <svg {...S}>
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    <rect x="2" y="5" width="20" height="14" rx="2" />
+  </svg>
+);
+const IcoCreditCard = () => (
+  <svg {...S}>
+    <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+    <line x1="1" y1="10" x2="23" y2="10" />
+  </svg>
+);
+const IcoTrendingUp = () => (
+  <svg {...S}>
+    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+    <polyline points="17 6 23 6 23 12" />
+  </svg>
+);
+const IcoLayout = () => (
+  <svg {...S}>
+    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+    <line x1="3" y1="9" x2="21" y2="9" />
+    <line x1="9" y1="21" x2="9" y2="9" />
+  </svg>
+);
+
 // Type-safe icon mapping
 export const FEATURE_ICONS: Record<IconKey, React.ReactNode> = {
   Deployment: <IcoRocket />,
@@ -142,4 +174,9 @@ export const FEATURE_ICONS: Record<IconKey, React.ReactNode> = {
   UniversalBridge: <IcoShare />,
   ContextSynapse: <IcoLayers />,
   SmartRouting: <IcoShuffle />,
+  Lock: <IcoLock />,
+  Payment: <IcoCreditCard />,
+  Rank: <IcoTrendingUp />,
+  Dashboard: <IcoLayout />,
+  Mail: <IcoMail />,
 };

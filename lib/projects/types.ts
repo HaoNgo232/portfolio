@@ -17,7 +17,12 @@ export type IconKey =
   | "ProviderRegistry"
   | "UniversalBridge"
   | "ContextSynapse"
-  | "SmartRouting";
+  | "SmartRouting"
+  | "Lock"
+  | "Payment"
+  | "Rank"
+  | "Dashboard"
+  | "Mail";
 
 // Value Objects
 export interface TechStack {
