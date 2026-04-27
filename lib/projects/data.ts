@@ -153,8 +153,7 @@ export const PROJECTS: Project[] = [
     demo: null,
     displayNumber: "02",
     displaySubtitle: "E-Commerce System",
-    subtitle:
-      "Nền tảng thương mại điện tử tích hợp thanh toán QR và phân hạng thành viên.",
+    subtitle: "Nền tảng thương mại điện tử tích hợp thanh toán QR.",
     vision: [
       "Dự án tập trung vào việc xây dựng một luồng nghiệp vụ e-commerce hoàn chỉnh, từ khâu quản lý sản phẩm phía Admin đến trải nghiệm mua sắm của khách hàng. Mục tiêu chính là xử lý tốt quy trình thanh toán và quản lý trạng thái đơn hàng.",
       "Hệ thống áp dụng cơ chế phân hạng thành viên (Bronze đến Diamond) để tự động tính toán mức chiết khấu phù hợp dựa trên tổng giá trị đơn hàng đã hoàn tất. Toàn bộ hạ tầng được đóng gói bằng Docker giúp việc triển khai và quản lý môi trường trở nên đồng nhất.",
@@ -174,7 +173,7 @@ export const PROJECTS: Project[] = [
         icon: "Lock",
       },
       {
-        title: "Thanh toán QR Tự động",
+        title: "Thanh toán QR",
         description:
           "Tích hợp SePay để tạo mã QR ngân hàng theo từng đơn hàng, tự động xác nhận trạng thái thanh toán qua webhook.",
         icon: "Payment",
@@ -310,41 +309,50 @@ export const PROJECTS: Project[] = [
   {
     slug: "nestjs-devtools-mcp",
     title: "NestJS DevTools MCP",
-    desc: "Model Context Protocol server dành cho hệ sinh thái NestJS. Cho phép AI assistant truy vấn module dependency graph, controller routes và providers trong thời gian thực.",
+    desc: "Plugin và MCP server cho phép AI assistant (Claude, Cursor) quan sát runtime state của NestJS app. Truy vấn logs, routes và application context trực tiếp từ AI mà không cần copy-paste terminal output.",
     image: "/image/nestjs-mcp-thumbnail.jpg",
-    github: "https://github.com",
+    github: "https://github.com/HaoNgo232/nestjs-devtools-mcp",
     demo: null,
     displayNumber: "04",
     displaySubtitle: "Developer Tooling",
     subtitle:
-      "Model Context Protocol server enabling AI assistants to inspect, analyse and understand NestJS applications in real-time.",
+      "MCP bridge giúp AI assistant quan sát runtime state của NestJS applications.",
     vision: [
-      "Khi làm việc với AI assistant như Claude hay Cursor, một trong những điểm yếu lớn nhất là AI không thể nhìn thấy runtime state của ứng dụng.",
-      "NestJS DevTools MCP giải quyết vấn đề này bằng cách expose NestJS module graph, routes và providers qua Model Context Protocol — cho phép AI hiểu ứng dụng như một developer thực thụ.",
+      "Khi làm việc với AI coding assistant (Claude, Cursor), một điểm yếu lớn là AI không thể tự động truy cập runtime state của ứng dụng đang chạy. Developer phải liên tục copy-paste logs, routes, hoặc dependency graph từ terminal sang chat.",
+      "NestJS DevTools MCP giải quyết vấn đề này bằng cách cung cấp một cầu nối (bridge) giữa NestJS runtime và AI assistant thông qua Model Context Protocol. AI có thể chủ động query logs, routes, và application metadata mà không cần can thiệp thủ công.",
+      "Kiến trúc 2-package đảm bảo an toàn: Plugin chạy trong NestJS process thu thập dữ liệu vào circular buffer và expose HTTP endpoint nội bộ; MCP Server là CLI bridge quản lý STDIO communication với AI và proxy tool calls qua HTTP. Toàn bộ giao tiếp chỉ diễn ra trên localhost.",
     ],
     terminalLines: [
-      "mcp server started on stdio",
-      "tools registered: 8",
-      "awaiting AI client connection...",
-      "client connected: claude-3-5-sonnet",
+      "$ npx nestjs-devtools-mcp@latest",
+      "MCP Server started on STDIO",
+      "Listening for tool calls from AI client...",
+      "Tool: discover_servers → Found 1 NestJS app on :3000",
+      "Tool: get_logs → Returned 50 recent log entries",
+      "Tool: get_routes → Listed 12 HTTP routes",
     ],
     features: [
       {
-        title: "Module Graph Inspector",
+        title: "Runtime Log Streaming",
         description:
-          "Trực quan hóa realtime toàn bộ dependency graph, circular dependencies và lazy modules.",
-        icon: "ModuleGraph",
+          "AI assistant có thể truy vấn logs gần đây từ NestJS app đang chạy, lọc theo level (error, warn, debug) mà không cần mở terminal.",
+        icon: "SEO",
       },
       {
-        title: "Route Analyser",
+        title: "Route Discovery",
         description:
-          "Kiểm tra tất cả HTTP routes, guards, interceptors và middlewares đang hoạt động.",
+          "Liệt kê tất cả HTTP routes đã đăng ký (method, path, controller, handler) để AI hiểu cấu trúc API của ứng dụng.",
         icon: "RouteAnalyzer",
       },
       {
-        title: "Provider Registry",
+        title: "Server Auto-Discovery",
         description:
-          "Xem toàn bộ providers, scope và injection tokens trong runtime context.",
+          "Tự động phát hiện các NestJS server đang chạy với plugin enabled trên localhost, không cần cấu hình thủ công.",
+        icon: "ModuleGraph",
+      },
+      {
+        title: "Zero-Config Integration",
+        description:
+          "Chỉ cần thêm module vào NestJS app và cấu hình MCP client (claude_desktop_config.json), không cần setup phức tạp.",
         icon: "ProviderRegistry",
       },
     ],
