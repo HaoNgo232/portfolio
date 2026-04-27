@@ -161,11 +161,13 @@ export default function ProjectDetail({
   const { slug } = use(params);
   const project = getProjectBySlug(slug);
   const [selectedImgIdx, setSelectedImgIdx] = useState<number | null>(null);
+  const [isZoomed, setIsZoomed] = useState(false);
 
   if (!project) notFound();
 
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
+    setIsZoomed(false); // Reset zoom khi chuyển ảnh
     if (project.screenshots) {
       setSelectedImgIdx((prev) =>
         prev !== null
@@ -178,6 +180,7 @@ export default function ProjectDetail({
 
   const handleNext = (e: React.MouseEvent) => {
     e.stopPropagation();
+    setIsZoomed(false); // Reset zoom khi chuyển ảnh
     if (project.screenshots) {
       setSelectedImgIdx((prev) =>
         prev !== null ? (prev + 1) % project.screenshots!.length : null,
@@ -188,18 +191,25 @@ export default function ProjectDetail({
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (selectedImgIdx === null || !project.screenshots) return;
-      if (e.key === "Escape") setSelectedImgIdx(null);
-      if (e.key === "ArrowLeft")
+      if (e.key === "Escape") {
+        setSelectedImgIdx(null);
+        setIsZoomed(false);
+      }
+      if (e.key === "ArrowLeft") {
+        setIsZoomed(false);
         setSelectedImgIdx((prev) =>
           prev !== null
             ? (prev - 1 + project.screenshots!.length) %
               project.screenshots!.length
             : null,
         );
-      if (e.key === "ArrowRight")
+      }
+      if (e.key === "ArrowRight") {
+        setIsZoomed(false);
         setSelectedImgIdx((prev) =>
           prev !== null ? (prev + 1) % project.screenshots!.length : null,
         );
+      }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
@@ -468,58 +478,65 @@ export default function ProjectDetail({
         <AnimatePresence>
           {selectedImgIdx !== null && project.screenshots && (
             <motion.div
-              className="lightbox-overlay"
+              className={`lightbox-overlay ${isZoomed ? "is-zoomed" : ""}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setSelectedImgIdx(null)}
+              onClick={() => {
+                setSelectedImgIdx(null);
+                setIsZoomed(false);
+              }}
             >
               <div
                 className="lightbox-content"
                 onClick={(e) => e.stopPropagation()}
               >
-                <motion.button
-                  className="lightbox-close"
-                  onClick={() => setSelectedImgIdx(null)}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                {!isZoomed && (
+                  <motion.button
+                    className="lightbox-close"
+                    onClick={() => setSelectedImgIdx(null)}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
                   >
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </motion.button>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </motion.button>
+                )}
 
-                <motion.button
-                  className="lightbox-nav lightbox-prev"
-                  onClick={handlePrev}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                {!isZoomed && (
+                  <motion.button
+                    className="lightbox-nav lightbox-prev"
+                    onClick={handlePrev}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
                   >
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                  </svg>
-                </motion.button>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                  </motion.button>
+                )}
 
                 <motion.div
                   className="lightbox-img-container"
@@ -527,6 +544,8 @@ export default function ProjectDetail({
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.92 }}
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  onClick={() => setIsZoomed(!isZoomed)}
+                  style={{ cursor: isZoomed ? "zoom-out" : "zoom-in" }}
                 >
                   <Image
                     src={project.screenshots[selectedImgIdx].url}
@@ -534,45 +553,50 @@ export default function ProjectDetail({
                     width={1920}
                     height={1080}
                     style={{
-                      width: "100%",
+                      width: isZoomed ? "auto" : "100%",
                       height: "auto",
-                      maxHeight: "85vh",
+                      maxWidth: isZoomed ? "none" : "100%",
                       objectFit: "contain",
-                      borderRadius: "var(--r-md)",
+                      borderRadius: isZoomed ? "0" : "var(--r-md)",
                     }}
-                    sizes="90vw"
+                    sizes="100vw"
+                    priority
                   />
                 </motion.div>
 
-                <motion.button
-                  className="lightbox-nav lightbox-next"
-                  onClick={handleNext}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                {!isZoomed && (
+                  <motion.button
+                    className="lightbox-nav lightbox-next"
+                    onClick={handleNext}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
                   >
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                  </svg>
-                </motion.button>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </motion.button>
+                )}
 
-                <motion.div
-                  className="lightbox-counter"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  {selectedImgIdx + 1} / {project.screenshots.length}
-                </motion.div>
+                {!isZoomed && (
+                  <motion.div
+                    className="lightbox-counter"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    {selectedImgIdx + 1} / {project.screenshots.length}
+                  </motion.div>
+                )}
               </div>
             </motion.div>
           )}
