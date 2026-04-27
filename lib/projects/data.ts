@@ -148,7 +148,7 @@ export const PROJECTS: Project[] = [
     slug: "laptop-shop",
     title: "Laptop Shop",
     desc: "Hệ thống thương mại điện tử chuyên biệt cho thiết bị công nghệ. Tích hợp quy trình từ duyệt sản phẩm, quản lý giỏ hàng đến thanh toán tự động qua QR và quản trị đơn hàng tập trung.",
-    image: "/image/laptop-shop-thumbnail.jpg",
+    image: "/image/laptop-shop/home.png",
     github: "https://github.com/HaoNgo232/laptop-shop",
     demo: null,
     displayNumber: "02",
@@ -207,6 +207,56 @@ export const PROJECTS: Project[] = [
       { name: "TypeScript", category: "backend" },
       { name: "Zustand", category: "frontend" },
       { name: "Docker", category: "devops" },
+    ],
+    screenshots: [
+      { url: "/image/laptop-shop/home.png", alt: "Giao diện trang chủ" },
+      {
+        url: "/image/laptop-shop/danh_muc.png",
+        alt: "Danh mục sản phẩm và bộ lọc",
+      },
+      {
+        url: "/image/laptop-shop/chi_tiet_san_pham.png",
+        alt: "Chi tiết sản phẩm",
+      },
+      { url: "/image/laptop-shop/gio_hang.png", alt: "Quản lý giỏ hàng" },
+      {
+        url: "/image/laptop-shop/chon_phuong_thuc_thanh_toan.png",
+        alt: "Lựa chọn phương thức thanh toán",
+      },
+      {
+        url: "/image/laptop-shop/thanh_toan_bang_qr_code.png",
+        alt: "Thanh toán qua mã QR ngân hàng",
+      },
+      {
+        url: "/image/laptop-shop/dat_hang_thanh_cong.png",
+        alt: "Xác nhận đặt hàng thành công",
+      },
+      {
+        url: "/image/laptop-shop/admin_dashboard.png",
+        alt: "Bảng điều khiển quản trị",
+      },
+      {
+        url: "/image/laptop-shop/admin_product_manager.png",
+        alt: "Quản lý sản phẩm (Admin)",
+      },
+      {
+        url: "/image/laptop-shop/admin_order_manager.png",
+        alt: "Quản lý đơn hàng (Admin)",
+      },
+    ],
+    videos: [
+      {
+        url: "https://youtu.be/blxYkm9qTqU",
+        title: "Luồng đặt hàng & Thanh toán QR",
+        description:
+          "Demo quy trình từ khi chọn sản phẩm đến khi hệ thống tự động xác nhận thanh toán qua Webhook SePay.",
+      },
+      {
+        url: "https://youtu.be/fInUltOF2pk",
+        title: "Quản trị Hệ thống (Admin)",
+        description:
+          "Giao diện quản lý kho hàng, xử lý đơn hàng và theo dõi luồng vận hành của website.",
+      },
     ],
   },
   {
