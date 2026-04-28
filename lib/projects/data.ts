@@ -12,7 +12,7 @@ export const PROJECTS: Project[] = [
     displaySubtitle: "Platform-as-a-Service",
     subtitle: "Nền tảng PaaS tự lưu trữ trên Kubernetes",
     vision: [
-      "Mục tiêu là làm một PaaS đơn giản như shared hosting thời PHP/MySQL - upload code là chạy - nhưng trên Kubernetes. Giao diện web che đi kubectl và YAML, developer chỉ cần paste URL repo hoặc chọn Docker image.",
+      "Mục tiêu là làm một PaaS đơn giản như shared hosting thời PHP/MySQL - upload code là chạy - nhưng trên Kubernetes. Giao diện web che đi kubectl và YAML, developer paste URL repo hoặc chọn Docker image.",
       "Hai nhóm người dùng: Developer deploy app từ Docker image, GitHub repo (tự build qua Buildpacks, không cần Dockerfile), hoặc tạo nhanh project microservices từ template có sẵn. Admin quản cụm K8s, thêm node, cài infrastructure qua web UI thay vì SSH vào server gõ lệnh.",
       "Backend NestJS, frontend Next.js, cụm Kubernetes ở giữa. Deploy task nặng chạy async qua BullMQ, dùng DAG để xử lý các bước có dependency (ví dụ: tạo database trước, rồi mới deploy API).",
     ],
@@ -59,13 +59,13 @@ export const PROJECTS: Project[] = [
       {
         title: "Cân bằng tải & Scale tự động",
         description:
-          "Scale replica qua giao diện, Kubernetes phân phối request đều giữa các Pod trên nhiều node. Kịch bản 500 request cho kết quả 167/167/166.",
+          "Scale replica qua giao diện, Kubernetes tự phân phối request giữa các Pod trên nhiều node. Kịch bản 500 request cho kết quả 167/167/166.",
         icon: "LoadBalancer",
       },
       {
         title: "Xử lý bất đồng bộ với BullMQ + DAG",
         description:
-          "Tác vụ triển khai được đẩy vào hàng đợi BullMQ, xử lý bởi worker riêng biệt. BullMQ Flow điều phối tác vụ có phụ thuộc theo cấu trúc DAG.",
+          "Tác vụ triển khai được đẩy vào hàng đợi BullMQ, xử lý bởi worker riêng biệt. BullMQ Flow xử lý tác vụ có phụ thuộc theo cấu trúc DAG.",
         icon: "Queue",
       },
     ],
@@ -157,7 +157,7 @@ export const PROJECTS: Project[] = [
     vision: [
       "Làm một trang bán laptop có đủ flow từ đầu đến cuối: xem sản phẩm, bỏ giỏ hàng, thanh toán QR, admin quản lý đơn. Phần thanh toán và quản lý trạng thái đơn hàng là phần tôi chú trọng nhất.",
       "Có hệ thống member rank từ Bronze đến Diamond, tự động tính discount dựa trên tổng giá trị đơn đã mua. Docker hóa toàn bộ để deploy dễ hơn.",
-      "Frontend React tách riêng với backend NestJS API. Dùng TypeORM + PostgreSQL để đảm bảo transaction đặt hàng và cập nhật thanh toán không bị sai lệch.",
+      "Frontend React tách riêng với backend NestJS API. Dùng TypeORM + PostgreSQL, có transaction khi đặt hàng và cập nhật thanh toán.",
     ],
     terminalLines: [
       "backend: starting NestJS application...",
@@ -395,7 +395,7 @@ export const PROJECTS: Project[] = [
       {
         title: "Parse bằng Tree-sitter",
         description:
-          "Để trích signature hay xác định ranh giới symbol, regex hỏng ngay khi gặp comment hoặc string lạ. Tree-sitter parse theo grammar thật của ngôn ngữ nên đáng tin hơn nhiều.",
+          "Để trích signature hay xác định ranh giới symbol, regex không đủ tin cậy khi gặp comment hoặc string phức tạp. Tree-sitter parse theo grammar thật của ngôn ngữ nên chính xác hơn.",
         icon: "Code",
       },
       {

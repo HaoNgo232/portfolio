@@ -605,12 +605,10 @@ export default function ProjectDetail({
         {/* CTA */}
         <div className="cta-card">
           <div>
-            <h3 style={{ marginBottom: "0.5rem" }}>
-              Quan tâm đến kiến trúc hệ thống?
-            </h3>
+            <h3 style={{ marginBottom: "0.5rem" }}>Muốn hỏi về dự án này?</h3>
             <p>
-              Muốn hỏi về cách tôi thiết kế hệ thống, quyết định tech stack,
-              hoặc có cơ hội việc làm phù hợp — liên hệ tôi qua email.
+              Nếu bạn muốn biết thêm chi tiết về cách tôi làm dự án này, hoặc có
+              cơ hội việc làm phù hợp, liên hệ tôi qua email.
             </p>
           </div>
           <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>

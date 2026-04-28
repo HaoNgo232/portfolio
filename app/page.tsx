@@ -260,15 +260,14 @@ export default function Home() {
       <section className="hero">
         <div className="container">
           <div className="hero-inner">
-            <p className="section-label">Sẵn sàng nhận việc</p>
+            <p className="section-label">Đang tìm việc</p>
             <h1>
               <span className="hero-name">Ngô Gia Hạo</span>
             </h1>
             <p className="hero-subtitle">
-              Web Developer với background Mạng máy tính. Thay vì chỉ code, tôi
-              nhìn hệ thống theo chiều dọc — từ infrastructure đến API design.
-              Dùng AI như trợ lý để tăng tốc development, tập trung năng lực vào
-              kiến trúc và quality control.
+              Web Developer với background Mạng máy tính. Học qua dự án thực tế
+              và thực tập, từ backend API đến deployment. Dùng AI để tăng tốc
+              phần code lặp, còn bản thân tập trung vào logic và debug.
             </p>
             <div className="hero-actions">
               <a href="#projects" className="btn btn-primary">
@@ -315,11 +314,10 @@ export default function Home() {
                 infrastructure và data flow nhiều như logic nghiệp vụ.
               </p>
               <p>
-                Tôi làm việc theo mô hình AI-Assisted Development: dùng AI sinh
-                code, còn bản thân thiết kế kiến trúc, review quality và ra
-                quyết định kỹ thuật. Stack chính: NestJS/Node.js cho backend,
-                Docker/Kubernetes cho deployment. Code tốt với tôi là code người
-                khác đọc được sau 3 tháng.
+                Tôi dùng AI để sinh code boilerplate và xử lý task lặp, còn bản
+                thân đọc hiểu logic và debug khi có lỗi. Stack chính:
+                NestJS/Node.js cho backend, Docker/Kubernetes qua thực tập. Code
+                tốt với tôi là code người khác đọc được sau 3 tháng.
               </p>
             </div>
             <div className="about-stack">
