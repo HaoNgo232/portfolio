@@ -265,9 +265,9 @@ export default function Home() {
               <span className="hero-name">Ngô Gia Hạo</span>
             </h1>
             <p className="hero-subtitle">
-              Web Developer với background Mạng máy tính. Học qua dự án thực tế
-              và thực tập, từ backend API đến deployment. Dùng AI để tăng tốc
-              phần code lặp, còn bản thân tập trung vào logic và debug.
+              Với background với Mạng máy tính, học qua dự án thực tế và thực
+              tập. Làm từ backend API đến deployment. Dùng AI để tăng tốc phần
+              code lặp, còn bản thân tập trung vào logic và debug.
             </p>
             <div className="hero-actions">
               <a href="#projects" className="btn btn-primary">
@@ -342,7 +342,7 @@ export default function Home() {
         <div className="container">
           <div ref={contactRef} className="fade-up contact-inner">
             <p className="section-label">Liên hệ</p>
-            <h2>Đang tìm việc Web Developer</h2>
+            <h2>Đang tìm việc Fresher/Junior</h2>
             <p
               style={{ marginTop: "1rem", color: "var(--clr-text-secondary)" }}
             >
