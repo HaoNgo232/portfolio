@@ -12,9 +12,9 @@ export const PROJECTS: Project[] = [
     displaySubtitle: "Platform-as-a-Service",
     subtitle: "Nền tảng PaaS tự lưu trữ trên Kubernetes",
     vision: [
-      "Đề tài xây dựng nền tảng PaaS tự lưu trữ dựa trên Kubernetes kết hợp giao diện web trực quan để che giấu sự phức tạp của hệ thống bên dưới. Mục tiêu là tái hiện trải nghiệm triển khai đơn giản mà shared hosting từng mang lại cho thời kỳ PHP/MySQL, nhưng trên nền tảng công nghệ hiện đại hỗ trợ đa ngôn ngữ và khả năng mở rộng theo chiều ngang.",
-      "Hệ thống phục vụ hai nhóm đối tượng: Developer triển khai ứng dụng từ Docker Image, mã nguồn GitHub (tự động build qua Cloud Native Buildpacks không cần Dockerfile), hoặc khởi tạo nhanh dự án Microservices từ Blueprint; Admin quản trị cụm Kubernetes, thêm node, cài đặt hạ tầng thông qua giao diện web thay vì dòng lệnh.",
-      "Kiến trúc bốn tầng: Backend NestJS, Frontend Next.js, cụm Kubernetes và các dịch vụ hỗ trợ. Các tác vụ triển khai nặng được xử lý bất đồng bộ qua hàng đợi BullMQ kết hợp cấu trúc DAG để điều phối tác vụ có quan hệ phụ thuộc.",
+      "Mục tiêu là làm một PaaS đơn giản như shared hosting thời PHP/MySQL - upload code là chạy - nhưng trên Kubernetes. Giao diện web che đi kubectl và YAML, developer chỉ cần paste URL repo hoặc chọn Docker image.",
+      "Hai nhóm người dùng: Developer deploy app từ Docker image, GitHub repo (tự build qua Buildpacks, không cần Dockerfile), hoặc tạo nhanh project microservices từ template có sẵn. Admin quản cụm K8s, thêm node, cài infrastructure qua web UI thay vì SSH vào server gõ lệnh.",
+      "Backend NestJS, frontend Next.js, cụm Kubernetes ở giữa. Deploy task nặng chạy async qua BullMQ, dùng DAG để xử lý các bước có dependency (ví dụ: tạo database trước, rồi mới deploy API).",
     ],
     terminalLines: [
       "$ ssh user@192.168.56.10",
@@ -155,9 +155,9 @@ export const PROJECTS: Project[] = [
     displaySubtitle: "E-Commerce System",
     subtitle: "Nền tảng thương mại điện tử tích hợp thanh toán QR.",
     vision: [
-      "Dự án tập trung vào việc xây dựng một luồng nghiệp vụ e-commerce hoàn chỉnh, từ khâu quản lý sản phẩm phía Admin đến trải nghiệm mua sắm của khách hàng. Mục tiêu chính là xử lý tốt quy trình thanh toán và quản lý trạng thái đơn hàng.",
-      "Hệ thống áp dụng cơ chế phân hạng thành viên (Bronze đến Diamond) để tự động tính toán mức chiết khấu phù hợp dựa trên tổng giá trị đơn hàng đã hoàn tất. Toàn bộ hạ tầng được đóng gói bằng Docker giúp việc triển khai và quản lý môi trường trở nên đồng nhất.",
-      "Kiến trúc tách biệt giữa React SPA và NestJS API giúp hệ thống linh hoạt trong việc phát triển độc lập. Việc sử dụng TypeORM kết hợp PostgreSQL đảm bảo tính toàn vẹn dữ liệu cho các giao dịch quan trọng như đặt hàng và cập nhật trạng thái thanh toán.",
+      "Làm một trang bán laptop có đủ flow từ đầu đến cuối: xem sản phẩm, bỏ giỏ hàng, thanh toán QR, admin quản lý đơn. Phần thanh toán và quản lý trạng thái đơn hàng là phần tôi chú trọng nhất.",
+      "Có hệ thống member rank từ Bronze đến Diamond, tự động tính discount dựa trên tổng giá trị đơn đã mua. Docker hóa toàn bộ để deploy dễ hơn.",
+      "Frontend React tách riêng với backend NestJS API. Dùng TypeORM + PostgreSQL để đảm bảo transaction đặt hàng và cập nhật thanh toán không bị sai lệch.",
     ],
     terminalLines: [
       "backend: starting NestJS application...",
@@ -271,9 +271,9 @@ export const PROJECTS: Project[] = [
     subtitle:
       "Hệ thống thương mại điện tử kính mắt dựa trên kiến trúc đa dịch vụ.",
     vision: [
-      "Vision Store là dự án thương mại điện tử tập trung vào trải nghiệm người dùng thông qua giao diện trực quan và cấu trúc dữ liệu chặt chẽ. Mục tiêu của dự án là hiện thực hóa quy trình mua sắm từ khâu chọn lọc sản phẩm đến quản lý giỏ hàng.",
-      "Hệ thống sử dụng kiến trúc đa dịch vụ để module hóa các thành phần như Sản phẩm, Đơn hàng, Giỏ hàng và Người dùng. Cấu trúc này cho phép các dịch vụ hoạt động độc lập, sử dụng cơ sở dữ liệu riêng biệt và giao tiếp qua API Gateway.",
-      "Dữ liệu hình ảnh và tài nguyên tĩnh được lưu trữ tập trung trên Object Storage (MinIO), giúp quản lý tệp tin hiệu quả và giảm tải cho máy chủ ứng dụng.",
+      "Trang bán kính mắt dùng kiến trúc microservices. Mỗi service (Product, Cart, User, Order) chạy độc lập với database riêng, giao tiếp qua API Gateway.",
+      "Lý do tách service là để thử nghiệm pattern này trong project nhỏ. Mỗi service có thể deploy và scale riêng mà không ảnh hưởng phần khác.",
+      "Hình ảnh sản phẩm lưu trên MinIO (object storage) thay vì để trong server app, giúp quản lý file dễ hơn và giảm tải cho backend.",
     ],
     terminalLines: [
       "Initializing Vision Store Ecosystem...",
@@ -348,52 +348,88 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    slug: "agent-bridge-kit",
-    title: "Agent Bridge Kit & Synapse",
-    desc: "Bộ công cụ kết nối AI agent với các dịch vụ bên ngoài. Synapse layer quản lý context, memory và tool routing cho hệ thống multi-agent một cách hiệu quả và đáng tin cậy.",
-    image: "/image/agent-bridge-thumbnail.jpg",
-    github: "https://github.com",
+    slug: "synapse-desktop",
+    title: "Synapse Desktop",
+    desc: "Ứng dụng desktop tôi viết để dùng các AI web chat miễn phí cho việc coding mà không phải copy-paste file thủ công. Đóng gói context, đếm token, và áp patch tự động vào codebase.",
+    image: "/image/synapse-desktop/context-tab.png",
+    github: "https://github.com/HaoNgo232/Synapse-Desktop",
     demo: null,
     displayNumber: "04",
-    displaySubtitle: "AI Infrastructure",
+    displaySubtitle: "AI Context Management",
     subtitle:
-      "Infrastructure toolkit for connecting AI agents with external services through a reliable, context-aware routing layer.",
+      "Công cụ desktop cá nhân để làm việc với AI web chat trong workflow coding hằng ngày.",
     vision: [
-      "Khi xây dựng multi-agent systems, vấn đề không phải là viết một agent — mà là kết nối nhiều agents lại với nhau một cách đáng tin cậy.",
-      "Agent Bridge Kit cung cấp một abstraction layer chuẩn hóa cách agents giao tiếp with tools và services. Synapse quản lý context, memory persistence và intelligent tool routing.",
+      "Tôi xài AI khá nhiều khi code, nhưng phần lớn thời gian không phải là viết prompt — mà là chuẩn bị context để gửi cho nó. Mở từng file, copy nội dung, paste vào chat. File đổi thì làm lại. Chuyển task thì làm lại. Một lúc sau thì nhận ra mình đang làm thư ký cho cái chatbot.",
+      "Vấn đề thứ hai là token. Gửi nguyên codebase thì vượt giới hạn, gửi ít quá thì AI đoán bừa. Tôi cần biết chính xác mình đang gửi bao nhiêu token cho từng model trước khi bấm Send, không phải đoán.",
+      "Vấn đề thứ ba khó chịu nhất: AI trả về code dạng text, và việc dán đúng đoạn vào đúng vị trí trong đúng file là việc dễ sai. Tôi muốn AI trả về patch có cấu trúc, xem diff trước khi apply, và có backup nếu lỡ tay.",
+      "Synapse Desktop là cách tôi tự giải quyết ba thứ trên cho riêng mình. Chọn file từ tree, đóng gói thành prompt có cấu trúc, copy một phát. Đếm token theo từng model. Nhận patch dạng OPX, xem diff, apply. Bên trong dùng Tree-sitter để parse code thay vì regex, vì regex sẽ hỏng ngay khi gặp comment hoặc string chứa ký tự đặc biệt.",
     ],
     terminalLines: [
-      "agent-bridge-kit v0.4.2 starting...",
-      "synapse layer initialized",
-      "tools loaded: 24",
-      "routing engine ready [OK]",
+      "$ python main_window.py",
+      "Synapse Desktop v0.3.0",
+      "Tree-sitter: 10 grammars loaded",
+      "Tokenizers: tiktoken (gpt-4), claude, gemini",
+      "MCP server listening on stdio",
+      "Workspace: ~/projects/portfolio",
+      "Indexed 247 files (~45k tokens) in 1.2s",
     ],
     features: [
       {
-        title: "Universal Bridge",
+        title: "Đóng gói context từ file tree",
         description:
-          "Kết nối bất kỳ AI framework (LangChain, CrewAI, AutoGen) với external services qua một interface thống nhất.",
-        icon: "UniversalBridge",
+          "Tick file cần gửi, app tự gom thành prompt có cấu trúc. Có chế độ Full Context cho task cần đọc kỹ, Compress chỉ giữ lại signature khi cần overview, và Git Diff khi chỉ muốn nói về phần vừa sửa.",
+        icon: "Package",
       },
       {
-        title: "Context Synapse",
+        title: "Đếm token theo từng model",
         description:
-          "Shared memory layer giúp agents nhớ và chia sẻ context across sessions và tools.",
-        icon: "ContextSynapse",
+          "GPT, Claude, Gemini đếm token khác nhau. App đếm theo đúng tokenizer của model bạn đang dùng và cảnh báo trước khi vượt giới hạn, không phải sau khi paste vào chat mới biết.",
+        icon: "Calculator",
       },
       {
-        title: "Smart Tool Routing",
+        title: "Visual diff trước khi apply",
         description:
-          "Tự động chọn và chain tools dựa trên agent intent, không cần hardcode workflows.",
-        icon: "SmartRouting",
+          "AI trả patch dạng OPX, app render diff như Git để bạn xem trước. Bấm apply thì code mới ghi đè, kèm backup phòng khi cần undo.",
+        icon: "Diff",
+      },
+      {
+        title: "Parse bằng Tree-sitter",
+        description:
+          "Để trích signature hay xác định ranh giới symbol, regex hỏng ngay khi gặp comment hoặc string lạ. Tree-sitter parse theo grammar thật của ngôn ngữ nên đáng tin hơn nhiều.",
+        icon: "Code",
+      },
+      {
+        title: "Gợi ý file liên quan",
+        description:
+          "Khi chọn một file, app dò các file có quan hệ import/dependency để đề xuất kèm theo. Tránh trường hợp gửi context thiếu rồi AI bịa ra interface không tồn tại.",
+        icon: "FileSearch",
       },
     ],
     techStack: [
       { name: "Python", category: "backend" },
-      { name: "TypeScript", category: "backend" },
-      { name: "Docker", category: "devops" },
-      { name: "Redis", category: "database" },
+      { name: "PySide6", category: "frontend" },
+      { name: "Tree-sitter", category: "backend" },
+      { name: "tiktoken", category: "backend" },
     ],
+    screenshots: [
+      {
+        url: "/image/synapse-desktop/context-tab.png",
+        alt: "Context tab - File selection và token counting",
+      },
+      {
+        url: "/image/synapse-desktop/apply-tab.png",
+        alt: "Apply tab - Visual diff và code patching",
+      },
+      {
+        url: "/image/synapse-desktop/history-tab.png",
+        alt: "History tab - Lịch sử copy/apply actions",
+      },
+      {
+        url: "/image/synapse-desktop/settings-tab.png",
+        alt: "Settings tab - Cấu hình app và MCP",
+      },
+    ],
+    videos: [],
   },
 ];
 

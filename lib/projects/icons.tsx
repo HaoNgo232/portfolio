@@ -153,6 +153,39 @@ const IcoLayout = () => (
     <line x1="9" y1="21" x2="9" y2="9" />
   </svg>
 );
+const IcoCalculator = () => (
+  <svg {...S}>
+    <rect x="4" y="2" width="16" height="20" rx="2" />
+    <line x1="8" y1="6" x2="16" y2="6" />
+    <line x1="8" y1="10" x2="16" y2="10" />
+    <line x1="8" y1="14" x2="16" y2="14" />
+    <line x1="8" y1="18" x2="10" y2="18" />
+    <line x1="14" y1="18" x2="16" y2="18" />
+  </svg>
+);
+const IcoDiff = () => (
+  <svg {...S}>
+    <rect x="3" y="3" width="18" height="18" rx="2" />
+    <line x1="9" y1="3" x2="9" y2="21" />
+    <line x1="14" y1="8" x2="14" y2="16" />
+    <line x1="12" y1="8" x2="16" y2="8" />
+    <line x1="12" y1="16" x2="16" y2="16" />
+  </svg>
+);
+const IcoCode = () => (
+  <svg {...S}>
+    <polyline points="16 18 22 12 16 6" />
+    <polyline points="8 6 2 12 8 18" />
+  </svg>
+);
+const IcoFileSearch = () => (
+  <svg {...S}>
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <polyline points="14 2 14 8 20 8" />
+    <circle cx="11.5" cy="14.5" r="2.5" />
+    <line x1="13.3" y1="16.3" x2="15" y2="18" />
+  </svg>
+);
 
 // Type-safe icon mapping
 export const FEATURE_ICONS: Record<IconKey, React.ReactNode> = {
@@ -179,4 +212,9 @@ export const FEATURE_ICONS: Record<IconKey, React.ReactNode> = {
   Rank: <IcoTrendingUp />,
   Dashboard: <IcoLayout />,
   Mail: <IcoMail />,
+  Package: <IcoPackage />,
+  Calculator: <IcoCalculator />,
+  Diff: <IcoDiff />,
+  Code: <IcoCode />,
+  FileSearch: <IcoFileSearch />,
 };

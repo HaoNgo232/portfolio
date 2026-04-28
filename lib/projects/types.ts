@@ -22,7 +22,12 @@ export type IconKey =
   | "Payment"
   | "Rank"
   | "Dashboard"
-  | "Mail";
+  | "Mail"
+  | "Package"
+  | "Calculator"
+  | "Diff"
+  | "Code"
+  | "FileSearch";
 
 // Value Objects
 export interface TechStack {
