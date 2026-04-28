@@ -265,9 +265,10 @@ export default function Home() {
               <span className="hero-name">Ngô Gia Hạo</span>
             </h1>
             <p className="hero-subtitle">
-              Với background với Mạng máy tính, học qua dự án thực tế và thực
-              tập. Làm từ backend API đến deployment. Dùng AI để tăng tốc phần
-              code lặp, còn bản thân tập trung vào logic và debug.
+              Tốt nghiệp Mạng Máy Tính tháng 4/2026. Kiến thức lập trình tự học
+              qua dự án cá nhân, thực tập và tài liệu online. Dùng AI để xử lý
+              task lặp, còn bản thân đọc hiểu logic và debug. Stack chính:
+              NestJS/Node.js, React/Next.js, Kubernetes qua luận văn.
             </p>
             <div className="hero-actions">
               <a href="#projects" className="btn btn-primary">
@@ -308,16 +309,18 @@ export default function Home() {
               <h2>Về Tôi</h2>
               <p>
                 Tốt nghiệp ngành Mạng Máy Tính tháng 4/2026. Mọi kiến thức về
-                phần mềm tôi tự học qua dự án thực tế, thực tập và đọc code —
-                không phải từ giáo trình Computer Science truyền thống. Điều này
-                tạo ra góc nhìn khác: tôi quan tâm đến networking,
-                infrastructure và data flow nhiều như logic nghiệp vụ.
+                phần mềm tôi tự học qua dự án cá nhân, thực tập và tài liệu
+                online, không phải từ giáo trình khoa học máy tính truyền thống.
+                Điều này tạo ra góc nhìn khác: tôi quan tâm đến system design và
+                data flow nhiều như logic nghiệp vụ. Và tôi tin code tốt là code
+                người khác đọc được sau 3 tháng, hơn là code quá thông minh đến
+                nỗi chỉ mình tôi hiểu.
               </p>
               <p>
                 Tôi dùng AI để sinh code boilerplate và xử lý task lặp, còn bản
                 thân đọc hiểu logic và debug khi có lỗi. Stack chính:
-                NestJS/Node.js cho backend, Docker/Kubernetes qua thực tập. Code
-                tốt với tôi là code người khác đọc được sau 3 tháng.
+                Nest.js/Node.js cho backend, React/Next.js cho frontend,
+                Kubernetes qua quá trình làm luận văn.
               </p>
             </div>
             <div className="about-stack">
