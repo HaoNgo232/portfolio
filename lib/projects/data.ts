@@ -147,7 +147,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "laptop-shop",
     title: "Laptop Shop",
-    desc: "Hệ thống thương mại điện tử chuyên biệt cho thiết bị công nghệ. Tích hợp quy trình từ duyệt sản phẩm, quản lý giỏ hàng đến thanh toán tự động qua QR và quản trị đơn hàng tập trung.",
+    desc: "Trang bán laptop có đủ flow: browse sản phẩm, thêm giỏ hàng, thanh toán QR qua SePay, admin quản lý đơn hàng. Phần tôi chú trọng nhất là payment integration và order status management.",
     image: "/image/laptop-shop/home.png",
     github: "https://github.com/HaoNgo232/laptop-shop",
     demo: null,
@@ -261,7 +261,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "vision-store",
     title: "Vision Store",
-    desc: "Hệ thống thương mại điện tử kính mắt triển khai trên kiến trúc đa dịch vụ. Dự án tập trung vào việc phân tách các miền nghiệp vụ và tối ưu hóa quy trình quản lý tài nguyên tĩnh.",
+    desc: "Trang bán kính mắt dùng kiến trúc multi-service. Mỗi service (Product, Cart, User, Order) chạy độc lập với database riêng, hình ảnh lưu trên MinIO thay vì trong server. Dự án này để học microservices pattern.",
     image: "/image/vision-store-thumbnail.jpg",
     github:
       "https://github.com/HaoNgo232/VisionStore-E-Commerce-Microservices-Backend",
@@ -429,7 +429,14 @@ export const PROJECTS: Project[] = [
         alt: "Settings tab - Cấu hình app và MCP",
       },
     ],
-    videos: [],
+    videos: [
+      {
+        url: "https://youtu.be/-W_SwdjeluQ",
+        title: "Demo Code to Prompt",
+        description:
+          "Demo đầy đủ workflow: chọn files, đếm token, copy context, paste vào AI, nhận patch và apply tự động vào codebase.",
+      },
+    ],
   },
 ];
 

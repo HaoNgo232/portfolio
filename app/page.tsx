@@ -7,7 +7,6 @@ import {
   IconExternal,
   Badge,
   IconEmail,
-  IconLinkedIn,
 } from "@/components/ui/icons";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
@@ -18,8 +17,6 @@ const ABOUT_STACK = {
   Backend: [
     { name: "NestJS", icon: "/icons/nestjs-original.svg" },
     { name: "Node.js", icon: "/icons/nodejs-original.svg" },
-    { name: "Python", icon: "/icons/python-original.svg" },
-    { name: "FastAPI", icon: "/icons/fastapi-original.svg" },
   ],
   Frontend: [
     { name: "Next.js", icon: "/icons/nextjs-original.svg" },
@@ -30,11 +27,9 @@ const ABOUT_STACK = {
     { name: "Docker", icon: "/icons/docker-original.svg" },
     { name: "Kubernetes", icon: "/icons/kubernetes-plain.svg" },
     { name: "Git", icon: "/icons/git-original.svg" },
-    { name: "Linux", icon: "/icons/linux-original.svg" },
   ],
   Database: [
     { name: "PostgreSQL", icon: "/icons/postgresql-original.svg" },
-    { name: "MongoDB", icon: "/icons/mongodb-original.svg" },
     { name: "Redis", icon: "/icons/redis-original.svg" },
   ],
 };
@@ -270,9 +265,10 @@ export default function Home() {
               <span className="hero-name">Ngô Gia Hạo</span>
             </h1>
             <p className="hero-subtitle">
-              Web Developer chuyên nghiệp kiến tạo các giải pháp kỹ thuật hiệu
-              suất cao, tập trung vào kiến trúc hệ thống hiện đại và trải nghiệm
-              người dùng tối ưu.
+              Web Developer với background Mạng máy tính. Thay vì chỉ code, tôi
+              nhìn hệ thống theo chiều dọc — từ infrastructure đến API design.
+              Dùng AI như trợ lý để tăng tốc development, tập trung năng lực vào
+              kiến trúc và quality control.
             </p>
             <div className="hero-actions">
               <a href="#projects" className="btn btn-primary">
@@ -312,16 +308,18 @@ export default function Home() {
               <p className="section-label">Về tôi</p>
               <h2>Về Tôi</h2>
               <p>
-                Tôi là Web Developer đam mê giải quyết các bài toán kỹ thuật
-                phức tạp bằng mã nguồn tinh gọn. Với kinh nghiệm trong hệ sinh
-                thái Microservices và Cloud-native, tôi luôn hướng tới xây dựng
-                sản phẩm không chỉ đẹp mắt mà còn bền vững về mặt kỹ thuật.
+                Tốt nghiệp ngành Mạng Máy Tính tháng 4/2026. Mọi kiến thức về
+                phần mềm tôi tự học qua dự án thực tế, thực tập và đọc code —
+                không phải từ giáo trình Computer Science truyền thống. Điều này
+                tạo ra góc nhìn khác: tôi quan tâm đến networking,
+                infrastructure và data flow nhiều như logic nghiệp vụ.
               </p>
               <p>
-                Thế mạnh của tôi nằm ở việc làm chủ các công nghệ Backend như
-                NestJS, Node.js kết hợp với khả năng vận hành hệ thống trên
-                Docker và Kubernetes. Tôi tin rằng code tốt là code đơn giản, dễ
-                đọc và dễ bảo trì.
+                Tôi làm việc theo mô hình AI-Assisted Development: dùng AI sinh
+                code, còn bản thân thiết kế kiến trúc, review quality và ra
+                quyết định kỹ thuật. Stack chính: NestJS/Node.js cho backend,
+                Docker/Kubernetes cho deployment. Code tốt với tôi là code người
+                khác đọc được sau 3 tháng.
               </p>
             </div>
             <div className="about-stack">
@@ -346,12 +344,13 @@ export default function Home() {
         <div className="container">
           <div ref={contactRef} className="fade-up contact-inner">
             <p className="section-label">Liên hệ</p>
-            <h2>Sẵn sàng bắt đầu dự án?</h2>
+            <h2>Đang tìm việc Web Developer</h2>
             <p
               style={{ marginTop: "1rem", color: "var(--clr-text-secondary)" }}
             >
-              Tôi luôn sẵn sàng thảo luận về những cơ hội mới và thử thách kỹ
-              thuật thú vị. Hãy kết nối với tôi qua các kênh bên dưới.
+              Đang tìm vị trí Fresher/Junior Web Developer (Backend hoặc
+              Fullstack). Nếu bạn có cơ hội phù hợp hoặc muốn hỏi về cách tôi
+              xây dự án, liên hệ tôi qua email.
             </p>
             <div className="contact-links">
               <a

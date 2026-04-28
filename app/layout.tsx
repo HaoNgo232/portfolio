@@ -17,7 +17,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Ngô Gia Hạo — Web Developer",
   description:
-    "Portfolio của Ngô Gia Hạo — Web Developer chuyên về hệ thống hiệu suất cao, kiến trúc microservices và frontend hiện đại.",
+    "Portfolio của Ngô Gia Hạo — Web Developer với background Mạng máy tính, làm backend NestJS/Node.js, biết Docker và Kubernetes.",
   keywords: [
     "web developer",
     "portfolio",
