@@ -39,7 +39,7 @@ export const PROJECTS: Project[] = [
         icon: "Deployment",
       },
       {
-        title: "Build từ GitHub — Không cần Dockerfile",
+        title: "Build từ GitHub - Không cần Dockerfile",
         description:
           "Cloud Native Buildpacks tự động nhận diện ngôn ngữ (Node.js, Java, Python, Go, PHP), build container image chuẩn OCI và triển khai lên cụm.",
         icon: "Build",
@@ -53,7 +53,7 @@ export const PROJECTS: Project[] = [
       {
         title: "Quản trị cụm Kubernetes qua giao diện",
         description:
-          "Khởi tạo cluster, thêm node, cài đặt hạ tầng (Kpack, Redis, Metrics Server, Prometheus), cordon/drain/remove node — tất cả qua web UI, không cần SSH.",
+          "Khởi tạo cluster, thêm node, cài đặt hạ tầng (Kpack, Redis, Metrics Server, Prometheus), cordon/drain/remove node. Tất cả qua web UI, không cần SSH.",
         icon: "Cluster",
       },
       {
@@ -115,7 +115,7 @@ export const PROJECTS: Project[] = [
       },
       {
         url: "https://www.youtube.com/watch?v=ifERTaV9740",
-        title: "Build & Deploy Spring Boot Từ GitHub — Không Cần Dockerfile",
+        title: "Build & Deploy Spring Boot Từ GitHub - Không Cần Dockerfile",
         description:
           "Kpack tự động nhận diện ứng dụng Spring Boot từ repository GitHub, build OCI image chuẩn không cần Dockerfile, push vào Local Registry và triển khai lên cụm. Developer chỉ cần cung cấp URL repository.",
       },
@@ -287,25 +287,25 @@ export const PROJECTS: Project[] = [
       {
         title: "Giao diện Trực quan",
         description:
-          "Thiết kế tập trung vào tính khả dụng, sử dụng các thành phần UI tinh gọn để tối ưu hóa việc hiển thị sản phẩm.",
+          "UI đơn giản, dễ dùng. Tập trung vào việc hiển thị sản phẩm rõ ràng.",
         icon: "FastLoad",
       },
       {
         title: "Kiến trúc đa dịch vụ",
         description:
-          "Hệ thống được chia thành các service độc lập, quản lý database riêng biệt cho từng domain (Product, User, Order).",
+          "Hệ thống chia thành các service độc lập, mỗi service có database riêng (Product, User, Order).",
         icon: "ModuleGraph",
       },
       {
         title: "Bộ lọc Thuộc tính",
         description:
-          "Tính năng lọc sản phẩm theo các thông số kỹ thuật như chất liệu gọng, hình dáng và đặc tính tròng kính.",
+          "Lọc sản phẩm theo thông số kỹ thuật: chất liệu gọng, hình dáng, đặc tính tròng kính.",
         icon: "VisualSearch",
       },
       {
         title: "Object Storage (MinIO)",
         description:
-          "Lưu trữ tài nguyên tĩnh tập trung, hỗ trợ việc phân phối dữ liệu hình ảnh một cách nhất quán.",
+          "Hình ảnh sản phẩm lưu trên MinIO thay vì trong server app, dễ quản lý hơn.",
         icon: "Cluster",
       },
     ],
@@ -349,20 +349,20 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "synapse-desktop",
-    title: "Synapse Desktop",
+    title: "Code to Prompt",
     desc: "Ứng dụng desktop tôi viết để dùng các AI web chat miễn phí cho việc coding mà không phải copy-paste file thủ công. Đóng gói context, đếm token, và áp patch tự động vào codebase.",
     image: "/image/synapse-desktop/context-tab.png",
     github: "https://github.com/HaoNgo232/Synapse-Desktop",
     demo: null,
     displayNumber: "04",
-    displaySubtitle: "AI Context Management",
+    displaySubtitle: "Code to Prompt Tool",
     subtitle:
       "Công cụ desktop cá nhân để làm việc với AI web chat trong workflow coding hằng ngày.",
     vision: [
-      "Tôi xài AI khá nhiều khi code, nhưng phần lớn thời gian không phải là viết prompt — mà là chuẩn bị context để gửi cho nó. Mở từng file, copy nội dung, paste vào chat. File đổi thì làm lại. Chuyển task thì làm lại. Một lúc sau thì nhận ra mình đang làm thư ký cho cái chatbot.",
+      "Tôi xài AI khá nhiều khi code, nhưng phần lớn thời gian không phải là viết prompt mà là chuẩn bị context để gửi cho nó. Mở từng file, copy nội dung, paste vào chat. File đổi thì làm lại. Chuyển task thì làm lại. Một lúc sau thì nhận ra mình đang làm thư ký cho cái chatbot.",
       "Vấn đề thứ hai là token. Gửi nguyên codebase thì vượt giới hạn, gửi ít quá thì AI đoán bừa. Tôi cần biết chính xác mình đang gửi bao nhiêu token cho từng model trước khi bấm Send, không phải đoán.",
       "Vấn đề thứ ba khó chịu nhất: AI trả về code dạng text, và việc dán đúng đoạn vào đúng vị trí trong đúng file là việc dễ sai. Tôi muốn AI trả về patch có cấu trúc, xem diff trước khi apply, và có backup nếu lỡ tay.",
-      "Synapse Desktop là cách tôi tự giải quyết ba thứ trên cho riêng mình. Chọn file từ tree, đóng gói thành prompt có cấu trúc, copy một phát. Đếm token theo từng model. Nhận patch dạng OPX, xem diff, apply. Bên trong dùng Tree-sitter để parse code thay vì regex, vì regex sẽ hỏng ngay khi gặp comment hoặc string chứa ký tự đặc biệt.",
+      "Code to Prompt là cách tôi tự giải quyết ba thứ trên cho riêng mình. Chọn file từ tree, đóng gói thành prompt có cấu trúc, copy một phát. Đếm token theo từng model. Nhận patch dạng OPX, xem diff, apply. Bên trong dùng Tree-sitter để parse code thay vì regex, vì regex sẽ hỏng ngay khi gặp comment hoặc string chứa ký tự đặc biệt.",
     ],
     terminalLines: [
       "$ python main_window.py",
