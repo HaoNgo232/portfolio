@@ -308,23 +308,19 @@ export default function Home() {
               <p className="section-label">Về tôi</p>
               <h2>Về Tôi</h2>
               <p>
-                Tốt nghiệp ngành Mạng Máy Tính tháng 4/2026. Mọi kiến thức về
-                phần mềm tôi tự học qua dự án cá nhân, thực tập và tài liệu
-                online, không phải từ giáo trình khoa học máy tính truyền thống.
-                Điều này tạo ra góc nhìn khác: tôi quan tâm đến system design và
-                data flow nhiều như logic nghiệp vụ. Và tôi tin code tốt là code
-                người khác đọc được sau 3 tháng, hơn là code quá thông minh đến
-                nỗi chỉ mình tôi hiểu.
+                Tôi tốt nghiệp ngành Mạng Máy Tính tháng 4/2026. Phần lập trình
+                web tôi chủ yếu tự học qua dự án cá nhân, thực tập và tài liệu
+                online. Các project trong portfolio này là những bài tôi đã làm
+                để luyện backend, frontend, database và triển khai ứng dụng.
               </p>
               <p>
-                Tôi dùng AI để sinh code boilerplate và xử lý task lặp, còn bản
-                thân đọc hiểu logic và debug khi có lỗi. Stack chính:
-                Nest.js/Node.js cho backend, React/Next.js cho frontend,
-                Kubernetes qua quá trình làm luận văn.
+                Trong quá trình làm project, tôi có dùng AI để hỗ trợ viết
+                boilerplate và xử lý một số tác vụ lặp. Tôi vẫn kiểm tra lại
+                code, chạy thử luồng chính và sửa lỗi khi tích hợp vào project.
               </p>
             </div>
             <div className="about-stack">
-              <p className="section-label">Công nghệ chính</p>
+              <p className="section-label">Công nghệ đã dùng trong project</p>
               {Object.entries(ABOUT_STACK).map(([group, items]) => (
                 <div key={group}>
                   <p className="stack-group-label">{group}</p>

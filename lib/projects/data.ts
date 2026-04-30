@@ -35,37 +35,37 @@ export const PROJECTS: Project[] = [
       {
         title: "Triển khai từ Docker Image",
         description:
-          "Cung cấp tên image, hệ thống tự động tạo Deployment, Service, Ingress và cấp phát URL truy cập chỉ qua vài thao tác trên giao diện.",
+          "Người dùng nhập tên image, project tạo các Kubernetes resource cơ bản như Deployment, Service và Ingress để chạy thử ứng dụng trong môi trường lab.",
         icon: "Deployment",
       },
       {
-        title: "Build từ GitHub - Không cần Dockerfile",
+        title: "Build từ GitHub bằng Buildpacks",
         description:
-          "Cloud Native Buildpacks tự động nhận diện ngôn ngữ (Node.js, Java, Python, Go, PHP), build container image chuẩn OCI và triển khai lên cụm.",
+          "Project thử luồng dùng Cloud Native Buildpacks để build image từ GitHub repo trong một số trường hợp không có Dockerfile.",
         icon: "Build",
       },
       {
         title: "Scaffold dự án Microservices",
         description:
-          "Chọn Blueprint (Next.js + Express + PostgreSQL), hệ thống tự động tạo GitHub repos, cấp database, build image và triển khai theo DAG 3 tầng: DB → API → Frontend.",
+          "Chọn Blueprint mẫu, project tạo nhiều service demo như database, API và frontend, sau đó xử lý các bước deploy theo thứ tự phụ thuộc DB → API → Frontend.",
         icon: "Scaffold",
       },
       {
         title: "Quản trị cụm Kubernetes qua giao diện",
         description:
-          "Khởi tạo cluster, thêm node, cài đặt hạ tầng (Kpack, Redis, Metrics Server, Prometheus), cordon/drain/remove node. Tất cả qua web UI, không cần SSH.",
+          "Một số thao tác quản trị cụm như xem node, thêm node và cài hạ tầng thử nghiệm được đưa lên web UI để hạn chế thao tác thủ công trong demo.",
         icon: "Cluster",
       },
       {
-        title: "Cân bằng tải & Scale tự động",
+        title: "Scale replica qua giao diện",
         description:
-          "Scale replica qua giao diện, Kubernetes tự phân phối request giữa các Pod trên nhiều node. Kịch bản 500 request cho kết quả 167/167/166.",
+          "Có thử nghiệm thay đổi số replica từ giao diện và quan sát Kubernetes phân phối request giữa các Pod trong môi trường lab.",
         icon: "LoadBalancer",
       },
       {
         title: "Xử lý bất đồng bộ với BullMQ + DAG",
         description:
-          "Tác vụ triển khai được đẩy vào hàng đợi BullMQ, xử lý bởi worker riêng biệt. BullMQ Flow xử lý tác vụ có phụ thuộc theo cấu trúc DAG.",
+          "Một số tác vụ deploy được đưa vào BullMQ worker. Các bước có quan hệ phụ thuộc được tách ra để xử lý theo thứ tự rõ ràng hơn.",
         icon: "Queue",
       },
     ],
@@ -99,31 +99,31 @@ export const PROJECTS: Project[] = [
         url: "https://www.youtube.com/watch?v=6hkUHJolqnQ",
         title: "Khởi Tạo Cụm Kubernetes",
         description:
-          "Khởi tạo cluster từ trạng thái zero-node: nhập SSH credentials → Ansible tự động cài Kubernetes → cấu hình mạng → thu thập join token → thêm Worker Node → cài đặt hạ tầng bổ sung.",
+          "Demo luồng khởi tạo cluster trong môi trường lab: nhập SSH credentials, chạy Ansible để cài Kubernetes, cấu hình mạng, lấy join token và thêm Worker Node.",
       },
       {
         url: "https://www.youtube.com/watch?v=i2GFYuC8duw",
         title: "Quản Trị Tài Nguyên Kubernetes",
         description:
-          "Duyệt Namespace, Deployment, Pod, Service, Ingress trực tiếp trên giao diện web. Chỉnh sửa YAML trên trình duyệt qua Monaco Editor. Đối chiếu với kubectl.",
+          "Demo việc xem Namespace, Deployment, Pod, Service, Ingress trên giao diện web và đối chiếu lại với kubectl.",
       },
       {
         url: "https://www.youtube.com/watch?v=tipTp5xoJok",
         title: "Triển Khai App Full-stack",
         description:
-          "Deploy ứng dụng full-stack gồm React + Vite (frontend), NestJS (backend) và PostgreSQL (database) lên cụm Kubernetes hoàn toàn qua giao diện web. Hệ thống tự động tạo Deployment, Service, Ingress, cấp phát database và URL truy cập.",
+          "Demo deploy ứng dụng full-stack gồm React + Vite, NestJS và PostgreSQL lên cụm Kubernetes qua giao diện web trong môi trường thử nghiệm.",
       },
       {
         url: "https://www.youtube.com/watch?v=ifERTaV9740",
-        title: "Build & Deploy Spring Boot Từ GitHub - Không Cần Dockerfile",
+        title: "Build & Deploy Spring Boot Từ GitHub bằng Buildpacks",
         description:
-          "Kpack tự động nhận diện ứng dụng Spring Boot từ repository GitHub, build OCI image chuẩn không cần Dockerfile, push vào Local Registry và triển khai lên cụm. Developer chỉ cần cung cấp URL repository.",
+          "Demo luồng dùng Kpack/Buildpacks để build image từ repository Spring Boot, push vào Local Registry và triển khai lên cụm Kubernetes.",
       },
       {
         url: "https://www.youtube.com/watch?v=YBXgYm5sEK0",
         title: "Scaffold Dự Án Microservices Từ Blueprint",
         description:
-          "Tính năng phức tạp nhất: chọn Blueprint → hệ thống tự tạo 5 dịch vụ (2 DB + 2 API + 1 Frontend) theo DAG 3 tầng, sinh mã nguồn, push GitHub, build image và triển khai toàn bộ.",
+          "Demo luồng chọn Blueprint để tạo nhiều service mẫu, sinh mã nguồn, push GitHub, build image và deploy theo các bước có phụ thuộc.",
       },
     ],
     environment: [
@@ -147,7 +147,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "laptop-shop",
     title: "Laptop Shop",
-    desc: "Trang bán laptop có đủ flow: browse sản phẩm, thêm giỏ hàng, thanh toán QR qua SePay, admin quản lý đơn hàng. Phần tôi chú trọng nhất là payment integration và order status management.",
+    desc: "Trang bán laptop mô phỏng các luồng cơ bản của e-commerce: xem sản phẩm, giỏ hàng, đặt hàng, thanh toán QR qua SePay và màn hình admin quản lý đơn.",
     image: "/image/laptop-shop/home.png",
     github: "https://github.com/HaoNgo232/laptop-shop",
     demo: null,
@@ -155,9 +155,9 @@ export const PROJECTS: Project[] = [
     displaySubtitle: "E-Commerce System",
     subtitle: "Nền tảng thương mại điện tử tích hợp thanh toán QR.",
     vision: [
-      "Làm một trang bán laptop có đủ flow từ đầu đến cuối: xem sản phẩm, bỏ giỏ hàng, thanh toán QR, admin quản lý đơn. Phần thanh toán và quản lý trạng thái đơn hàng là phần tôi chú trọng nhất.",
-      "Có hệ thống member rank từ Bronze đến Diamond, tự động tính discount dựa trên tổng giá trị đơn đã mua. Docker hóa toàn bộ để deploy dễ hơn.",
-      "Frontend React tách riêng với backend NestJS API. Dùng TypeORM + PostgreSQL, có transaction khi đặt hàng và cập nhật thanh toán.",
+      "Project mô phỏng một trang bán laptop với các luồng cơ bản: xem sản phẩm, thêm vào giỏ hàng, đặt hàng, thanh toán QR và admin quản lý đơn.",
+      "Project có thử hệ thống member rank từ Bronze đến Diamond và tính discount dựa trên tổng giá trị đơn đã mua.",
+      "Frontend React tách riêng với backend NestJS API. Backend dùng TypeORM + PostgreSQL và có xử lý transaction trong luồng đặt hàng, cập nhật thanh toán.",
     ],
     terminalLines: [
       "backend: starting NestJS application...",
@@ -169,31 +169,31 @@ export const PROJECTS: Project[] = [
       {
         title: "Xác thực & Phân quyền JWT",
         description:
-          "Hệ thống bảo mật với Access Token và Refresh Token, phân quyền người dùng và quản trị viên thông qua Guards.",
+          "Có luồng đăng nhập bằng JWT, refresh token và phân quyền người dùng/admin bằng Guards trong NestJS.",
         icon: "Lock",
       },
       {
         title: "Thanh toán QR",
         description:
-          "Tích hợp SePay để tạo mã QR ngân hàng theo từng đơn hàng, tự động xác nhận trạng thái thanh toán qua webhook.",
+          "Tạo QR thanh toán theo đơn hàng và cập nhật trạng thái thanh toán qua webhook SePay trong demo.",
         icon: "Payment",
       },
       {
         title: "Phân hạng Thành viên",
         description:
-          "Hệ thống tự động tính mức giảm giá (5% - 20%) dựa trên hạng thành viên được tích lũy từ lịch sử mua hàng.",
+          "Có thử logic tính hạng thành viên và mức giảm giá dựa trên lịch sử mua hàng trong project.",
         icon: "Rank",
       },
       {
         title: "Quản trị Đơn hàng",
         description:
-          "Giao diện Admin cho phép quản lý danh mục, sản phẩm và theo dõi trạng thái các đơn hàng trong hệ thống.",
+          "Có màn hình admin để quản lý danh mục, sản phẩm và theo dõi trạng thái đơn hàng.",
         icon: "Dashboard",
       },
       {
         title: "Email Thông báo",
         description:
-          "Tự động gửi email xác nhận và thông báo cho người dùng thông qua EJS templates.",
+          "Có tích hợp gửi email xác nhận/thông báo bằng template EJS trong một số luồng chính.",
         icon: "Mail",
       },
     ],
@@ -261,7 +261,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "vision-store",
     title: "Vision Store",
-    desc: "Trang bán kính mắt dùng kiến trúc multi-service. Mỗi service (Product, Cart, User, Order) chạy độc lập với database riêng, hình ảnh lưu trên MinIO thay vì trong server. Dự án này để học microservices pattern.",
+    desc: "Trang bán kính mắt thử kiến trúc multi-service ở mức project cá nhân. Các service như Product, Cart, User, Order được tách riêng; hình ảnh sản phẩm lưu trên MinIO.",
     image: "/image/vision-store-thumbnail.jpg",
     github:
       "https://github.com/HaoNgo232/VisionStore-E-Commerce-Microservices-Backend",
@@ -271,9 +271,9 @@ export const PROJECTS: Project[] = [
     subtitle:
       "Hệ thống thương mại điện tử kính mắt dựa trên kiến trúc đa dịch vụ.",
     vision: [
-      "Trang bán kính mắt dùng kiến trúc microservices. Mỗi service (Product, Cart, User, Order) chạy độc lập với database riêng, giao tiếp qua API Gateway.",
-      "Lý do tách service là để thử nghiệm pattern này trong project nhỏ. Mỗi service có thể deploy và scale riêng mà không ảnh hưởng phần khác.",
-      "Hình ảnh sản phẩm lưu trên MinIO (object storage) thay vì để trong server app, giúp quản lý file dễ hơn và giảm tải cho backend.",
+      "Project bán kính mắt dùng kiến trúc multi-service để thử cách tách các phần như Product, Cart, User và Order thành các service riêng.",
+      "Lý do tách service là để thử pattern microservices trong project nhỏ và quan sát cách các service giao tiếp qua API Gateway.",
+      "Hình ảnh sản phẩm lưu trên MinIO thay vì để trực tiếp trong server app, giúp tách phần lưu file ra khỏi backend chính.",
     ],
     terminalLines: [
       "Initializing Vision Store Ecosystem...",
@@ -287,13 +287,13 @@ export const PROJECTS: Project[] = [
       {
         title: "Giao diện Trực quan",
         description:
-          "UI đơn giản, dễ dùng. Tập trung vào việc hiển thị sản phẩm rõ ràng.",
+          "UI đơn giản, tập trung vào việc hiển thị sản phẩm và các luồng mua hàng cơ bản.",
         icon: "FastLoad",
       },
       {
         title: "Kiến trúc đa dịch vụ",
         description:
-          "Hệ thống chia thành các service độc lập, mỗi service có database riêng (Product, User, Order).",
+          "Project tách một số phần thành service riêng như Product, User và Order để thử cách tổ chức backend theo hướng multi-service.",
         icon: "ModuleGraph",
       },
       {
@@ -305,7 +305,7 @@ export const PROJECTS: Project[] = [
       {
         title: "Object Storage (MinIO)",
         description:
-          "Hình ảnh sản phẩm lưu trên MinIO thay vì trong server app, dễ quản lý hơn.",
+          "Hình ảnh sản phẩm được lưu trên MinIO để thử cách dùng object storage trong project e-commerce.",
         icon: "Cluster",
       },
     ],
@@ -350,19 +350,19 @@ export const PROJECTS: Project[] = [
   {
     slug: "synapse-desktop",
     title: "Code to Prompt",
-    desc: "Ứng dụng desktop tôi viết để dùng các AI web chat miễn phí cho việc coding mà không phải copy-paste file thủ công. Đóng gói context, đếm token, và áp patch tự động vào codebase.",
+    desc: "Ứng dụng desktop cá nhân hỗ trợ gom context từ codebase để dùng với AI web chat. App có các phần chọn file, ước lượng token, xem diff và apply patch vào project.",
     image: "/image/synapse-desktop/context-tab.png",
     github: "https://github.com/HaoNgo232/Synapse-Desktop",
     demo: null,
     displayNumber: "04",
     displaySubtitle: "Code to Prompt Tool",
     subtitle:
-      "Công cụ desktop cá nhân để làm việc với AI web chat trong workflow coding hằng ngày.",
+      "Công cụ desktop cá nhân hỗ trợ chuẩn bị context và xem patch khi làm việc với AI web chat.",
     vision: [
-      "Tôi xài AI khá nhiều khi code, nhưng phần lớn thời gian không phải là viết prompt mà là chuẩn bị context để gửi cho nó. Mở từng file, copy nội dung, paste vào chat. File đổi thì làm lại. Chuyển task thì làm lại. Một lúc sau thì nhận ra mình đang làm thư ký cho cái chatbot.",
-      "Vấn đề thứ hai là token. Gửi nguyên codebase thì vượt giới hạn, gửi ít quá thì AI đoán bừa. Tôi cần biết chính xác mình đang gửi bao nhiêu token cho từng model trước khi bấm Send, không phải đoán.",
-      "Vấn đề thứ ba khó chịu nhất: AI trả về code dạng text, và việc dán đúng đoạn vào đúng vị trí trong đúng file là việc dễ sai. Tôi muốn AI trả về patch có cấu trúc, xem diff trước khi apply, và có backup nếu lỡ tay.",
-      "Code to Prompt là cách tôi tự giải quyết ba thứ trên cho riêng mình. Chọn file từ tree, đóng gói thành prompt có cấu trúc, copy một phát. Đếm token theo từng model. Nhận patch dạng OPX, xem diff, apply. Bên trong dùng Tree-sitter để parse code thay vì regex, vì regex sẽ hỏng ngay khi gặp comment hoặc string chứa ký tự đặc biệt.",
+      "Project này xuất phát từ nhu cầu gom nhiều file code thành một prompt có cấu trúc khi dùng AI web chat.",
+      "App hỗ trợ chọn file từ tree, xem ước lượng token theo model và lưu lại lịch sử thao tác.",
+      "Một phần khác của app là nhận patch có cấu trúc, hiển thị diff để xem trước rồi mới apply vào codebase.",
+      "Project có thử dùng Tree-sitter để đọc cấu trúc code ở một số ngôn ngữ, thay vì chỉ xử lý text thuần.",
     ],
     terminalLines: [
       "$ python main_window.py",
@@ -377,31 +377,31 @@ export const PROJECTS: Project[] = [
       {
         title: "Đóng gói context từ file tree",
         description:
-          "Tick file cần gửi, app tự gom thành prompt có cấu trúc. Có chế độ Full Context cho task cần đọc kỹ, Compress chỉ giữ lại signature khi cần overview, và Git Diff khi chỉ muốn nói về phần vừa sửa.",
+          "Chọn file cần gửi, app gom nội dung thành prompt có cấu trúc. Có các chế độ context khác nhau để thử giảm lượng nội dung phải copy thủ công.",
         icon: "Package",
       },
       {
-        title: "Đếm token theo từng model",
+        title: "Ước lượng token theo model",
         description:
-          "GPT, Claude, Gemini đếm token khác nhau. App đếm theo đúng tokenizer của model bạn đang dùng và cảnh báo trước khi vượt giới hạn, không phải sau khi paste vào chat mới biết.",
+          "App ước lượng token theo một số tokenizer/model phổ biến để dễ kiểm soát độ dài context trước khi copy sang AI chat.",
         icon: "Calculator",
       },
       {
         title: "Visual diff trước khi apply",
         description:
-          "AI trả patch dạng OPX, app render diff như Git để bạn xem trước. Bấm apply thì code mới ghi đè, kèm backup phòng khi cần undo.",
+          "App hiển thị diff để xem trước nội dung patch trước khi ghi thay đổi vào codebase, kèm backup để dễ quay lại khi cần.",
         icon: "Diff",
       },
       {
         title: "Parse bằng Tree-sitter",
         description:
-          "Để trích signature hay xác định ranh giới symbol, regex không đủ tin cậy khi gặp comment hoặc string phức tạp. Tree-sitter parse theo grammar thật của ngôn ngữ nên chính xác hơn.",
+          "Project có thử dùng Tree-sitter để trích thông tin cấu trúc code trong một số trường hợp, giúp hạn chế phụ thuộc vào xử lý text thuần.",
         icon: "Code",
       },
       {
         title: "Gợi ý file liên quan",
         description:
-          "Khi chọn một file, app dò các file có quan hệ import/dependency để đề xuất kèm theo. Tránh trường hợp gửi context thiếu rồi AI bịa ra interface không tồn tại.",
+          "Khi chọn một file, app thử dò một số file có quan hệ import/dependency để gợi ý đưa thêm vào context.",
         icon: "FileSearch",
       },
     ],
@@ -434,7 +434,7 @@ export const PROJECTS: Project[] = [
         url: "https://youtu.be/-W_SwdjeluQ",
         title: "Demo Code to Prompt",
         description:
-          "Demo đầy đủ workflow: chọn files, đếm token, copy context, paste vào AI, nhận patch và apply tự động vào codebase.",
+          "Demo workflow chọn files, xem ước lượng token, copy context sang AI chat, nhận patch và xem diff trước khi apply vào codebase.",
       },
     ],
   },
