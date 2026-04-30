@@ -1,70 +1,98 @@
 # AGENTS.md
 
-Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+## Project Overview
 
-## 1. Think Before Coding
+Personal portfolio website built with Next.js 16 (App Router), React 19, TypeScript, and Tailwind CSS 4. Features project showcases with detailed pages, animations via Framer Motion, and Vietnamese content. Uses pnpm for package management.
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+## Development Commands
 
-Before implementing:
+```bash
+# Development
+pnpm dev              # Start dev server at http://localhost:3000
 
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
+# Build & Production
+pnpm build            # Production build
+pnpm start            # Start production server
 
-## 2. Simplicity First
+# Code Quality
+pnpm lint             # Run ESLint
+pnpm format           # Format code with Prettier
 
-**Minimum code that solves the problem. Nothing speculative.**
-
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
-
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
-
-## 3. Surgical Changes
-
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
-
-When your changes create orphans:
-
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
-
-## 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform tasks into verifiable goals:
-
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
-
-For multi-step tasks, state a brief plan:
-
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
+# Git Hooks
+pnpm prepare          # Install Husky hooks (runs automatically after install)
 ```
 
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+Pre-commit hook runs `lint-staged` automatically, which lints and formats staged files before commit.
 
----
+## Architecture
 
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+### App Structure (Next.js App Router)
+
+- `app/page.tsx` — Home page with hero, projects list, about, and contact sections
+- `app/projects/[slug]/page.tsx` — Dynamic project detail pages
+- `app/layout.tsx` — Root layout with fonts (Space Grotesk, Inter) and metadata
+- `app/globals.css` — Global styles with CSS custom properties and Tailwind
+
+### Data Layer
+
+- `lib/projects/data.ts` — Project data source (PROJECTS array)
+- `lib/projects/types.ts` — TypeScript types for Project, Feature, TechStack, etc.
+- `lib/projects/icons.tsx` — Feature icon components (FEATURE_ICONS map)
+- `lib/projects/stack-icons.ts` — Tech stack icon mappings (STACK_ICONS map)
+- `lib/projects/youtube.ts` — YouTube URL parser utility
+
+Project data structure:
+
+- Core fields: slug, title, desc, image, github, demo
+- Display fields: displayNumber, displaySubtitle
+- Detail fields: subtitle, vision, terminalLines, features, techStack, screenshots, videos, environment
+
+### Components
+
+- `components/ui/icons.tsx` — Reusable icon components (IconGithub, IconExternal, IconEmail, Badge)
+
+### Key Patterns
+
+**Project Detail Page Features:**
+
+- Lazy-loaded YouTube embeds via IntersectionObserver
+- Image lightbox with keyboard navigation (Arrow keys, Escape) and zoom
+- Framer Motion animations for fade-in effects
+- Environment info section for infrastructure details (PaaS projects)
+
+**Styling Approach:**
+
+- Tailwind CSS 4 with PostCSS
+- CSS custom properties in globals.css for theming (--clr-_, --font-_, --r-\*)
+- Utility-first with semantic class names for complex components
+
+**Path Aliases:**
+
+- `@/*` maps to project root (configured in tsconfig.json)
+
+## Tech Stack
+
+- **Framework:** Next.js 16.2.4 (App Router, React 19)
+- **Styling:** Tailwind CSS 4, PostCSS
+- **Animation:** Framer Motion 12
+- **Fonts:** Space Grotesk, Inter (Google Fonts)
+- **Linting:** ESLint 9 with Next.js config + Prettier integration
+- **Git Hooks:** Husky + lint-staged
+- **Package Manager:** pnpm (uses pnpm-workspace.yaml)
+
+## Adding New Projects
+
+1. Add project data to `PROJECTS` array in `lib/projects/data.ts`
+2. Add project images to `public/image/{project-slug}/`
+3. If using new tech stack icons, add to `STACK_ICONS` in `lib/projects/stack-icons.ts`
+4. If using new feature icons, add to `FEATURE_ICONS` in `lib/projects/icons.tsx` and update `IconKey` type
+
+## Notes
+
+- Content is in Vietnamese
+- Uses strict TypeScript mode
+- ESLint configured with Next.js core-web-vitals and Prettier
+- Image optimization via Next.js Image component with responsive sizes
+- Dynamic routes use `use(params)` pattern (React 19 async params)
