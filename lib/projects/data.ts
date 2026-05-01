@@ -11,6 +11,66 @@ export const PROJECTS: Project[] = [
     displayNumber: "01",
     displaySubtitle: "Platform-as-a-Service",
     subtitle: "Nền tảng PaaS tự lưu trữ trên Kubernetes",
+    role: "Solo Developer / Graduation Project",
+    projectType: "DevOps Lab / Platform Prototype",
+    timeline: "Project cá nhân/luận văn",
+    status: "Lab environment",
+    focus: [
+      "Kubernetes deployment flow",
+      "Docker image deployment",
+      "Buildpacks experiment",
+      "Async deploy tasks",
+      "Cluster resource management UI",
+    ],
+    summary: {
+      problem:
+        "Việc triển khai ứng dụng lên Kubernetes thường cần nhiều thao tác với kubectl, YAML và cấu hình hạ tầng. Project này thử nghiệm cách tạo một giao diện web đơn giản để che bớt độ phức tạp đó trong môi trường lab.",
+      approach:
+        "Backend NestJS xử lý API và các tác vụ deploy bất đồng bộ; frontend Next.js cung cấp UI quản lý; Kubernetes chạy workload; BullMQ/DAG được dùng để tách các bước có dependency như tạo database, deploy API và deploy frontend.",
+      result:
+        "Hoàn thiện được các demo chính: khởi tạo/quản lý cụm lab, xem resource Kubernetes, deploy app từ Docker image, thử build từ GitHub bằng Buildpacks và scaffold project microservices mẫu.",
+    },
+    responsibilities: [
+      "Thiết kế luồng triển khai ứng dụng từ UI đến Kubernetes resource.",
+      "Xây dựng backend NestJS cho API quản lý project, resource và deploy task.",
+      "Xây dựng frontend Next.js cho thao tác deploy, xem resource và quản trị cụm.",
+      "Thử nghiệm Ansible/Kubernetes trong môi trường máy ảo lab.",
+      "Ghi lại video demo cho các luồng chính.",
+    ],
+    technicalHighlights: [
+      "Tạo Deployment, Service, Ingress cho ứng dụng demo.",
+      "Tách deploy task nặng sang BullMQ worker.",
+      "Dùng DAG để biểu diễn thứ tự phụ thuộc DB → API → Frontend trong luồng scaffold.",
+      "Thử Cloud Native Buildpacks/Kpack để build image từ GitHub repository.",
+      "Hiển thị resource Kubernetes qua giao diện thay vì thao tác trực tiếp bằng kubectl.",
+    ],
+    challenges: [
+      {
+        title: "Nhiều bước deploy có dependency",
+        problem:
+          "Một ứng dụng full-stack thường cần database sẵn sàng trước khi API/frontend chạy ổn định.",
+        solution:
+          "Tách luồng deploy thành nhiều bước nhỏ và xử lý theo thứ tự phụ thuộc bằng DAG trong worker.",
+      },
+      {
+        title: "Giảm thao tác thủ công với Kubernetes",
+        problem:
+          "Người dùng mới dễ bị rối bởi kubectl, YAML và nhiều loại resource.",
+        solution:
+          "Tạo UI cho các thao tác thường gặp như xem node, xem pod/service/ingress và scale replica trong lab.",
+      },
+      {
+        title: "Build app khi không có Dockerfile",
+        problem: "Một số repository không có Dockerfile sẵn để build image.",
+        solution:
+          "Thử nghiệm Buildpacks/Kpack để build image từ source trong một số demo.",
+      },
+    ],
+    outcomes: [
+      "Có demo video cho các luồng chính.",
+      "Chạy được trong môi trường Kubernetes lab với master/worker VM.",
+      "Rút kinh nghiệm về Kubernetes resource, async job và workflow deployment.",
+    ],
     vision: [
       "Mục tiêu là làm một PaaS đơn giản như shared hosting thời PHP/MySQL - upload code là chạy - nhưng trên Kubernetes. Giao diện web che đi kubectl và YAML, developer paste URL repo hoặc chọn Docker image.",
       "Hai nhóm người dùng: Developer deploy app từ Docker image, GitHub repo (tự build qua Buildpacks, không cần Dockerfile), hoặc tạo nhanh project microservices từ template có sẵn. Admin quản cụm K8s, thêm node, cài infrastructure qua web UI thay vì SSH vào server gõ lệnh.",
@@ -154,6 +214,65 @@ export const PROJECTS: Project[] = [
     displayNumber: "02",
     displaySubtitle: "E-Commerce System",
     subtitle: "Nền tảng thương mại điện tử tích hợp thanh toán QR.",
+    role: "Solo Full-stack Developer",
+    projectType: "E-commerce Demo",
+    timeline: "Project cá nhân",
+    status: "Demo project",
+    focus: [
+      "Backend API",
+      "JWT authentication",
+      "QR payment flow",
+      "Admin dashboard",
+      "PostgreSQL transaction",
+    ],
+    summary: {
+      problem:
+        "Project mô phỏng một hệ thống bán laptop với các luồng e-commerce phổ biến như xem sản phẩm, giỏ hàng, đặt hàng, thanh toán và quản trị đơn.",
+      approach:
+        "Frontend React xử lý trải nghiệm mua hàng; backend NestJS cung cấp API cho auth, sản phẩm, giỏ hàng, đơn hàng và thanh toán; PostgreSQL lưu dữ liệu; một số luồng dùng transaction để giữ tính nhất quán khi tạo đơn và cập nhật trạng thái.",
+      result:
+        "Hoàn thiện được luồng người dùng từ xem sản phẩm đến thanh toán QR, cùng màn hình admin để quản lý sản phẩm và đơn hàng trong demo.",
+    },
+    responsibilities: [
+      "Xây dựng backend NestJS cho auth, product, cart, order và payment.",
+      "Xây dựng frontend React cho trang sản phẩm, giỏ hàng, checkout và admin.",
+      "Thiết kế schema PostgreSQL cho sản phẩm, người dùng, đơn hàng và thanh toán.",
+      "Tích hợp thử nghiệm QR payment qua SePay webhook trong demo.",
+      "Tạo video demo cho luồng mua hàng và admin.",
+    ],
+    technicalHighlights: [
+      "JWT authentication, refresh token và role-based guard cho admin.",
+      "Tạo đơn hàng và cập nhật payment status.",
+      "QR payment flow với webhook SePay trong demo.",
+      "Admin dashboard quản lý sản phẩm và đơn hàng.",
+      "Email notification bằng template EJS ở một số luồng.",
+    ],
+    challenges: [
+      {
+        title: "Đồng bộ trạng thái đơn hàng và thanh toán",
+        problem:
+          "Trạng thái đơn hàng có thể thay đổi sau khi người dùng thực hiện thanh toán.",
+        solution:
+          "Tách trạng thái order/payment và cập nhật qua webhook trong demo.",
+      },
+      {
+        title: "Giữ dữ liệu nhất quán khi tạo đơn",
+        problem:
+          "Luồng checkout liên quan đến cart, order items, tổng tiền và tồn kho.",
+        solution:
+          "Dùng transaction ở backend cho các thao tác quan trọng trong luồng đặt hàng.",
+      },
+      {
+        title: "Phân quyền admin",
+        problem: "Một số API chỉ nên cho admin truy cập.",
+        solution: "Dùng JWT guard và role-based authorization trong NestJS.",
+      },
+    ],
+    outcomes: [
+      "Có demo video cho checkout QR và admin.",
+      "Thực hành được luồng e-commerce end-to-end.",
+      "Có kinh nghiệm tốt hơn với NestJS module, PostgreSQL và auth flow.",
+    ],
     vision: [
       "Project mô phỏng một trang bán laptop với các luồng cơ bản: xem sản phẩm, thêm vào giỏ hàng, đặt hàng, thanh toán QR và admin quản lý đơn.",
       "Project có thử hệ thống member rank từ Bronze đến Diamond và tính discount dựa trên tổng giá trị đơn đã mua.",
@@ -270,6 +389,66 @@ export const PROJECTS: Project[] = [
     displaySubtitle: "Multi-service E-Commerce",
     subtitle:
       "Hệ thống thương mại điện tử kính mắt dựa trên kiến trúc đa dịch vụ.",
+    role: "Solo Full-stack Developer",
+    projectType: "Multi-service E-commerce Demo",
+    timeline: "Project cá nhân",
+    status: "Demo project",
+    focus: [
+      "Multi-service backend",
+      "API Gateway",
+      "Object storage",
+      "E-commerce UI",
+      "Dockerized services",
+    ],
+    summary: {
+      problem:
+        "Project thử nghiệm cách tách một hệ thống e-commerce nhỏ thành nhiều service riêng để hiểu rõ hơn về tổ chức backend theo hướng multi-service.",
+      approach:
+        "Tách các phần như Product, Cart, User và Order thành các service riêng; dùng API Gateway để routing; lưu ảnh sản phẩm bằng MinIO; frontend Next.js hiển thị sản phẩm và các luồng mua hàng cơ bản.",
+      result:
+        "Hoàn thiện được demo mua hàng cơ bản, có frontend public, backend nhiều service và object storage cho hình ảnh sản phẩm.",
+    },
+    responsibilities: [
+      "Xây dựng các service backend chính cho sản phẩm, người dùng, giỏ hàng và đơn hàng.",
+      "Cấu hình API Gateway để điều hướng request đến các service.",
+      "Xây dựng frontend Next.js cho danh sách sản phẩm, chi tiết, giỏ hàng và checkout.",
+      "Thử tích hợp MinIO để lưu hình ảnh sản phẩm.",
+      "Docker hóa các thành phần để chạy môi trường local/demo.",
+    ],
+    technicalHighlights: [
+      "Tách backend thành nhiều service theo domain.",
+      "API Gateway làm điểm vào cho frontend.",
+      "MinIO object storage cho ảnh sản phẩm.",
+      "PostgreSQL cho dữ liệu chính.",
+      "Docker hỗ trợ chạy các service trong môi trường demo.",
+    ],
+    challenges: [
+      {
+        title: "Tách service nhưng vẫn giữ luồng mua hàng dễ hiểu",
+        problem:
+          "Khi chia nhỏ service, dữ liệu và request flow phức tạp hơn so với monolith.",
+        solution:
+          "Giới hạn phạm vi project ở các luồng e-commerce cơ bản và dùng API Gateway làm điểm vào thống nhất.",
+      },
+      {
+        title: "Quản lý ảnh sản phẩm",
+        problem:
+          "Lưu ảnh trực tiếp trong backend không phù hợp khi muốn tách phần file storage.",
+        solution:
+          "Thử dùng MinIO như object storage riêng cho hình ảnh sản phẩm.",
+      },
+      {
+        title: "Chạy nhiều service local",
+        problem: "Nhiều service cần cấu hình port, database và dependency.",
+        solution:
+          "Dùng Docker để hỗ trợ chạy các thành phần trong môi trường demo.",
+      },
+    ],
+    outcomes: [
+      "Có live preview frontend.",
+      "Có demo video tính năng cơ bản.",
+      "Hiểu rõ hơn trade-off giữa monolith và multi-service ở project nhỏ.",
+    ],
     vision: [
       "Project bán kính mắt dùng kiến trúc multi-service để thử cách tách các phần như Product, Cart, User và Order thành các service riêng.",
       "Lý do tách service là để thử pattern microservices trong project nhỏ và quan sát cách các service giao tiếp qua API Gateway.",
@@ -358,6 +537,64 @@ export const PROJECTS: Project[] = [
     displaySubtitle: "Code to Prompt Tool",
     subtitle:
       "Công cụ desktop cá nhân hỗ trợ chuẩn bị context và xem patch khi làm việc với AI web chat.",
+    role: "Solo Desktop App Developer",
+    projectType: "AI Workflow Tool",
+    timeline: "Project cá nhân",
+    status: "Local desktop tool",
+    focus: [
+      "Python desktop app",
+      "Code context packaging",
+      "Token estimation",
+      "Diff preview",
+      "Tree-sitter experiment",
+    ],
+    summary: {
+      problem:
+        "Khi làm việc với AI web chat, việc chọn nhiều file code, gom context và apply patch thủ công dễ mất thời gian và dễ sai.",
+      approach:
+        "Xây dựng desktop app bằng Python/PySide6 để chọn file từ project tree, ước lượng token, đóng gói context thành prompt, xem diff trước khi apply patch và lưu lịch sử thao tác.",
+      result:
+        "Hoàn thiện được workflow local: chọn file, copy context, nhận patch, xem diff và apply có kiểm soát vào codebase.",
+    },
+    responsibilities: [
+      "Xây dựng giao diện desktop bằng PySide6.",
+      "Xử lý file tree, chọn file và đóng gói context.",
+      "Tích hợp ước lượng token theo một số model/tokenizer.",
+      "Hiển thị diff trước khi ghi thay đổi vào project.",
+      "Thử Tree-sitter để đọc cấu trúc code ở một số ngôn ngữ.",
+    ],
+    technicalHighlights: [
+      "File tree selection cho codebase local.",
+      "Token estimation trước khi gửi context.",
+      "Visual diff trước khi apply patch.",
+      "Backup/history để giảm rủi ro khi sửa code.",
+      "Tree-sitter parsing để thử trích thông tin cấu trúc code.",
+    ],
+    challenges: [
+      {
+        title: "Giảm context thừa khi gửi code cho AI",
+        problem: "Copy quá nhiều file làm prompt dài và khó kiểm soát.",
+        solution:
+          "Thêm file selection, token estimation và gợi ý file liên quan.",
+      },
+      {
+        title: "Tránh apply patch mù",
+        problem: "Dán patch trực tiếp có thể ghi sai file hoặc làm mất code.",
+        solution:
+          "Hiển thị diff trước khi apply và thêm cơ chế backup/history.",
+      },
+      {
+        title: "Đọc cấu trúc code thay vì text thuần",
+        problem: "Xử lý code như plain text dễ thiếu ngữ cảnh.",
+        solution:
+          "Thử Tree-sitter cho một số ngôn ngữ để lấy thông tin cấu trúc.",
+      },
+    ],
+    outcomes: [
+      "Có video demo workflow.",
+      "Dùng được cho nhu cầu cá nhân khi làm việc với AI web chat.",
+      "Thực hành được desktop UI, file processing và developer tooling.",
+    ],
     vision: [
       "Project này xuất phát từ nhu cầu gom nhiều file code thành một prompt có cấu trúc khi dùng AI web chat.",
       "App hỗ trợ chọn file từ tree, xem ước lượng token theo model và lưu lại lịch sử thao tác.",

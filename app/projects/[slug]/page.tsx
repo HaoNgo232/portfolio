@@ -10,7 +10,12 @@ import { IconGithub, IconExternal, Badge } from "@/components/ui/icons";
 import { FEATURE_ICONS } from "@/lib/projects/icons";
 import { STACK_ICONS } from "@/lib/projects/stack-icons";
 import { parseYouTubeId } from "@/lib/projects/youtube";
-import type { EnvironmentMachine } from "@/lib/projects/types";
+import type {
+  EnvironmentMachine,
+  Project,
+  ProjectSummary,
+  ProjectChallenge,
+} from "@/lib/projects/types";
 
 /* ─── Icons ─────────────────────────────────────────────────────── */
 function IconBack() {
@@ -49,6 +54,193 @@ function IconNE() {
 }
 
 /* ─── Sub-components ─────────────────────────────────────────────── */
+
+/**
+ * Project Summary Card - hiển thị thông tin tổng quan về project
+ */
+function ProjectSummaryCard({ project }: { project: Project }) {
+  return (
+    <div className="project-summary-card">
+      <div className="summary-grid">
+        {project.role && (
+          <div className="summary-item">
+            <span className="summary-label">Vai trò</span>
+            <span className="summary-value">{project.role}</span>
+          </div>
+        )}
+        {project.projectType && (
+          <div className="summary-item">
+            <span className="summary-label">Loại project</span>
+            <span className="summary-value">{project.projectType}</span>
+          </div>
+        )}
+        {project.timeline && (
+          <div className="summary-item">
+            <span className="summary-label">Timeline</span>
+            <span className="summary-value">{project.timeline}</span>
+          </div>
+        )}
+        {project.status && (
+          <div className="summary-item">
+            <span className="summary-label">Trạng thái</span>
+            <span className="summary-value">{project.status}</span>
+          </div>
+        )}
+      </div>
+      {project.focus && project.focus.length > 0 && (
+        <div style={{ marginTop: "1.25rem" }}>
+          <span
+            className="summary-label"
+            style={{ display: "block", marginBottom: "0.5rem" }}
+          >
+            Trọng tâm kỹ thuật
+          </span>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+            {project.focus.map((tag) => (
+              <span
+                key={tag}
+                style={{
+                  fontSize: "0.75rem",
+                  padding: "0.375rem 0.75rem",
+                  background: "var(--clr-primary-dim)",
+                  color: "var(--clr-primary)",
+                  borderRadius: "var(--r-sm)",
+                  fontFamily: "var(--font-mono)",
+                  fontWeight: 500,
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Case Study Summary - hiển thị bài toán, cách tiếp cận, kết quả
+ */
+function CaseStudySummary({ summary }: { summary: ProjectSummary }) {
+  return (
+    <div className="case-study-grid">
+      <div className="case-study-card">
+        <h3 className="case-study-title">Bài Toán</h3>
+        <p className="case-study-text">{summary.problem}</p>
+      </div>
+      <div className="case-study-card">
+        <h3 className="case-study-title">Cách Tiếp Cận</h3>
+        <p className="case-study-text">{summary.approach}</p>
+      </div>
+      <div className="case-study-card">
+        <h3 className="case-study-title">Kết Quả</h3>
+        <p className="case-study-text">{summary.result}</p>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Responsibility List - danh sách vai trò và phạm vi thực hiện
+ */
+function ResponsibilityList({ items }: { items: string[] }) {
+  return (
+    <ul className="responsibility-list">
+      {items.map((item, i) => (
+        <li key={i} className="responsibility-item">
+          <div className="responsibility-dot" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * Technical Highlights - điểm kỹ thuật nổi bật
+ */
+function TechnicalHighlights({ items }: { items: string[] }) {
+  return (
+    <ul className="technical-list">
+      {items.map((item, i) => (
+        <li key={i} className="technical-item">
+          <div className="technical-icon">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * Challenge Section - thách thức và cách xử lý
+ */
+function ChallengeSection({ challenges }: { challenges: ProjectChallenge[] }) {
+  return (
+    <div className="challenge-grid">
+      {challenges.map((challenge, i) => (
+        <div key={i} className="challenge-card">
+          <h3 className="challenge-title">{challenge.title}</h3>
+          <div className="challenge-content">
+            <div>
+              <span className="challenge-label">Thách thức:</span>
+              <p className="challenge-text">{challenge.problem}</p>
+            </div>
+            <div>
+              <span className="challenge-label">Cách xử lý:</span>
+              <p className="challenge-text">{challenge.solution}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * Outcomes Section - kết quả thực hành
+ */
+function OutcomesSection({ outcomes }: { outcomes: string[] }) {
+  return (
+    <ul className="outcomes-list">
+      {outcomes.map((item, i) => (
+        <li key={i} className="outcomes-item">
+          <div className="outcomes-icon">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+          </div>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /**
  * Thành phần hiển thị card cho từng video demo từ YouTube
  * Thao tác với IntersectionObserver để tối ưu hiệu suất tải (Lazy loading)
@@ -99,7 +291,33 @@ function VideoCard({
         ) : (
           <div className="video-placeholder">
             <div className="video-placeholder-grid" />
-            <span className="coming-soon-badge">Loading preview...</span>
+            <div
+              style={{
+                position: "relative",
+                width: 72,
+                height: 72,
+                borderRadius: "50%",
+                background: "var(--clr-primary)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                opacity: 0.8,
+              }}
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="#09090B">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+            </div>
+            <span
+              style={{
+                position: "relative",
+                color: "var(--clr-text-secondary)",
+                fontSize: "0.875rem",
+                fontFamily: "var(--font-mono)",
+              }}
+            >
+              Video demo sẽ tải khi cuộn tới đây
+            </span>
           </div>
         )}
       </div>
@@ -113,12 +331,41 @@ function VideoCard({
 function VideoShowcase({
   videos,
 }: {
-  videos: { id: string; title: string; desc: string; youtubeId: string }[];
+  videos: {
+    id: string;
+    title: string;
+    desc: string;
+    youtubeId: string;
+    url: string;
+  }[];
 }) {
+  // Filter chỉ video có youtubeId hợp lệ
+  const validVideos = videos.filter((v) => v.youtubeId);
+  const invalidVideos = videos.filter((v) => !v.youtubeId && v.url);
+
   return (
     <div className="video-showcase">
-      {videos.map((v) => (
+      {validVideos.map((v) => (
         <VideoCard key={v.id} video={v} />
+      ))}
+      {invalidVideos.map((v) => (
+        <div key={v.url} className="yt-card">
+          <div className="yt-info">
+            <h3 className="yt-title">{v.title}</h3>
+            <p className="yt-desc">{v.desc}</p>
+          </div>
+          <div className="yt-divider" />
+          <div style={{ padding: "1rem", textAlign: "center" }}>
+            <a
+              href={v.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+            >
+              Mở Video Demo <IconExternal />
+            </a>
+          </div>
+        </div>
       ))}
     </div>
   );
@@ -289,6 +536,9 @@ export default function ProjectDetail({
               ) : null;
             })}
           </div>
+
+          {/* Project Summary Card */}
+          <ProjectSummaryCard project={project} />
         </div>
       </section>
 
@@ -297,10 +547,11 @@ export default function ProjectDetail({
         {project.videos && project.videos.length > 0 ? (
           <VideoShowcase
             videos={project.videos.map((v) => ({
-              id: parseYouTubeId(v.url) || "",
+              id: parseYouTubeId(v.url) || v.url,
               title: v.title,
               desc: v.description || "",
               youtubeId: parseYouTubeId(v.url) || "",
+              url: v.url,
             }))}
           />
         ) : (
@@ -378,13 +629,62 @@ export default function ProjectDetail({
 
       {/* THE VISION */}
       <div className="container">
-        <section className="detail-section">
-          <h2 className="section-label">Tổng quan</h2>
-          {/* <h2>Tầm Nhìn</h2> */}
-          {project.vision.map((para: string, i: number) => (
-            <p key={i}>{para}</p>
-          ))}
-        </section>
+        {/* Case Study Summary */}
+        {project.summary && (
+          <section className="detail-section">
+            <p className="section-label">Tổng quan</p>
+            <h2>Tóm Tắt Project</h2>
+            <CaseStudySummary summary={project.summary} />
+          </section>
+        )}
+
+        {/* Responsibilities */}
+        {project.responsibilities && project.responsibilities.length > 0 && (
+          <section className="detail-section">
+            <p className="section-label">Vai trò</p>
+            <h2>Vai Trò & Phạm Vi Thực Hiện</h2>
+            <ResponsibilityList items={project.responsibilities} />
+          </section>
+        )}
+
+        {/* Technical Highlights */}
+        {project.technicalHighlights &&
+          project.technicalHighlights.length > 0 && (
+            <section className="detail-section">
+              <p className="section-label">Kỹ thuật</p>
+              <h2>Điểm Kỹ Thuật Nổi Bật</h2>
+              <TechnicalHighlights items={project.technicalHighlights} />
+            </section>
+          )}
+
+        {/* Challenges */}
+        {project.challenges && project.challenges.length > 0 && (
+          <section className="detail-section">
+            <p className="section-label">Thách thức</p>
+            <h2>Thách Thức & Cách Xử Lý</h2>
+            <ChallengeSection challenges={project.challenges} />
+          </section>
+        )}
+
+        {/* Vision (fallback nếu không có summary) */}
+        {!project.summary && (
+          <section className="detail-section">
+            <p className="section-label">Tổng quan</p>
+            <h2>Tầm Nhìn</h2>
+            {project.vision.map((para: string, i: number) => (
+              <p key={i}>{para}</p>
+            ))}
+          </section>
+        )}
+
+        {/* Outcomes */}
+        {project.outcomes && project.outcomes.length > 0 && (
+          <section className="detail-section">
+            <p className="section-label">Kết quả</p>
+            <h2>Kết Quả Thực Hành</h2>
+            <OutcomesSection outcomes={project.outcomes} />
+          </section>
+        )}
 
         {/* ENVIRONMENT INFO (PAAS ONLY) */}
         {project.environment && (
@@ -412,6 +712,15 @@ export default function ProjectDetail({
         <section className="detail-section">
           <p className="section-label">Nhật ký</p>
           <h2>Nhật Ký Phát Triển</h2>
+          <p
+            style={{
+              marginBottom: "1.5rem",
+              color: "var(--clr-text-secondary)",
+            }}
+          >
+            Đoạn log dưới đây mô phỏng/trích từ quá trình chạy thử để thể hiện
+            các thành phần chính của project.
+          </p>
           <div className="terminal">
             <div className="terminal-header">
               <div className="terminal-dot" style={{ background: "#FF5F57" }} />
@@ -444,7 +753,7 @@ export default function ProjectDetail({
         </section>
 
         {/* SCREENSHOTS */}
-        {project.screenshots && (
+        {project.screenshots && project.screenshots.length > 0 && (
           <section className="detail-section">
             <p className="section-label">Thư viện ảnh</p>
             <h2>Giao Diện Nền Tảng</h2>
@@ -468,6 +777,9 @@ export default function ProjectDetail({
                     }}
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
+                  <div className="screenshot-caption">
+                    <span>{screenshot.alt}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -605,10 +917,13 @@ export default function ProjectDetail({
         {/* CTA */}
         <div className="cta-card">
           <div>
-            <h3 style={{ marginBottom: "0.5rem" }}>Muốn hỏi về dự án này?</h3>
+            <h3 style={{ marginBottom: "0.5rem" }}>
+              Bạn muốn trao đổi thêm về project này?
+            </h3>
             <p>
-              Nếu bạn muốn biết thêm chi tiết về cách tôi làm dự án này, hoặc có
-              cơ hội việc làm phù hợp, liên hệ tôi qua email.
+              Tôi sẵn sàng trình bày chi tiết cách thiết kế luồng, các quyết
+              định kỹ thuật và những phần còn có thể cải thiện. Nếu bạn có cơ
+              hội việc làm phù hợp, vui lòng liên hệ qua email hoặc GitHub.
             </p>
           </div>
           <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>

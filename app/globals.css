@@ -20,8 +20,8 @@
 
   /* Text */
   --clr-text: #fafafa;
-  --clr-text-secondary: #a1a1aa;
-  --clr-text-muted: #71717a;
+  --clr-text-secondary: #b8bcc7;
+  --clr-text-muted: #7d8088;
 
   /* Status */
   --clr-success: #22c55e;
@@ -525,6 +525,220 @@ ul {
   gap: 0.875rem;
   flex-wrap: wrap;
   margin-bottom: 3rem;
+}
+
+/* Project Summary Card */
+.project-summary-card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-lg);
+  padding: 2rem;
+  margin-bottom: 4rem;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.summary-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+
+.summary-value {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--clr-text);
+  line-height: 1.5;
+}
+
+/* Case Study Grid */
+.case-study-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.case-study-card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  padding: 1.5rem;
+}
+
+.case-study-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--clr-primary);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.case-study-text {
+  font-size: 0.9375rem;
+  color: var(--clr-text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Responsibility List */
+.responsibility-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-top: 1.5rem;
+}
+
+.responsibility-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  font-size: 0.9375rem;
+  color: var(--clr-text-secondary);
+  line-height: 1.65;
+}
+
+.responsibility-dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--clr-primary);
+  margin-top: 0.5rem;
+}
+
+/* Technical List */
+.technical-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-top: 1.5rem;
+}
+
+.technical-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  font-size: 0.9375rem;
+  color: var(--clr-text-secondary);
+  line-height: 1.65;
+}
+
+.technical-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--clr-primary-dim);
+  border-radius: var(--r-sm);
+  color: var(--clr-primary);
+}
+
+/* Challenge Grid */
+.challenge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.challenge-card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  padding: 1.5rem;
+}
+
+.challenge-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--clr-text);
+  margin-bottom: 1rem;
+}
+
+.challenge-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.challenge-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clr-primary);
+  margin-bottom: 0.375rem;
+}
+
+.challenge-text {
+  font-size: 0.9375rem;
+  color: var(--clr-text-secondary);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Outcomes List */
+.outcomes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-top: 1.5rem;
+}
+
+.outcomes-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  font-size: 0.9375rem;
+  color: var(--clr-text-secondary);
+  line-height: 1.65;
+}
+
+.outcomes-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-success);
+}
+
+/* Screenshot caption */
+.screenshot-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(to top, rgba(9, 9, 11, 0.95), transparent);
+  color: var(--clr-text-secondary);
+  font-size: 0.8125rem;
+  opacity: 0;
+  transition: opacity var(--t-fast);
+}
+
+.screenshot-item:hover .screenshot-caption {
+  opacity: 1;
 }
 
 .detail-video-wrap {
@@ -1034,6 +1248,15 @@ ul {
     align-items: flex-start;
   }
   .env-grid {
+    grid-template-columns: 1fr;
+  }
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+  .case-study-grid {
+    grid-template-columns: 1fr;
+  }
+  .challenge-grid {
     grid-template-columns: 1fr;
   }
 }

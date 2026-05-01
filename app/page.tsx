@@ -181,6 +181,34 @@ function ProjectCard({
           </p>
           <h3 className="project-card-title">{project.title}</h3>
           <p className="project-card-desc">{project.desc}</p>
+          {project.focus && project.focus.length > 0 && (
+            <div
+              style={{
+                marginTop: "0.75rem",
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "0.375rem",
+              }}
+            >
+              {project.focus.slice(0, 3).map((tag) => (
+                <span
+                  key={tag}
+                  style={{
+                    fontSize: "0.6875rem",
+                    padding: "0.25rem 0.5rem",
+                    background: "var(--clr-primary-dim)",
+                    color: "var(--clr-primary)",
+                    borderRadius: "var(--r-sm)",
+                    fontFamily: "var(--font-mono)",
+                    fontWeight: 500,
+                    letterSpacing: "0.02em",
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="project-card-stack">
@@ -260,22 +288,33 @@ export default function Home() {
       <section className="hero">
         <div className="container">
           <div className="hero-inner">
-            <p className="section-label">Đang tìm việc</p>
+            <p className="section-label">Fresher/Junior Web Developer</p>
             <h1>
               <span className="hero-name">Ngô Gia Hạo</span>
             </h1>
             <p className="hero-subtitle">
-              Tốt nghiệp Mạng Máy Tính tháng 4/2026. Kiến thức lập trình tự học
-              qua dự án cá nhân, thực tập và tài liệu online. Dùng AI để xử lý
-              task lặp, còn bản thân đọc hiểu logic và debug. Stack chính:
-              NestJS/Node.js, React/Next.js, Kubernetes qua luận văn.
+              Fresher Web Developer tập trung vào Backend/Full-stack, có kinh
+              nghiệm thực hành với NestJS, React/Next.js, PostgreSQL, Docker và
+              Kubernetes trong các project cá nhân. Tôi xây dựng portfolio này
+              để trình bày các project đã tự triển khai: e-commerce, công cụ hỗ
+              trợ AI workflow và thử nghiệm PaaS trên Kubernetes. Mục tiêu của
+              tôi là tìm cơ hội Fresher/Junior, học nhanh từ dự án thực tế và
+              đóng góp tốt ở các task web development.
             </p>
             <div className="hero-actions">
               <a href="#projects" className="btn btn-primary">
-                Xem Projects <IconArrowDown />
+                Xem Dự Án <IconArrowDown />
               </a>
               <a href="#contact" className="btn btn-outline">
                 Liên hệ
+              </a>
+              <a
+                href="https://github.com/HaoNgo232"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-ghost"
+              >
+                <IconGithub /> GitHub
               </a>
             </div>
             <div className="hero-scroll-hint">
@@ -291,6 +330,17 @@ export default function Home() {
           <div className="projects-header">
             <p className="section-label">Dự án tiêu biểu</p>
             <h2>Dự Án</h2>
+            <p
+              style={{
+                marginTop: "1rem",
+                color: "var(--clr-text-secondary)",
+                maxWidth: "72ch",
+              }}
+            >
+              Các project dưới đây tập trung vào web app, backend API,
+              e-commerce flow và triển khai ứng dụng. Mỗi project được trình bày
+              theo hướng vai trò, kỹ thuật đã dùng và phần tôi đã thực hành.
+            </p>
           </div>
           <div className="projects-list">
             {PROJECTS.map((p, i) => (
@@ -314,9 +364,11 @@ export default function Home() {
                 để luyện backend, frontend, database và triển khai ứng dụng.
               </p>
               <p>
-                Trong quá trình làm project, tôi có dùng AI để hỗ trợ viết
-                boilerplate và xử lý một số tác vụ lặp. Tôi vẫn kiểm tra lại
-                code, chạy thử luồng chính và sửa lỗi khi tích hợp vào project.
+                Tôi sử dụng AI như công cụ hỗ trợ tra cứu, tạo boilerplate và rà
+                soát hướng triển khai; phần tích hợp, debug và kiểm thử luồng
+                chính vẫn do tôi tự thực hiện. Qua các project, tôi hiểu rõ hơn
+                về cách xây dựng API, xử lý database transaction, tổ chức code
+                theo module và triển khai ứng dụng với Docker/Kubernetes.
               </p>
             </div>
             <div className="about-stack">
@@ -341,13 +393,15 @@ export default function Home() {
         <div className="container">
           <div ref={contactRef} className="fade-up contact-inner">
             <p className="section-label">Liên hệ</p>
-            <h2>Đang tìm việc Fresher/Junior</h2>
+            <h2>Đang Tìm Cơ Hội Fresher/Junior Web Developer</h2>
             <p
               style={{ marginTop: "1rem", color: "var(--clr-text-secondary)" }}
             >
-              Đang tìm vị trí Fresher/Junior Web Developer (Backend hoặc
-              Fullstack). Nếu bạn có cơ hội phù hợp hoặc muốn hỏi về cách tôi
-              xây dự án, liên hệ tôi qua email.
+              Tôi đang tìm vị trí Fresher/Junior Web Developer, ưu tiên
+              Backend/Full-stack, đồng thời có quan tâm đến triển khai ứng dụng
+              với Docker/Kubernetes. Nếu bạn có cơ hội phù hợp hoặc muốn trao
+              đổi về cách tôi xây dựng các project, vui lòng liên hệ qua email
+              hoặc GitHub.
             </p>
             <div className="contact-links">
               <a
@@ -364,14 +418,6 @@ export default function Home() {
               >
                 <IconGithub /> GitHub
               </a>
-              {/* <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact-link"
-              >
-                <IconLinkedIn /> LinkedIn
-              </a> */}
             </div>
           </div>
         </div>

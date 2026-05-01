@@ -58,6 +58,18 @@ export interface EnvironmentMachine {
   role: string;
 }
 
+export interface ProjectSummary {
+  problem: string;
+  approach: string;
+  result: string;
+}
+
+export interface ProjectChallenge {
+  title: string;
+  problem: string;
+  solution: string;
+}
+
 // Entity
 export interface Project {
   // Core fields
@@ -83,4 +95,16 @@ export interface Project {
   screenshots?: Screenshot[];
   videos?: Video[];
   environment?: EnvironmentMachine[];
+
+  // Case study fields
+  role?: string;
+  projectType?: string;
+  timeline?: string;
+  status?: string;
+  focus?: string[];
+  summary?: ProjectSummary;
+  responsibilities?: string[];
+  technicalHighlights?: string[];
+  challenges?: ProjectChallenge[];
+  outcomes?: string[];
 }
