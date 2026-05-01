@@ -267,137 +267,145 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* HERO */}
-      <section className="hero" aria-labelledby="hero-heading">
-        <div className="container">
-          <div className="hero-inner">
-            <p className="section-label">Fresher/Junior Web Developer</p>
-            <h1 id="hero-heading">
-              <span className="hero-name">Ngô Gia Hạo</span>
-            </h1>
-            <p className="hero-subtitle">
-              Fresher Web Developer tập trung Backend/Full-stack. Đã thực hành
-              với NestJS, React/Next.js, PostgreSQL, Docker, Kubernetes qua các
-              project cá nhân: e-commerce, AI workflow, PaaS trên Kubernetes.
-            </p>
-            <div className="hero-actions">
-              <a href="#projects" className="btn btn-primary">
-                Xem Dự Án <IconArrowRight />
-              </a>
-              <a href="#contact" className="btn btn-outline">
-                Liên hệ
-              </a>
-              <a
-                href="https://github.com/HaoNgo232"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-ghost"
+      <main>
+        {/* HERO */}
+        <section className="hero" aria-labelledby="hero-heading">
+          <div className="container">
+            <div className="hero-inner">
+              <p className="section-label">Đang tìm việc</p>
+              <h1 id="hero-heading">
+                <span className="hero-name">Ngô Gia Hạo</span>
+              </h1>
+              <p className="hero-subtitle">
+                Fresher Web Developer tập trung Backend/Full-stack. Đã thực hành
+                với NestJS, React/Next.js, PostgreSQL, Docker, Kubernetes qua
+                các project cá nhân: e-commerce, AI workflow, PaaS trên
+                Kubernetes.
+              </p>
+              <div className="hero-actions">
+                <a href="#projects" className="btn btn-primary">
+                  Xem Dự Án <IconArrowRight />
+                </a>
+                <a href="#contact" className="btn btn-outline">
+                  Liên hệ
+                </a>
+                <a
+                  href="https://github.com/HaoNgo232"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-ghost"
+                >
+                  <IconGithub /> GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* PROJECTS */}
+        <section id="projects" className="projects-section" aria-label="Dự án">
+          <div className="container">
+            <div className="projects-header">
+              <p className="section-label">Dự án tiêu biểu</p>
+              <h2>Dự án</h2>
+              <p
+                style={{
+                  marginTop: "1rem",
+                  color: "var(--clr-text-secondary)",
+                  maxWidth: "72ch",
+                }}
               >
-                <IconGithub /> GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* PROJECTS */}
-      <section id="projects" className="projects-section">
-        <div className="container">
-          <div className="projects-header">
-            <p className="section-label">Dự án tiêu biểu</p>
-            <h2>Dự Án</h2>
-            <p
-              style={{
-                marginTop: "1rem",
-                color: "var(--clr-text-secondary)",
-                maxWidth: "72ch",
-              }}
-            >
-              Các project dưới đây tập trung vào web app, backend API,
-              e-commerce flow và triển khai ứng dụng. Mỗi project được trình bày
-              theo hướng vai trò, kỹ thuật đã dùng và phần tôi đã thực hành.
-            </p>
-          </div>
-          <div className="projects-list">
-            {PROJECTS.map((p, i) => (
-              <ProjectCard key={p.slug} project={p} index={i} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ABOUT */}
-      <section id="about" className="about-section">
-        <div className="container">
-          <div ref={aboutRef} className="fade-up about-grid">
-            <div className="about-text">
-              <p className="section-label">Về tôi</p>
-              <h2>Về Tôi</h2>
-              <p>
-                Tôi tốt nghiệp ngành Mạng Máy Tính tháng 4/2026. Phần lập trình
-                web tôi chủ yếu tự học qua dự án cá nhân, thực tập và tài liệu
-                online. Các project trong portfolio này là những bài tôi đã làm
-                để luyện backend, frontend, database và triển khai ứng dụng.
-              </p>
-              <p>
-                Tôi sử dụng AI như công cụ hỗ trợ tra cứu, tạo boilerplate và rà
-                soát hướng triển khai; phần tích hợp, debug và kiểm thử luồng
-                chính vẫn do tôi tự thực hiện. Qua các project, tôi hiểu rõ hơn
-                về cách xây dựng API, xử lý database transaction, tổ chức code
-                theo module và triển khai ứng dụng với Docker/Kubernetes.
+                Các project dưới đây là những bài tôi dùng để luyện web app,
+                backend API, e-commerce flow và triển khai ứng dụng. Mỗi project
+                ghi rõ vai trò, phần kỹ thuật đã làm và những gì tôi học được.
               </p>
             </div>
-            <div className="about-stack">
-              <p className="section-label">Công nghệ đã dùng trong project</p>
-              {Object.entries(ABOUT_STACK).map(([group, items]) => (
-                <div key={group}>
-                  <p className="stack-group-label">{group}</p>
-                  <div className="stack-grid">
-                    {items.map((t) => (
-                      <Badge key={t.name} icon={t.icon} name={t.name} />
-                    ))}
-                  </div>
-                </div>
+            <div className="projects-list">
+              {PROJECTS.map((p, i) => (
+                <ProjectCard key={p.slug} project={p} index={i} />
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CONTACT */}
-      <section id="contact" className="contact-section">
-        <div className="container">
-          <div ref={contactRef} className="fade-up contact-inner">
-            <p className="section-label">Liên hệ</p>
-            <h2>Đang Tìm Cơ Hội Fresher/Junior Web Developer</h2>
-            <p
-              style={{ marginTop: "1rem", color: "var(--clr-text-secondary)" }}
-            >
-              Tôi đang tìm vị trí Fresher/Junior Web Developer, ưu tiên
-              Backend/Full-stack, đồng thời có quan tâm đến triển khai ứng dụng
-              với Docker/Kubernetes. Nếu bạn có cơ hội phù hợp hoặc muốn trao
-              đổi về cách tôi xây dựng các project, vui lòng liên hệ qua email
-              hoặc GitHub.
-            </p>
-            <div className="contact-links">
-              <a
-                href="mailto:hao.ngo.n.personal@gmail.com"
-                className="contact-link"
-              >
-                <IconEmail /> hao.ngo.n.personal@gmail.com
-              </a>
-              <a
-                href="https://github.com/HaoNgo232"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact-link"
-              >
-                <IconGithub /> GitHub
-              </a>
+        {/* ABOUT */}
+        <section id="about" className="about-section" aria-label="Về tôi">
+          <div className="container">
+            <div ref={aboutRef} className="fade-up about-grid">
+              <div className="about-text">
+                <p className="section-label">Về tôi</p>
+                <h2>Về tôi</h2>
+                <p>
+                  Tôi tốt nghiệp ngành Mạng Máy Tính tháng 4/2026. Phần lập
+                  trình web tôi chủ yếu tự học qua dự án cá nhân, thực tập và
+                  tài liệu online. Các project trong portfolio này là những bài
+                  tôi đã làm để luyện backend, frontend, database và triển khai
+                  ứng dụng.
+                </p>
+                <p>
+                  Tôi sử dụng AI như công cụ hỗ trợ tra cứu, tạo boilerplate và
+                  rà soát hướng triển khai; phần tích hợp, debug và kiểm thử
+                  luồng chính vẫn do tôi tự thực hiện. Qua các project, tôi hiểu
+                  rõ hơn về cách xây dựng API, xử lý database transaction, tổ
+                  chức code theo module và triển khai ứng dụng với
+                  Docker/Kubernetes.
+                </p>
+              </div>
+              <div className="about-stack">
+                <p className="section-label">Công nghệ đã dùng trong project</p>
+                {Object.entries(ABOUT_STACK).map(([group, items]) => (
+                  <div key={group}>
+                    <p className="stack-group-label">{group}</p>
+                    <div className="stack-grid">
+                      {items.map((t) => (
+                        <Badge key={t.name} icon={t.icon} name={t.name} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* CONTACT */}
+        <section id="contact" className="contact-section" aria-label="Liên hệ">
+          <div className="container">
+            <div ref={contactRef} className="fade-up contact-inner">
+              <p className="section-label">Liên hệ</p>
+              <h2>Đang tìm vị trí Fresher/Junior Web Developer</h2>
+              <p
+                style={{
+                  marginTop: "1rem",
+                  color: "var(--clr-text-secondary)",
+                }}
+              >
+                Tôi đang tìm vị trí Fresher/Junior Web Developer, ưu tiên
+                Backend/Full-stack, đồng thời có quan tâm đến triển khai ứng
+                dụng với Docker/Kubernetes. Nếu bạn có cơ hội phù hợp hoặc muốn
+                trao đổi về cách tôi xây dựng các project, vui lòng liên hệ qua
+                email hoặc GitHub.
+              </p>
+              <div className="contact-links">
+                <a
+                  href="mailto:hao.ngo.n.personal@gmail.com"
+                  className="contact-link"
+                >
+                  <IconEmail /> hao.ngo.n.personal@gmail.com
+                </a>
+                <a
+                  href="https://github.com/HaoNgo232"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="contact-link"
+                >
+                  <IconGithub /> GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
 
       {/* FOOTER */}
       <footer className="footer">

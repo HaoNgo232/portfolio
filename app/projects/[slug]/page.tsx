@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState, use } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { getProjectBySlug } from "@/lib/projects/data";
 import { IconGithub, IconExternal, Badge } from "@/components/ui/icons";
@@ -54,9 +54,6 @@ function IconNE() {
 
 /* ─── Sub-components ─────────────────────────────────────────────── */
 
-/**
- * Project Summary Card - hiển thị thông tin tổng quan về project
- */
 function ProjectSummaryCard({ project }: { project: Project }) {
   return (
     <div className="project-summary-card">
@@ -87,27 +84,13 @@ function ProjectSummaryCard({ project }: { project: Project }) {
         )}
       </div>
       {project.focus && project.focus.length > 0 && (
-        <div style={{ marginTop: "1.25rem" }}>
-          <span
-            className="summary-label"
-            style={{ display: "block", marginBottom: "0.5rem" }}
-          >
-            Trọng tâm kỹ thuật
+        <div className="summary-focus">
+          <span className="summary-label summary-focus-label">
+            Phần đã tập trung
           </span>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+          <div className="summary-focus-list">
             {project.focus.map((tag) => (
-              <span
-                key={tag}
-                style={{
-                  fontSize: "0.75rem",
-                  padding: "0.375rem 0.75rem",
-                  background: "var(--clr-primary-dim)",
-                  color: "var(--clr-primary)",
-                  borderRadius: "var(--r-sm)",
-                  fontFamily: "var(--font-mono)",
-                  fontWeight: 500,
-                }}
-              >
+              <span key={tag} className="summary-focus-tag">
                 {tag}
               </span>
             ))}
@@ -118,31 +101,25 @@ function ProjectSummaryCard({ project }: { project: Project }) {
   );
 }
 
-/**
- * Case Study Summary - hiển thị bài toán, cách tiếp cận, kết quả
- */
 function CaseStudySummary({ summary }: { summary: ProjectSummary }) {
   return (
     <div className="case-study-grid">
       <div className="case-study-card">
-        <h3 className="case-study-title">Bài Toán</h3>
+        <h3 className="case-study-title">Vấn đề</h3>
         <p className="case-study-text">{summary.problem}</p>
       </div>
       <div className="case-study-card">
-        <h3 className="case-study-title">Cách Tiếp Cận</h3>
+        <h3 className="case-study-title">Cách làm</h3>
         <p className="case-study-text">{summary.approach}</p>
       </div>
       <div className="case-study-card">
-        <h3 className="case-study-title">Kết Quả</h3>
+        <h3 className="case-study-title">Kết quả</h3>
         <p className="case-study-text">{summary.result}</p>
       </div>
     </div>
   );
 }
 
-/**
- * Technical Highlights - điểm kỹ thuật nổi bật
- */
 function TechnicalHighlights({ items }: { items: string[] }) {
   return (
     <ul className="technical-list">
@@ -169,9 +146,6 @@ function TechnicalHighlights({ items }: { items: string[] }) {
   );
 }
 
-/**
- * Challenge Section - thách thức và cách xử lý
- */
 function ChallengeSection({ challenges }: { challenges: ProjectChallenge[] }) {
   return (
     <div className="challenge-grid">
@@ -194,10 +168,6 @@ function ChallengeSection({ challenges }: { challenges: ProjectChallenge[] }) {
   );
 }
 
-/**
- * Thành phần hiển thị card cho từng video demo từ YouTube
- * Thao tác với IntersectionObserver để tối ưu hiệu suất tải (Lazy loading)
- */
 function VideoCard({
   video,
 }: {
@@ -244,31 +214,17 @@ function VideoCard({
         ) : (
           <div className="video-placeholder">
             <div className="video-placeholder-grid" />
-            <div
-              style={{
-                position: "relative",
-                width: 72,
-                height: 72,
-                borderRadius: "50%",
-                background: "var(--clr-primary)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                opacity: 0.8,
-              }}
-            >
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="#09090B">
+            <div className="video-placeholder-play">
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="var(--clr-on-primary)"
+              >
                 <polygon points="5 3 19 12 5 21 5 3" />
               </svg>
             </div>
-            <span
-              style={{
-                position: "relative",
-                color: "var(--clr-text-secondary)",
-                fontSize: "0.875rem",
-                fontFamily: "var(--font-mono)",
-              }}
-            >
+            <span className="video-placeholder-copy">
               Video demo sẽ tải khi cuộn tới đây
             </span>
           </div>
@@ -278,9 +234,6 @@ function VideoCard({
   );
 }
 
-/**
- * Thành phần hiển thị danh sách các video demo của dự án
- */
 function VideoShowcase({
   videos,
 }: {
@@ -292,7 +245,6 @@ function VideoShowcase({
     url: string;
   }[];
 }) {
-  // Filter chỉ video có youtubeId hợp lệ
   const validVideos = videos.filter((v) => v.youtubeId);
   const invalidVideos = videos.filter((v) => !v.youtubeId && v.url);
 
@@ -308,14 +260,14 @@ function VideoShowcase({
             <p className="yt-desc">{v.desc}</p>
           </div>
           <div className="yt-divider" />
-          <div style={{ padding: "1rem", textAlign: "center" }}>
+          <div className="yt-link-wrap">
             <a
               href={v.url}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary"
             >
-              Mở Video Demo <IconExternal />
+              Mở video demo <IconExternal />
             </a>
           </div>
         </div>
@@ -331,7 +283,7 @@ function EnvironmentInfo({ machines }: { machines: EnvironmentMachine[] }) {
   return (
     <section className="detail-section">
       <p className="section-label">Hạ tầng</p>
-      <h2>Môi Trường Triển Khai</h2>
+      <h2>Môi trường chạy demo</h2>
       <div className="env-grid">
         {machines.map((machine) => (
           <div key={machine.ip} className="env-card">
@@ -360,6 +312,7 @@ export default function ProjectDetail({
 }) {
   const { slug } = use(params);
   const project = getProjectBySlug(slug);
+  const shouldReduceMotion = useReducedMotion();
   const [selectedImgIdx, setSelectedImgIdx] = useState<number | null>(null);
   const [isZoomed, setIsZoomed] = useState(false);
 
@@ -367,7 +320,7 @@ export default function ProjectDetail({
 
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsZoomed(false); // Reset zoom khi chuyển ảnh
+    setIsZoomed(false);
     if (project.screenshots) {
       setSelectedImgIdx((prev) =>
         prev !== null
@@ -380,7 +333,7 @@ export default function ProjectDetail({
 
   const handleNext = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsZoomed(false); // Reset zoom khi chuyển ảnh
+    setIsZoomed(false);
     if (project.screenshots) {
       setSelectedImgIdx((prev) =>
         prev !== null ? (prev + 1) % project.screenshots!.length : null,
@@ -437,178 +390,168 @@ export default function ProjectDetail({
         </div>
       </nav>
 
-      {/* HERO */}
-      <section className="detail-hero">
-        <div className="container">
-          <div>
-            <Link href="/#projects" className="back-link">
-              <IconBack /> Quay lại Dự Án
-            </Link>
-          </div>
-
-          <p className="section-label">{project.displaySubtitle}</p>
-          <h1 className="detail-title">{project.title}</h1>
-          <p className="detail-subtitle">{project.subtitle}</p>
-
-          <div className="detail-action-row">
-            {project.demo && (
-              <a
-                href={project.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary"
-              >
-                Live Preview <IconExternal />
-              </a>
-            )}
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-outline"
-              >
-                <IconGithub /> GitHub
-              </a>
-            )}
-          </div>
-
-          {/* Tech stack badges */}
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "0.5rem",
-              marginBottom: "3rem",
-            }}
-          >
-            {project.techStack?.map((t) => {
-              const stackIcon = STACK_ICONS[t.name];
-              return stackIcon ? (
-                <Badge key={t.name} icon={stackIcon.icon} name={t.name} />
-              ) : null;
-            })}
-          </div>
-
-          {/* Project Summary Card */}
-          <ProjectSummaryCard project={project} />
-        </div>
-      </section>
-
-      {/* CONTENT */}
-      <div className="container">
-        {/* SCREENSHOTS */}
-        {project.screenshots && project.screenshots.length > 0 && (
-          <section className="detail-section" aria-label="Ảnh giao diện">
-            <p className="section-label">Thư viện ảnh</p>
-            <h2>Giao Diện Nền Tảng</h2>
-            <div className="screenshot-grid">
-              {project.screenshots.map((screenshot, i) => (
-                <div
-                  key={i}
-                  className="screenshot-item"
-                  onClick={() => setSelectedImgIdx(i)}
-                >
-                  <Image
-                    src={screenshot.url}
-                    alt={screenshot.alt}
-                    width={800}
-                    height={500}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      display: "block",
-                    }}
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="screenshot-caption">
-                    <span>{screenshot.alt}</span>
-                  </div>
-                </div>
-              ))}
+      <main>
+        {/* HERO */}
+        <section className="detail-hero" aria-labelledby="detail-hero-heading">
+          <div className="container">
+            <div>
+              <Link href="/#projects" className="back-link">
+                <IconBack /> Quay lại Dự Án
+              </Link>
             </div>
-          </section>
-        )}
 
-        {/* VIDEOS */}
-        {project.videos && project.videos.length > 0 && (
-          <section className="detail-section" aria-label="Video demo">
-            <p className="section-label">Video demo</p>
-            <h2>Video Demo</h2>
-            <VideoShowcase
-              videos={project.videos.map((v) => ({
-                id: parseYouTubeId(v.url) || v.url,
-                title: v.title,
-                desc: v.description || "",
-                youtubeId: parseYouTubeId(v.url) || "",
-                url: v.url,
-              }))}
-            />
-          </section>
-        )}
+            <p className="section-label">{project.displaySubtitle}</p>
+            <h1 id="detail-hero-heading" className="detail-title">
+              {project.title}
+            </h1>
+            <p className="detail-subtitle">{project.subtitle}</p>
 
-        {/* Case Study Summary */}
-        {project.summary && (
-          <section className="detail-section" aria-label="Tổng quan project">
-            <p className="section-label">Tổng quan</p>
-            <h2>Tóm Tắt Project</h2>
-            <CaseStudySummary summary={project.summary} />
-          </section>
-        )}
+            <div className="detail-action-row">
+              {project.demo && (
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                >
+                  Xem demo <IconExternal />
+                </a>
+              )}
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-outline"
+                >
+                  <IconGithub /> GitHub
+                </a>
+              )}
+            </div>
 
-        {/* Technical Highlights */}
-        {project.technicalHighlights &&
-          project.technicalHighlights.length > 0 && (
-            <section className="detail-section" aria-label="Điểm kỹ thuật">
-              <p className="section-label">Kỹ thuật</p>
-              <h2>Điểm Kỹ Thuật Nổi Bật</h2>
-              <TechnicalHighlights items={project.technicalHighlights} />
+            <div className="detail-stack-row">
+              {project.techStack?.map((t) => {
+                const stackIcon = STACK_ICONS[t.name];
+                return stackIcon ? (
+                  <Badge key={t.name} icon={stackIcon.icon} name={t.name} />
+                ) : null;
+              })}
+            </div>
+
+            {/* Project Summary Card */}
+            <ProjectSummaryCard project={project} />
+          </div>
+        </section>
+
+        {/* CONTENT */}
+        <div className="container">
+          {/* SCREENSHOTS */}
+          {project.screenshots && project.screenshots.length > 0 && (
+            <section className="detail-section" aria-label="Ảnh giao diện">
+              <p className="section-label">Thư viện ảnh</p>
+              <h2>Ảnh giao diện</h2>
+              <div className="screenshot-grid">
+                {project.screenshots.map((screenshot, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    className="screenshot-item"
+                    aria-label={`Xem ảnh: ${screenshot.alt}`}
+                    onClick={() => setSelectedImgIdx(i)}
+                  >
+                    <Image
+                      src={screenshot.url}
+                      alt={screenshot.alt}
+                      width={800}
+                      height={500}
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    <span className="screenshot-caption">
+                      <span>{screenshot.alt}</span>
+                    </span>
+                  </button>
+                ))}
+              </div>
             </section>
           )}
 
-        {/* Challenges */}
-        {project.challenges && project.challenges.length > 0 && (
-          <section className="detail-section" aria-label="Thách thức">
-            <p className="section-label">Thách thức</p>
-            <h2>Thách Thức & Cách Xử Lý</h2>
-            <ChallengeSection challenges={project.challenges} />
-          </section>
-        )}
+          {/* VIDEOS */}
+          {project.videos && project.videos.length > 0 && (
+            <section className="detail-section" aria-label="Video demo">
+              <p className="section-label">Video demo</p>
+              <h2>Video Demo</h2>
+              <VideoShowcase
+                videos={project.videos.map((v) => ({
+                  id: parseYouTubeId(v.url) || v.url,
+                  title: v.title,
+                  desc: v.description || "",
+                  youtubeId: parseYouTubeId(v.url) || "",
+                  url: v.url,
+                }))}
+              />
+            </section>
+          )}
 
-        {/* ENVIRONMENT INFO (PAAS ONLY) */}
-        {project.environment && (
-          <EnvironmentInfo machines={project.environment} />
-        )}
+          {/* Case Study Summary */}
+          {project.summary && (
+            <section className="detail-section" aria-label="Tổng quan project">
+              <p className="section-label">Tổng quan</p>
+              <h2>Tóm tắt project</h2>
+              <CaseStudySummary summary={project.summary} />
+            </section>
+          )}
 
-        {/* LIGHTBOX */}
-        <AnimatePresence>
-          {selectedImgIdx !== null && project.screenshots && (
-            <motion.div
-              className={`lightbox-overlay ${isZoomed ? "is-zoomed" : ""}`}
-              role="dialog"
-              aria-modal="true"
-              aria-label="Xem ảnh chi tiết"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => {
-                setSelectedImgIdx(null);
-                setIsZoomed(false);
-              }}
-            >
-              <div
-                className="lightbox-content"
-                onClick={(e) => e.stopPropagation()}
+          {/* Technical Highlights */}
+          {project.technicalHighlights &&
+            project.technicalHighlights.length > 0 && (
+              <section className="detail-section" aria-label="Điểm kỹ thuật">
+                <p className="section-label">Kỹ thuật</p>
+                <h2>Phần kỹ thuật đã làm</h2>
+                <TechnicalHighlights items={project.technicalHighlights} />
+              </section>
+            )}
+
+          {/* Challenges */}
+          {project.challenges && project.challenges.length > 0 && (
+            <section className="detail-section" aria-label="Thách thức">
+              <p className="section-label">Thách thức</p>
+              <h2>Vấn đề gặp phải và cách xử lý</h2>
+              <ChallengeSection challenges={project.challenges} />
+            </section>
+          )}
+
+          {/* ENVIRONMENT INFO (PAAS ONLY) */}
+          {project.environment && (
+            <EnvironmentInfo machines={project.environment} />
+          )}
+
+          {/* LIGHTBOX */}
+          <AnimatePresence>
+            {selectedImgIdx !== null && project.screenshots && (
+              <motion.div
+                className={`lightbox-overlay ${isZoomed ? "is-zoomed" : ""}`}
+                role="dialog"
+                aria-modal="true"
+                aria-label="Xem ảnh chi tiết"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => {
+                  setSelectedImgIdx(null);
+                  setIsZoomed(false);
+                }}
               >
-                {!isZoomed && (
+                <div
+                  className="lightbox-content"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <motion.button
                     className="lightbox-close"
                     aria-label="Đóng"
                     onClick={() => setSelectedImgIdx(null)}
-                    initial={{ opacity: 0, y: -20 }}
+                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
+                    transition={{ delay: shouldReduceMotion ? 0 : 0.2 }}
                   >
                     <svg
                       width="24"
@@ -624,16 +567,14 @@ export default function ProjectDetail({
                       <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                   </motion.button>
-                )}
 
-                {!isZoomed && (
                   <motion.button
                     className="lightbox-nav lightbox-prev"
                     aria-label="Ảnh trước"
                     onClick={handlePrev}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
+                    transition={{ delay: shouldReduceMotion ? 0 : 0.2 }}
                   >
                     <svg
                       width="24"
@@ -648,42 +589,45 @@ export default function ProjectDetail({
                       <polyline points="15 18 9 12 15 6"></polyline>
                     </svg>
                   </motion.button>
-                )}
 
-                <motion.div
-                  className="lightbox-img-container"
-                  initial={{ opacity: 0, scale: 0.92 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.92 }}
-                  transition={{ duration: 0.25, ease: "easeOut" }}
-                  onClick={() => setIsZoomed(!isZoomed)}
-                  style={{ cursor: isZoomed ? "zoom-out" : "zoom-in" }}
-                >
-                  <Image
-                    src={project.screenshots[selectedImgIdx].url}
-                    alt={project.screenshots[selectedImgIdx].alt}
-                    width={1920}
-                    height={1080}
-                    style={{
-                      width: isZoomed ? "auto" : "100%",
-                      height: "auto",
-                      maxWidth: isZoomed ? "none" : "100%",
-                      objectFit: "contain",
-                      borderRadius: isZoomed ? "0" : "var(--r-md)",
+                  <motion.div
+                    className="lightbox-img-container"
+                    initial={{
+                      opacity: 0,
+                      scale: shouldReduceMotion ? 1 : 0.92,
                     }}
-                    sizes="100vw"
-                    priority
-                  />
-                </motion.div>
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.92 }}
+                    transition={{
+                      duration: shouldReduceMotion ? 0 : 0.25,
+                      ease: "easeOut",
+                    }}
+                    onClick={() => setIsZoomed(!isZoomed)}
+                  >
+                    <Image
+                      src={project.screenshots[selectedImgIdx].url}
+                      alt={project.screenshots[selectedImgIdx].alt}
+                      width={1920}
+                      height={1080}
+                      style={{
+                        width: isZoomed ? "auto" : "100%",
+                        height: "auto",
+                        maxWidth: isZoomed ? "none" : "100%",
+                        objectFit: "contain",
+                        borderRadius: isZoomed ? "0" : "var(--r-md)",
+                      }}
+                      sizes="100vw"
+                      priority
+                    />
+                  </motion.div>
 
-                {!isZoomed && (
                   <motion.button
                     className="lightbox-nav lightbox-next"
                     aria-label="Ảnh tiếp"
                     onClick={handleNext}
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={{ opacity: 0, x: shouldReduceMotion ? 0 : 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
+                    transition={{ delay: shouldReduceMotion ? 0 : 0.2 }}
                   >
                     <svg
                       width="24"
@@ -698,55 +642,53 @@ export default function ProjectDetail({
                       <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                   </motion.button>
-                )}
 
-                {!isZoomed && (
-                  <motion.div
-                    className="lightbox-counter"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                  >
-                    {selectedImgIdx + 1} / {project.screenshots.length}
-                  </motion.div>
-                )}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* CTA */}
-        <div className="cta-card">
-          <div>
-            <h3 style={{ marginBottom: "0.5rem" }}>
-              Bạn muốn trao đổi thêm về project này?
-            </h3>
-            <p>
-              Tôi sẵn sàng trình bày chi tiết cách thiết kế luồng, các quyết
-              định kỹ thuật và những phần còn có thể cải thiện. Nếu bạn có cơ
-              hội việc làm phù hợp, vui lòng liên hệ qua email hoặc GitHub.
-            </p>
-          </div>
-          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-            <Link href="/#contact" className="btn btn-primary">
-              Liên Hệ Ngay <IconNE />
-            </Link>
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-outline"
-              >
-                <IconGithub /> GitHub
-              </a>
+                  {!isZoomed && (
+                    <motion.div
+                      className="lightbox-counter"
+                      initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: shouldReduceMotion ? 0 : 0.2 }}
+                    >
+                      {selectedImgIdx + 1} / {project.screenshots.length}
+                    </motion.div>
+                  )}
+                </div>
+              </motion.div>
             )}
+          </AnimatePresence>
+
+          {/* CTA */}
+          <div className="cta-card">
+            <div>
+              <h3 className="cta-title">Muốn trao đổi thêm về project này?</h3>
+              <p>
+                Tôi có thể trình bày cách tôi làm các luồng chính, phần backend,
+                database và những điểm còn có thể cải thiện. Nếu có cơ hội phù
+                hợp, anh/chị có thể liên hệ qua email hoặc GitHub.
+              </p>
+            </div>
+            <div className="cta-actions">
+              <Link href="/#contact" className="btn btn-primary">
+                Liên hệ <IconNE />
+              </Link>
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-outline"
+                >
+                  <IconGithub /> GitHub
+                </a>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </main>
 
       {/* FOOTER */}
-      <footer className="footer" style={{ marginTop: "4rem" }}>
+      <footer className="footer detail-footer">
         <div className="container">
           <p>© 2026 Ngô Gia Hạo. Xây dựng với Next.js.</p>
         </div>

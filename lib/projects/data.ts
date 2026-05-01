@@ -4,17 +4,18 @@ export const PROJECTS: Project[] = [
   {
     slug: "paas",
     title: "PaaS trên Kubernetes",
-    desc: "Nền tảng dịch vụ (PaaS) hỗ trợ triển khai ứng dụng tự động. Tích hợp NestJS cho backend ổn định và Kubernetes để quản lý container linh hoạt, từ git push đến live URL.",
+    desc: "Project lab thử làm PaaS đơn giản trên Kubernetes: tạo app từ Docker image/GitHub repo, deploy workload và xem resource qua giao diện web.",
     image: "/image/paas_project/trang_chu.jpg",
     github: null,
     demo: null,
     displayNumber: "01",
-    displaySubtitle: "Platform-as-a-Service",
-    subtitle: "Nền tảng PaaS tự lưu trữ trên Kubernetes",
-    role: "Solo Developer / Graduation Project",
-    projectType: "DevOps Lab / Platform Prototype",
+    displaySubtitle: "Kubernetes lab project",
+    subtitle:
+      "Project lab thử triển khai ứng dụng lên Kubernetes qua giao diện web",
+    role: "Làm cá nhân / đồ án tốt nghiệp",
+    projectType: "DevOps lab / prototype",
     timeline: "Project cá nhân/luận văn",
-    status: "Lab environment",
+    status: "Chạy trong môi trường lab",
     focus: [
       "Kubernetes deployment flow",
       "Docker image deployment",
@@ -207,14 +208,14 @@ export const PROJECTS: Project[] = [
   {
     slug: "laptop-shop",
     title: "Laptop Shop",
-    desc: "Trang bán laptop mô phỏng các luồng cơ bản của e-commerce: xem sản phẩm, giỏ hàng, đặt hàng, thanh toán QR qua SePay và màn hình admin quản lý đơn.",
+    desc: "Project bán laptop mô phỏng các luồng e-commerce cơ bản: xem sản phẩm, giỏ hàng, đặt hàng, thanh toán QR qua SePay và màn hình admin.",
     image: "/image/laptop-shop/home.png",
     github: "https://github.com/HaoNgo232/laptop-shop",
     demo: null,
     displayNumber: "02",
-    displaySubtitle: "E-Commerce System",
-    subtitle: "Nền tảng thương mại điện tử tích hợp thanh toán QR.",
-    role: "Solo Full-stack Developer",
+    displaySubtitle: "E-commerce demo",
+    subtitle: "Project e-commerce demo có luồng đặt hàng và thanh toán QR.",
+    role: "Làm cá nhân, full-stack",
     projectType: "E-commerce Demo",
     timeline: "Project cá nhân",
     status: "Demo project",
@@ -227,7 +228,7 @@ export const PROJECTS: Project[] = [
     ],
     summary: {
       problem:
-        "Project mô phỏng một hệ thống bán laptop với các luồng e-commerce phổ biến như xem sản phẩm, giỏ hàng, đặt hàng, thanh toán và quản trị đơn.",
+        "Project mô phỏng một trang bán laptop với các luồng e-commerce phổ biến như xem sản phẩm, giỏ hàng, đặt hàng, thanh toán và quản lý đơn.",
       approach:
         "Frontend React xử lý trải nghiệm mua hàng; backend NestJS cung cấp API cho auth, sản phẩm, giỏ hàng, đơn hàng và thanh toán; PostgreSQL lưu dữ liệu; một số luồng dùng transaction để giữ tính nhất quán khi tạo đơn và cập nhật trạng thái.",
       result:
@@ -275,7 +276,7 @@ export const PROJECTS: Project[] = [
     ],
     vision: [
       "Project mô phỏng một trang bán laptop với các luồng cơ bản: xem sản phẩm, thêm vào giỏ hàng, đặt hàng, thanh toán QR và admin quản lý đơn.",
-      "Project có thử hệ thống member rank từ Bronze đến Diamond và tính discount dựa trên tổng giá trị đơn đã mua.",
+      "Project có thử logic member rank từ Bronze đến Diamond và tính discount dựa trên tổng giá trị đơn đã mua.",
       "Frontend React tách riêng với backend NestJS API. Backend dùng TypeORM + PostgreSQL và có xử lý transaction trong luồng đặt hàng, cập nhật thanh toán.",
     ],
     terminalLines: [
@@ -367,13 +368,13 @@ export const PROJECTS: Project[] = [
         url: "https://youtu.be/blxYkm9qTqU",
         title: "Luồng đặt hàng & Thanh toán QR",
         description:
-          "Demo quy trình từ khi chọn sản phẩm đến khi hệ thống tự động xác nhận thanh toán qua Webhook SePay.",
+          "Demo quy trình từ khi chọn sản phẩm đến khi đơn hàng được xác nhận thanh toán qua Webhook SePay.",
       },
       {
         url: "https://youtu.be/fInUltOF2pk",
-        title: "Quản trị Hệ thống (Admin)",
+        title: "Màn hình admin",
         description:
-          "Giao diện quản lý kho hàng, xử lý đơn hàng và theo dõi luồng vận hành của website.",
+          "Demo các màn hình admin để quản lý sản phẩm, đơn hàng và trạng thái xử lý.",
       },
     ],
   },
@@ -386,11 +387,11 @@ export const PROJECTS: Project[] = [
       "https://github.com/HaoNgo232/VisionStore-E-Commerce-Microservices-Backend",
     demo: "https://v0-eyewear-store-website-kohl.vercel.app",
     displayNumber: "03",
-    displaySubtitle: "Multi-service E-Commerce",
+    displaySubtitle: "Multi-service demo",
     subtitle:
-      "Hệ thống thương mại điện tử kính mắt dựa trên kiến trúc đa dịch vụ.",
-    role: "Solo Full-stack Developer",
-    projectType: "Multi-service E-commerce Demo",
+      "Project bán kính mắt thử cách tách backend thành nhiều service nhỏ.",
+    role: "Làm cá nhân, full-stack",
+    projectType: "Multi-service demo",
     timeline: "Project cá nhân",
     status: "Demo project",
     focus: [
@@ -402,7 +403,7 @@ export const PROJECTS: Project[] = [
     ],
     summary: {
       problem:
-        "Project thử nghiệm cách tách một hệ thống e-commerce nhỏ thành nhiều service riêng để hiểu rõ hơn về tổ chức backend theo hướng multi-service.",
+        "Project thử nghiệm cách tách một app e-commerce nhỏ thành nhiều service riêng để hiểu rõ hơn về tổ chức backend theo hướng multi-service.",
       approach:
         "Tách các phần như Product, Cart, User và Order thành các service riêng; dùng API Gateway để routing; lưu ảnh sản phẩm bằng MinIO; frontend Next.js hiển thị sản phẩm và các luồng mua hàng cơ bản.",
       result:
@@ -520,9 +521,9 @@ export const PROJECTS: Project[] = [
     videos: [
       {
         url: "https://youtu.be/QQEMBoGbbOU",
-        title: "Giao diện & Tính năng cơ bản",
+        title: "Giao diện và luồng mua hàng cơ bản",
         description:
-          "Video minh họa giao diện người dùng và các tính năng cốt lõi của hệ thống thương mại điện tử Vision Store.",
+          "Video demo giao diện người dùng và các luồng mua hàng chính của Vision Store.",
       },
     ],
   },
@@ -534,11 +535,11 @@ export const PROJECTS: Project[] = [
     github: "https://github.com/HaoNgo232/Synapse-Desktop",
     demo: null,
     displayNumber: "04",
-    displaySubtitle: "Code to Prompt Tool",
+    displaySubtitle: "Desktop tool",
     subtitle:
       "Công cụ desktop cá nhân hỗ trợ chuẩn bị context và xem patch khi làm việc với AI web chat.",
-    role: "Solo Desktop App Developer",
-    projectType: "AI Workflow Tool",
+    role: "Làm cá nhân, desktop app",
+    projectType: "AI workflow tool cá nhân",
     timeline: "Project cá nhân",
     status: "Local desktop tool",
     focus: [
