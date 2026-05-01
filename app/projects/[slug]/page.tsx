@@ -279,9 +279,24 @@ function VideoShowcase({
 /**
  * Thành phần hiển thị thông tin về hạ tầng triển khai
  */
-function EnvironmentInfo({ machines }: { machines: EnvironmentMachine[] }) {
+function EnvironmentInfo({
+  machines,
+  shouldReduceMotion,
+}: {
+  machines: EnvironmentMachine[];
+  shouldReduceMotion: boolean | null;
+}) {
   return (
-    <section className="detail-section">
+    <motion.section
+      className="detail-section"
+      initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{
+        duration: shouldReduceMotion ? 0 : 0.5,
+        ease: "easeOut" as const,
+      }}
+    >
       <p className="section-label">Hạ tầng</p>
       <h2>Môi trường chạy demo</h2>
       <div className="env-grid">
@@ -300,7 +315,7 @@ function EnvironmentInfo({ machines }: { machines: EnvironmentMachine[] }) {
           </div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }
 
@@ -317,6 +332,26 @@ export default function ProjectDetail({
   const [isZoomed, setIsZoomed] = useState(false);
 
   if (!project) notFound();
+
+  // Animation variants
+  const heroReveal = {
+    initial: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: {
+      duration: shouldReduceMotion ? 0 : 0.6,
+      ease: "easeOut" as const,
+    },
+  };
+
+  const sectionReveal = {
+    initial: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.18 },
+    transition: {
+      duration: shouldReduceMotion ? 0 : 0.5,
+      ease: "easeOut" as const,
+    },
+  };
 
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -392,7 +427,11 @@ export default function ProjectDetail({
 
       <main>
         {/* HERO */}
-        <section className="detail-hero" aria-labelledby="detail-hero-heading">
+        <motion.section
+          className="detail-hero"
+          aria-labelledby="detail-hero-heading"
+          {...heroReveal}
+        >
           <div className="container">
             <div>
               <Link href="/#projects" className="back-link">
@@ -441,12 +480,16 @@ export default function ProjectDetail({
             {/* Project Summary Card */}
             <ProjectSummaryCard project={project} />
           </div>
-        </section>
+        </motion.section>
 
         {/* CONTENT */}
         <div className="container">
           {/* PROJECT DESCRIPTION */}
-          <section className="detail-section" aria-label="Giới thiệu dự án">
+          <motion.section
+            className="detail-section"
+            aria-label="Giới thiệu dự án"
+            {...sectionReveal}
+          >
             <p className="section-label">Giới thiệu</p>
             <h2>Về dự án này</h2>
             <div className="detail-description-content">
@@ -461,21 +504,32 @@ export default function ProjectDetail({
                 </div>
               )}
             </div>
-          </section>
+          </motion.section>
 
           {/* SCREENSHOTS */}
           {project.screenshots && project.screenshots.length > 0 && (
-            <section className="detail-section" aria-label="Ảnh giao diện">
+            <motion.section
+              className="detail-section"
+              aria-label="Ảnh giao diện"
+              {...sectionReveal}
+            >
               <p className="section-label">Thư viện ảnh</p>
               <h2>Ảnh giao diện</h2>
               <div className="screenshot-grid">
                 {project.screenshots.map((screenshot, i) => (
-                  <button
+                  <motion.button
                     key={i}
                     type="button"
                     className="screenshot-item"
                     aria-label={`Xem ảnh: ${screenshot.alt}`}
                     onClick={() => setSelectedImgIdx(i)}
+                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: shouldReduceMotion ? 0 : 0.4,
+                      delay: shouldReduceMotion ? 0 : i * 0.05,
+                    }}
                   >
                     <Image
                       src={screenshot.url}
@@ -487,15 +541,19 @@ export default function ProjectDetail({
                     <span className="screenshot-caption">
                       <span>{screenshot.alt}</span>
                     </span>
-                  </button>
+                  </motion.button>
                 ))}
               </div>
-            </section>
+            </motion.section>
           )}
 
           {/* VIDEOS */}
           {project.videos && project.videos.length > 0 && (
-            <section className="detail-section" aria-label="Video demo">
+            <motion.section
+              className="detail-section"
+              aria-label="Video demo"
+              {...sectionReveal}
+            >
               <p className="section-label">Video demo</p>
               <h2>Video Demo</h2>
               <VideoShowcase
@@ -507,40 +565,55 @@ export default function ProjectDetail({
                   url: v.url,
                 }))}
               />
-            </section>
+            </motion.section>
           )}
 
           {/* Case Study Summary */}
           {project.summary && (
-            <section className="detail-section" aria-label="Tổng quan project">
+            <motion.section
+              className="detail-section"
+              aria-label="Tổng quan project"
+              {...sectionReveal}
+            >
               <p className="section-label">Tổng quan</p>
               <h2>Tóm tắt project</h2>
               <CaseStudySummary summary={project.summary} />
-            </section>
+            </motion.section>
           )}
 
           {/* Technical Highlights */}
           {project.technicalHighlights &&
             project.technicalHighlights.length > 0 && (
-              <section className="detail-section" aria-label="Điểm kỹ thuật">
+              <motion.section
+                className="detail-section"
+                aria-label="Điểm kỹ thuật"
+                {...sectionReveal}
+              >
                 <p className="section-label">Kỹ thuật</p>
                 <h2>Phần kỹ thuật đã làm</h2>
                 <TechnicalHighlights items={project.technicalHighlights} />
-              </section>
+              </motion.section>
             )}
 
           {/* Challenges */}
           {project.challenges && project.challenges.length > 0 && (
-            <section className="detail-section" aria-label="Thách thức">
+            <motion.section
+              className="detail-section"
+              aria-label="Thách thức"
+              {...sectionReveal}
+            >
               <p className="section-label">Thách thức</p>
               <h2>Vấn đề gặp phải và cách xử lý</h2>
               <ChallengeSection challenges={project.challenges} />
-            </section>
+            </motion.section>
           )}
 
           {/* ENVIRONMENT INFO (PAAS ONLY) */}
           {project.environment && (
-            <EnvironmentInfo machines={project.environment} />
+            <EnvironmentInfo
+              machines={project.environment}
+              shouldReduceMotion={shouldReduceMotion}
+            />
           )}
 
           {/* LIGHTBOX */}
@@ -677,7 +750,7 @@ export default function ProjectDetail({
           </AnimatePresence>
 
           {/* CTA */}
-          <div className="cta-card">
+          <motion.div className="cta-card" {...sectionReveal}>
             <div>
               <h3 className="cta-title">Muốn trao đổi thêm về project này?</h3>
               <p>
@@ -701,7 +774,7 @@ export default function ProjectDetail({
                 </a>
               )}
             </div>
-          </div>
+          </motion.div>
         </div>
       </main>
 
