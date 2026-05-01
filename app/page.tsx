@@ -32,12 +32,6 @@ const ABOUT_STACK = {
 
 const ROTATING_WORDS = ["Backend", "Full-stack", "Deployment", "Product"];
 
-const STATS = [
-  { label: "Dự án hoàn thành", value: PROJECTS.length.toString() },
-  { label: "Công nghệ đã dùng", value: "10+" },
-  { label: "Tốt nghiệp", value: "04/2026" },
-];
-
 const JOURNAL_ENTRIES = [
   {
     title: "Thử nghiệm PaaS trên Kubernetes",
@@ -92,8 +86,8 @@ function IconArrowRight() {
 }
 
 /* ─── Hook: scroll fade-in ───────────────────────────────────────── */
-function useFadeIn() {
-  const ref = useRef<HTMLDivElement>(null);
+function useFadeIn<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -239,7 +233,7 @@ function BentoProjectCard({
   index: number;
   featured?: boolean;
 }) {
-  const ref = useFadeIn();
+  const ref = useFadeIn<HTMLDivElement>();
 
   return (
     <motion.div
@@ -279,18 +273,24 @@ function BentoProjectCard({
                 {project.displayNumber} — {project.displaySubtitle}
               </span>
               <h3 className="bento-card-title">{project.title}</h3>
-              <p className="bento-card-desc">{project.desc}</p>
+              <p className="bento-card-desc">{project.hoverDesc}</p>
               {project.focus && project.focus.length > 0 && (
-                <div className="bento-card-tags">
-                  {project.focus.slice(0, 3).map((tag) => (
+                <div
+                  className="bento-card-tags"
+                  aria-label="Phần kỹ thuật chính"
+                >
+                  {project.focus.slice(0, 2).map((tag) => (
                     <span key={tag} className="bento-tag">
                       {tag}
                     </span>
                   ))}
                 </div>
               )}
+              <div className="bento-card-footer">
+                <span className="bento-card-cta">Xem case study</span>
+              </div>
               <div className="bento-card-stack">
-                {project.techStack?.slice(0, 4).map((tech) => {
+                {project.techStack?.slice(0, 3).map((tech) => {
                   const stackIcon = STACK_ICONS[tech.name];
                   return stackIcon ? (
                     <Badge
@@ -398,29 +398,8 @@ export default function Home() {
                       key={p.slug}
                       project={p}
                       index={i}
-                      featured={i === 0}
+                      featured={true}
                     />
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            {/* STATS */}
-            <section className="stats-section" aria-label="Thống kê">
-              <div className="container">
-                <div className="stats-grid">
-                  {STATS.map((stat, i) => (
-                    <motion.div
-                      key={stat.label}
-                      className="stat-card"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: i * 0.1 }}
-                    >
-                      <div className="stat-value">{stat.value}</div>
-                      <div className="stat-label">{stat.label}</div>
-                    </motion.div>
                   ))}
                 </div>
               </div>
@@ -539,7 +518,7 @@ export default function Home() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: i * 0.1 }}
-                        whileHover={{ scale: 1.02 }}
+                        whileHover={{ scale: 1 }}
                       >
                         <h3 className="exploration-title">{item.title}</h3>
                         <p className="exploration-desc">{item.desc}</p>

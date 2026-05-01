@@ -445,6 +445,24 @@ export default function ProjectDetail({
 
         {/* CONTENT */}
         <div className="container">
+          {/* PROJECT DESCRIPTION */}
+          <section className="detail-section" aria-label="Giới thiệu dự án">
+            <p className="section-label">Giới thiệu</p>
+            <h2>Về dự án này</h2>
+            <div className="detail-description-content">
+              <p className="detail-description-text">{project.desc}</p>
+              {project.vision && project.vision.length > 0 && (
+                <div className="detail-vision-list">
+                  {project.vision.map((v, i) => (
+                    <p key={i} className="detail-vision-item">
+                      {v}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </div>
+          </section>
+
           {/* SCREENSHOTS */}
           {project.screenshots && project.screenshots.length > 0 && (
             <section className="detail-section" aria-label="Ảnh giao diện">

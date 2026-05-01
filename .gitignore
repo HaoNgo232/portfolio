@@ -10,7 +10,9 @@
 !.yarn/releases
 !.yarn/versions
 tsconfig.tsbuildinfo
-
+.playwright-mcp/
+.impeccable-live/
+.qoder/
 # testing
 /coverage
 

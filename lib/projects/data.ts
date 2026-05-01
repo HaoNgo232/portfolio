@@ -4,6 +4,8 @@ export const PROJECTS: Project[] = [
   {
     slug: "paas",
     title: "PaaS trên Kubernetes",
+    hoverDesc:
+      "PaaS Platform đơn giản trên Kubernetes với UI quản lý Deployment.",
     desc: "Project lab thử làm PaaS đơn giản trên Kubernetes: tạo app từ Docker image/GitHub repo, deploy workload và xem resource qua giao diện web.",
     image: "/image/paas_project/trang_chu.jpg",
     github: null,
@@ -69,7 +71,7 @@ export const PROJECTS: Project[] = [
     ],
     outcomes: [
       "Có demo video cho các luồng chính.",
-      "Chạy được trong môi trường Kubernetes lab với master/worker VM.",
+      "Chạy được trong môi trường Kubernetes lab with master/worker VM.",
       "Rút kinh nghiệm về Kubernetes resource, async job và workflow deployment.",
     ],
     vision: [
@@ -208,6 +210,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "laptop-shop",
     title: "Laptop Shop",
+    hoverDesc: "E-commerce demo với luồng đặt hàng và thanh toán QR qua SePay.",
     desc: "Project bán laptop mô phỏng các luồng e-commerce cơ bản: xem sản phẩm, giỏ hàng, đặt hàng, thanh toán QR qua SePay và màn hình admin.",
     image: "/image/laptop-shop/home.png",
     github: "https://github.com/HaoNgo232/laptop-shop",
@@ -266,13 +269,13 @@ export const PROJECTS: Project[] = [
       {
         title: "Phân quyền admin",
         problem: "Một số API chỉ nên cho admin truy cập.",
-        solution: "Dùng JWT guard và role-based authorization trong NestJS.",
+        solution: "Dùng JWT guard and role-based authorization trong NestJS.",
       },
     ],
     outcomes: [
       "Có demo video cho checkout QR và admin.",
       "Thực hành được luồng e-commerce end-to-end.",
-      "Có kinh nghiệm tốt hơn với NestJS module, PostgreSQL và auth flow.",
+      "Có kinh nghiệm tốt hơn with NestJS module, PostgreSQL and auth flow.",
     ],
     vision: [
       "Project mô phỏng một trang bán laptop với các luồng cơ bản: xem sản phẩm, thêm vào giỏ hàng, đặt hàng, thanh toán QR và admin quản lý đơn.",
@@ -381,6 +384,8 @@ export const PROJECTS: Project[] = [
   {
     slug: "vision-store",
     title: "Vision Store",
+    hoverDesc:
+      "Trang bán kính mắt sử dụng kiến trúc multi-service và MinIO object storage.",
     desc: "Trang bán kính mắt thử kiến trúc multi-service ở mức project cá nhân. Các service như Product, Cart, User, Order được tách riêng; hình ảnh sản phẩm lưu trên MinIO.",
     image: "/image/vision-store-thumbnail.jpg",
     github:
@@ -407,7 +412,7 @@ export const PROJECTS: Project[] = [
       approach:
         "Tách các phần như Product, Cart, User và Order thành các service riêng; dùng API Gateway để routing; lưu ảnh sản phẩm bằng MinIO; frontend Next.js hiển thị sản phẩm và các luồng mua hàng cơ bản.",
       result:
-        "Hoàn thiện được demo mua hàng cơ bản, có frontend public, backend nhiều service và object storage cho hình ảnh sản phẩm.",
+        "Hoàn thiện được demo mua hàng cơ bản, có frontend public, backend nhiều service and object storage cho hình ảnh sản phẩm.",
     },
     responsibilities: [
       "Xây dựng các service backend chính cho sản phẩm, người dùng, giỏ hàng và đơn hàng.",
@@ -440,7 +445,7 @@ export const PROJECTS: Project[] = [
       },
       {
         title: "Chạy nhiều service local",
-        problem: "Nhiều service cần cấu hình port, database và dependency.",
+        problem: "Nhiều service cần cấu hình port, database and dependency.",
         solution:
           "Dùng Docker để hỗ trợ chạy các thành phần trong môi trường demo.",
       },
@@ -530,6 +535,8 @@ export const PROJECTS: Project[] = [
   {
     slug: "synapse-desktop",
     title: "Code to Prompt",
+    hoverDesc:
+      "Desktop tool đóng gói context từ codebase để sử dụng với AI chat.",
     desc: "Ứng dụng desktop cá nhân hỗ trợ gom context từ codebase để dùng với AI web chat. App có các phần chọn file, ước lượng token, xem diff và apply patch vào project.",
     image: "/image/synapse-desktop/context-tab.png",
     github: "https://github.com/HaoNgo232/Synapse-Desktop",
@@ -555,11 +562,11 @@ export const PROJECTS: Project[] = [
       approach:
         "Xây dựng desktop app bằng Python/PySide6 để chọn file từ project tree, ước lượng token, đóng gói context thành prompt, xem diff trước khi apply patch và lưu lịch sử thao tác.",
       result:
-        "Hoàn thiện được workflow local: chọn file, copy context, nhận patch, xem diff và apply có kiểm soát vào codebase.",
+        "Hoàn thiện được workflow local: chọn file, copy context, nhận patch, xem diff and apply có kiểm soát vào codebase.",
     },
     responsibilities: [
       "Xây dựng giao diện desktop bằng PySide6.",
-      "Xử lý file tree, chọn file và đóng gói context.",
+      "Xử lý file tree, chọn file and đóng gói context.",
       "Tích hợp ước lượng token theo một số model/tokenizer.",
       "Hiển thị diff trước khi ghi thay đổi vào project.",
       "Thử Tree-sitter để đọc cấu trúc code ở một số ngôn ngữ.",
@@ -576,13 +583,13 @@ export const PROJECTS: Project[] = [
         title: "Giảm context thừa khi gửi code cho AI",
         problem: "Copy quá nhiều file làm prompt dài và khó kiểm soát.",
         solution:
-          "Thêm file selection, token estimation và gợi ý file liên quan.",
+          "Thêm file selection, token estimation and gợi ý file liên quan.",
       },
       {
         title: "Tránh apply patch mù",
         problem: "Dán patch trực tiếp có thể ghi sai file hoặc làm mất code.",
         solution:
-          "Hiển thị diff trước khi apply và thêm cơ chế backup/history.",
+          "Hiển thị diff trước khi apply and thêm cơ chế backup/history.",
       },
       {
         title: "Đọc cấu trúc code thay vì text thuần",
@@ -594,11 +601,11 @@ export const PROJECTS: Project[] = [
     outcomes: [
       "Có video demo workflow.",
       "Dùng được cho nhu cầu cá nhân khi làm việc với AI web chat.",
-      "Thực hành được desktop UI, file processing và developer tooling.",
+      "Thực hành được desktop UI, file processing and developer tooling.",
     ],
     vision: [
       "Project này xuất phát từ nhu cầu gom nhiều file code thành một prompt có cấu trúc khi dùng AI web chat.",
-      "App hỗ trợ chọn file từ tree, xem ước lượng token theo model và lưu lại lịch sử thao tác.",
+      "App hỗ trợ chọn file từ tree, xem ước lượng token theo model and lưu lại lịch sử thao tác.",
       "Một phần khác của app là nhận patch có cấu trúc, hiển thị diff để xem trước rồi mới apply vào codebase.",
       "Project có thử dùng Tree-sitter để đọc cấu trúc code ở một số ngôn ngữ, thay vì chỉ xử lý text thuần.",
     ],

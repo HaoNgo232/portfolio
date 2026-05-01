@@ -75,6 +75,7 @@ export interface Project {
   // Core fields
   slug: string;
   title: string;
+  hoverDesc: string;
   desc: string;
   image: string;
   github?: string | null;
