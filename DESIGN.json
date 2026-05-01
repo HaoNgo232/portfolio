@@ -1,0 +1,261 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-01T11:30:00+07:00",
+  "title": "Design System: Ngô Gia Hạo Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "signal-cyan": {
+        "role": "primary",
+        "displayName": "Signal Cyan",
+        "canonical": "oklch(85% 0.15 195)",
+        "tonalRamp": [
+          "#003340",
+          "#005566",
+          "#007a8f",
+          "#009eb8",
+          "#00c2e0",
+          "#00e5ff",
+          "#33ebff",
+          "#66f0ff"
+        ]
+      },
+      "violet-accent": {
+        "role": "secondary",
+        "displayName": "Violet Accent",
+        "canonical": "oklch(58% 0.23 295)",
+        "tonalRamp": [
+          "#3b1564",
+          "#52208a",
+          "#6a2baf",
+          "#8237d4",
+          "#9a43f9",
+          "#a855f7",
+          "#b977f9",
+          "#ca99fa"
+        ]
+      },
+      "deep-void": {
+        "role": "neutral",
+        "displayName": "Deep Void",
+        "canonical": "oklch(7% 0.005 285)",
+        "tonalRamp": [
+          "#09090b",
+          "#131316",
+          "#1c1c21",
+          "#27272a",
+          "#3f3f46",
+          "#52525b",
+          "#71717a",
+          "#a1a1aa"
+        ]
+      },
+      "surface-panel": {
+        "role": "neutral",
+        "displayName": "Surface Panel",
+        "canonical": "oklch(12% 0.005 285)"
+      },
+      "surface-hover": {
+        "role": "neutral",
+        "displayName": "Surface Hover",
+        "canonical": "oklch(16% 0.005 285)"
+      },
+      "wire-border": {
+        "role": "neutral",
+        "displayName": "Wire Border",
+        "canonical": "oklch(22% 0.005 285)"
+      },
+      "near-white": {
+        "role": "neutral",
+        "displayName": "Near White",
+        "canonical": "oklch(98% 0.002 285)"
+      },
+      "cool-silver": {
+        "role": "neutral",
+        "displayName": "Cool Silver",
+        "canonical": "oklch(78% 0.01 260)"
+      },
+      "muted-slate": {
+        "role": "neutral",
+        "displayName": "Muted Slate",
+        "canonical": "oklch(58% 0.01 260)"
+      },
+      "status-green": {
+        "role": "status",
+        "displayName": "Status Green",
+        "canonical": "oklch(72% 0.19 145)"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero name only. One instance per page."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings: Dự Án, Về Tôi, Liên Hệ."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Project card titles, detail page subheadings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraph text. Max 72ch on detail pages, 52ch in hero."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Section markers, meta labels. Always mono, uppercase, with preceding cyan line."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-hover-glow",
+        "value": "0 0 32px rgba(0, 229, 255, 0.1)",
+        "purpose": "Faint cyan ambient glow behind project cards on hover."
+      },
+      {
+        "name": "button-hover-glow",
+        "value": "0 0 20px rgba(0, 229, 255, 0.38)",
+        "purpose": "Stronger cyan glow behind primary CTA on hover."
+      },
+      {
+        "name": "lightbox-drop",
+        "value": "0 30px 60px rgba(0, 0, 0, 0.8)",
+        "purpose": "Deep shadow behind lightbox images over dark overlay."
+      }
+    ],
+    "motion": [
+      {
+        "name": "t-fast",
+        "value": "150ms ease",
+        "purpose": "Button hover, link hover, badge hover. Quick state changes."
+      },
+      {
+        "name": "t-base",
+        "value": "250ms ease",
+        "purpose": "Card hover, card media scale. Slightly deliberate transitions."
+      },
+      {
+        "name": "fade-up",
+        "value": "opacity 0.55s ease, transform 0.55s ease",
+        "purpose": "Scroll-in animation for sections. translateY(24px) to 0."
+      }
+    ],
+    "breakpoints": [
+      { "name": "tablet", "value": "820px" },
+      { "name": "mobile", "value": "560px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main CTA button. Cyan pill shape, dark text. Used for 'Xem Chi Tiết' and 'Xem Dự Án'.",
+      "html": "<button class=\"ds-btn-primary\">Xem Chi Tiết <svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"/><polyline points=\"12 5 19 12 12 19\"/></svg></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.375rem; border-radius: 9999px; font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; cursor: pointer; border: 1px solid transparent; background: #00e5ff; color: #09090b; transition: box-shadow 150ms ease; white-space: nowrap; text-decoration: none; } .ds-btn-primary:hover { box-shadow: 0 0 20px rgba(0, 229, 255, 0.38); } .ds-btn-primary:focus-visible { outline: 2px solid #00e5ff; outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action button with border. Used for GitHub links and 'Liên hệ'.",
+      "html": "<button class=\"ds-btn-outline\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z\"/></svg> GitHub</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.375rem; border-radius: 9999px; font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; cursor: pointer; border: 1px solid #27272a; background: transparent; color: #fafafa; transition: background 150ms ease, border-color 150ms ease; white-space: nowrap; text-decoration: none; } .ds-btn-outline:hover { background: #1c1c21; border-color: #7d8088; } .ds-btn-outline:focus-visible { outline: 2px solid #00e5ff; outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Tertiary action with no background or border. Used for standalone icon+text links.",
+      "html": "<button class=\"ds-btn-ghost\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z\"/></svg> GitHub</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 0.5rem; border-radius: 9999px; font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; cursor: pointer; border: 1px solid transparent; background: transparent; color: #b8bcc7; transition: color 150ms ease; white-space: nowrap; text-decoration: none; } .ds-btn-ghost:hover { color: #fafafa; } .ds-btn-ghost:focus-visible { outline: 2px solid #00e5ff; outline-offset: 2px; }"
+    },
+    {
+      "name": "Badge",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "Tech stack tag with icon. Used on project cards and about section.",
+      "html": "<span class=\"ds-badge\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><circle cx=\"12\" cy=\"12\" r=\"10\"/></svg> NestJS</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.3rem 0.65rem; background: #131316; border: 1px solid #27272a; border-radius: 6px; font-family: 'Space Grotesk', monospace; font-size: 0.75rem; font-weight: 500; color: #b8bcc7; letter-spacing: 0.03em; transition: border-color 150ms ease, background 150ms ease; } .ds-badge:hover { border-color: #3f3f46; }"
+    },
+    {
+      "name": "Section Label",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The system's signature element. Uppercase mono label preceded by a 24px cyan line. Used before every section heading.",
+      "html": "<p class=\"ds-section-label\">Dự án tiêu biểu</p>",
+      "css": ".ds-section-label { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Space Grotesk', monospace; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: #00e5ff; margin-bottom: 1rem; } .ds-section-label::before { content: ''; display: block; width: 24px; height: 1px; background: #00e5ff; }"
+    },
+    {
+      "name": "Contact Link",
+      "kind": "button",
+      "refersTo": "contact-link",
+      "description": "Contact action with icon. Used in the contact section for email, GitHub, LinkedIn.",
+      "html": "<a class=\"ds-contact-link\" href=\"#\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z\"/><polyline points=\"22,6 12,13 2,6\"/></svg> ngogiahao@email.com</a>",
+      "css": ".ds-contact-link { display: inline-flex; align-items: center; gap: 0.625rem; padding: 0.75rem 1.25rem; background: #131316; border: 1px solid #27272a; border-radius: 10px; font-size: 0.875rem; font-weight: 500; color: #b8bcc7; text-decoration: none; transition: color 150ms ease, border-color 150ms ease, background 150ms ease; } .ds-contact-link:hover { color: #fafafa; border-color: #00e5ff; background: rgba(0, 229, 255, 0.1); } .ds-contact-link:focus-visible { outline: 2px solid #00e5ff; outline-offset: 2px; }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Sticky top nav with blurred background, logo in Signal Cyan, text links in Cool Silver.",
+      "html": "<nav class=\"ds-nav\"><div class=\"ds-nav-inner\"><span class=\"ds-nav-logo\">NGÔ GIA HẠO</span><div class=\"ds-nav-links\"><a class=\"ds-nav-link\" href=\"#\">Projects</a><a class=\"ds-nav-link\" href=\"#\">About</a><a class=\"ds-nav-link\" href=\"#\">Contact</a></div></div></nav>",
+      "css": ".ds-nav { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid #27272a; background: rgba(9, 9, 11, 0.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); } .ds-nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; max-width: 1200px; margin: 0 auto; } .ds-nav-logo { font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.05em; color: #00e5ff; text-transform: uppercase; } .ds-nav-links { display: flex; align-items: center; gap: 2rem; } .ds-nav-link { font-size: 0.875rem; font-weight: 500; color: #b8bcc7; text-decoration: none; transition: color 150ms ease; } .ds-nav-link:hover { color: #fafafa; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Signal Room",
+    "overview": "A dim control room where one cyan signal cuts through the dark. Every element earns its brightness; nothing glows without purpose. The portfolio is a quiet, structured space where project work speaks through clean composition and precise spacing, not through decoration or spectacle.\n\nThe system rejects both template blandness and over-designed portfolios. No parallax hero sections, no gradient text, no glassmorphism cards, no bouncing animations. Equally, no flat white pages with Times New Roman that look abandoned. The Signal Room sits between those extremes: dark, focused, technically confident, with just enough visual craft to signal that the person behind it cares about details.",
+    "keyCharacteristics": [
+      "Dark tonal layering with no pure black or pure white",
+      "Cyan accent used on less than 15% of any screen",
+      "Monospaced labels and section markers for a technical register",
+      "Geometric sans-serif headings (Space Grotesk) for structured clarity",
+      "Humanist body text (Inter) for comfortable reading at paragraph length",
+      "Flat surfaces with border containment; shadows appear only on hover as ambient glow"
+    ],
+    "rules": [
+      {
+        "name": "The Signal Ratio Rule",
+        "body": "Signal Cyan occupies no more than 15% of any screen's visual area. It marks section labels, primary CTAs, and interactive states. If a screen looks 'cyan', something is wrong.",
+        "section": "colors"
+      },
+      {
+        "name": "The Atmospheric-Only Rule",
+        "body": "Violet Accent exists only in radial gradient washes in the hero. It never appears as solid color on any element. If violet is readable, it's a violation.",
+        "section": "colors"
+      },
+      {
+        "name": "The Label Anatomy Rule",
+        "body": "Every label is: mono font, 0.7rem, weight 500, uppercase, 0.12em tracking, Signal Cyan color, with a 24px horizontal line before it. No exceptions.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-At-Rest Rule",
+        "body": "No surface casts a shadow at rest. Glow appears only as a hover response. If a card has a shadow without being hovered, it's wrong.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use Signal Cyan exclusively for interactive elements, labels, and small indicators.",
+      "Do maintain the Label Anatomy exactly: mono, uppercase, 0.7rem, 0.12em tracking, preceded by a 24px cyan line.",
+      "Do keep body text at Cool Silver (#b8bcc7), never at Near White. Near White is for headings only.",
+      "Do use pill-shaped buttons (border-radius: 9999px) for all button variants.",
+      "Do use tonal layering (Void to Panel to Hover) instead of shadows for depth at rest.",
+      "Do keep line height at 1.7 for body text. Vietnamese diacritics need the vertical breathing room.",
+      "Do use clamp() for responsive typography.",
+      "Do respect the 72ch max line length on detail pages."
+    ],
+    "donts": [
+      "Don't use template portfolio patterns: identical card grids with icon + heading + text repeated endlessly.",
+      "Don't add gratuitous animations, parallax scrolling, gradient text, 3D transforms, or glassmorphism.",
+      "Don't use Violet Accent as a solid color on any element.",
+      "Don't use pure black (#000) or pure white (#fff).",
+      "Don't use border-left or border-right greater than 1px as a colored accent stripe.",
+      "Don't use bounce or elastic easing.",
+      "Don't put shadows on surfaces at rest.",
+      "Don't use 'thanh thao', 'hoan thien', 'thanh cong' in copy."
+    ]
+  }
+}

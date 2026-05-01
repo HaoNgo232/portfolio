@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { getProjectBySlug } from "@/lib/projects/data";
 import { IconGithub, IconExternal, Badge } from "@/components/ui/icons";
-import { FEATURE_ICONS } from "@/lib/projects/icons";
 import { STACK_ICONS } from "@/lib/projects/stack-icons";
 import { parseYouTubeId } from "@/lib/projects/youtube";
 import type {
@@ -142,22 +141,6 @@ function CaseStudySummary({ summary }: { summary: ProjectSummary }) {
 }
 
 /**
- * Responsibility List - danh sách vai trò và phạm vi thực hiện
- */
-function ResponsibilityList({ items }: { items: string[] }) {
-  return (
-    <ul className="responsibility-list">
-      {items.map((item, i) => (
-        <li key={i} className="responsibility-item">
-          <div className="responsibility-dot" />
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-/**
  * Technical Highlights - điểm kỹ thuật nổi bật
  */
 function TechnicalHighlights({ items }: { items: string[] }) {
@@ -208,36 +191,6 @@ function ChallengeSection({ challenges }: { challenges: ProjectChallenge[] }) {
         </div>
       ))}
     </div>
-  );
-}
-
-/**
- * Outcomes Section - kết quả thực hành
- */
-function OutcomesSection({ outcomes }: { outcomes: string[] }) {
-  return (
-    <ul className="outcomes-list">
-      {outcomes.map((item, i) => (
-        <li key={i} className="outcomes-item">
-          <div className="outcomes-icon">
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-              <polyline points="22 4 12 14.01 9 11.01" />
-            </svg>
-          </div>
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
   );
 }
 
@@ -542,219 +495,11 @@ export default function ProjectDetail({
         </div>
       </section>
 
-      {/* VIDEO SECTION */}
+      {/* CONTENT */}
       <div className="container">
-        {project.videos && project.videos.length > 0 ? (
-          <VideoShowcase
-            videos={project.videos.map((v) => ({
-              id: parseYouTubeId(v.url) || v.url,
-              title: v.title,
-              desc: v.description || "",
-              youtubeId: parseYouTubeId(v.url) || "",
-              url: v.url,
-            }))}
-          />
-        ) : (
-          <div className="detail-video-wrap">
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                background: "var(--clr-surface)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "1rem",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  backgroundImage: `
-                  linear-gradient(var(--clr-border) 1px, transparent 1px),
-                  linear-gradient(90deg, var(--clr-border) 1px, transparent 1px)
-                `,
-                  backgroundSize: "48px 48px",
-                  opacity: 0.3,
-                }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  width: 300,
-                  height: 300,
-                  borderRadius: "50%",
-                  background: "var(--clr-primary)",
-                  filter: "blur(120px)",
-                  opacity: 0.07,
-                }}
-              />
-              {/* Play button */}
-              <div
-                style={{
-                  position: "relative",
-                  width: 72,
-                  height: 72,
-                  borderRadius: "50%",
-                  background: "var(--clr-primary)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                  boxShadow: "0 0 32px var(--clr-primary)50",
-                }}
-              >
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="#09090B">
-                  <polygon points="5 3 19 12 5 21 5 3" />
-                </svg>
-              </div>
-              <p
-                style={{
-                  position: "relative",
-                  color: "var(--clr-text-muted)",
-                  fontSize: "0.875rem",
-                  fontFamily: "var(--font-mono)",
-                }}
-              >
-                Video demo
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* THE VISION */}
-      <div className="container">
-        {/* Case Study Summary */}
-        {project.summary && (
-          <section className="detail-section">
-            <p className="section-label">Tổng quan</p>
-            <h2>Tóm Tắt Project</h2>
-            <CaseStudySummary summary={project.summary} />
-          </section>
-        )}
-
-        {/* Responsibilities */}
-        {project.responsibilities && project.responsibilities.length > 0 && (
-          <section className="detail-section">
-            <p className="section-label">Vai trò</p>
-            <h2>Vai Trò & Phạm Vi Thực Hiện</h2>
-            <ResponsibilityList items={project.responsibilities} />
-          </section>
-        )}
-
-        {/* Technical Highlights */}
-        {project.technicalHighlights &&
-          project.technicalHighlights.length > 0 && (
-            <section className="detail-section">
-              <p className="section-label">Kỹ thuật</p>
-              <h2>Điểm Kỹ Thuật Nổi Bật</h2>
-              <TechnicalHighlights items={project.technicalHighlights} />
-            </section>
-          )}
-
-        {/* Challenges */}
-        {project.challenges && project.challenges.length > 0 && (
-          <section className="detail-section">
-            <p className="section-label">Thách thức</p>
-            <h2>Thách Thức & Cách Xử Lý</h2>
-            <ChallengeSection challenges={project.challenges} />
-          </section>
-        )}
-
-        {/* Vision (fallback nếu không có summary) */}
-        {!project.summary && (
-          <section className="detail-section">
-            <p className="section-label">Tổng quan</p>
-            <h2>Tầm Nhìn</h2>
-            {project.vision.map((para: string, i: number) => (
-              <p key={i}>{para}</p>
-            ))}
-          </section>
-        )}
-
-        {/* Outcomes */}
-        {project.outcomes && project.outcomes.length > 0 && (
-          <section className="detail-section">
-            <p className="section-label">Kết quả</p>
-            <h2>Kết Quả Thực Hành</h2>
-            <OutcomesSection outcomes={project.outcomes} />
-          </section>
-        )}
-
-        {/* ENVIRONMENT INFO (PAAS ONLY) */}
-        {project.environment && (
-          <EnvironmentInfo machines={project.environment} />
-        )}
-
-        {/* KEY FEATURES */}
-        <section className="detail-section">
-          <p className="section-label">Tính năng</p>
-          <h2>Tính Năng Chính</h2>
-          <div className="feature-list">
-            {project.features?.map((f) => (
-              <div key={f.title} className="feature-item">
-                <div className="feature-icon">{FEATURE_ICONS[f.icon]}</div>
-                <div className="feature-content">
-                  <h3>{f.title}</h3>
-                  <p>{f.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* TERMINAL */}
-        <section className="detail-section">
-          <p className="section-label">Nhật ký</p>
-          <h2>Nhật Ký Phát Triển</h2>
-          <p
-            style={{
-              marginBottom: "1.5rem",
-              color: "var(--clr-text-secondary)",
-            }}
-          >
-            Đoạn log dưới đây mô phỏng/trích từ quá trình chạy thử để thể hiện
-            các thành phần chính của project.
-          </p>
-          <div className="terminal">
-            <div className="terminal-header">
-              <div className="terminal-dot" style={{ background: "#FF5F57" }} />
-              <div className="terminal-dot" style={{ background: "#FEBC2E" }} />
-              <div className="terminal-dot" style={{ background: "#28C840" }} />
-              <span
-                style={{
-                  marginLeft: "0.5rem",
-                  fontSize: "0.75rem",
-                  color: "var(--clr-text-muted)",
-                  fontFamily: "var(--font-mono)",
-                }}
-              >
-                bash — {slug}
-              </span>
-            </div>
-            <div className="terminal-body">
-              {project.terminalLines.map((line: string, i: number) => (
-                <div key={i}>
-                  <span className="t-prompt">❯ </span>
-                  {line}
-                </div>
-              ))}
-              <div>
-                <span className="t-prompt">❯ </span>
-                <span className="t-cursor">█</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* SCREENSHOTS */}
         {project.screenshots && project.screenshots.length > 0 && (
-          <section className="detail-section">
+          <section className="detail-section" aria-label="Ảnh giao diện">
             <p className="section-label">Thư viện ảnh</p>
             <h2>Giao Diện Nền Tảng</h2>
             <div className="screenshot-grid">
@@ -786,11 +531,64 @@ export default function ProjectDetail({
           </section>
         )}
 
+        {/* VIDEOS */}
+        {project.videos && project.videos.length > 0 && (
+          <section className="detail-section" aria-label="Video demo">
+            <p className="section-label">Video demo</p>
+            <h2>Video Demo</h2>
+            <VideoShowcase
+              videos={project.videos.map((v) => ({
+                id: parseYouTubeId(v.url) || v.url,
+                title: v.title,
+                desc: v.description || "",
+                youtubeId: parseYouTubeId(v.url) || "",
+                url: v.url,
+              }))}
+            />
+          </section>
+        )}
+
+        {/* Case Study Summary */}
+        {project.summary && (
+          <section className="detail-section" aria-label="Tổng quan project">
+            <p className="section-label">Tổng quan</p>
+            <h2>Tóm Tắt Project</h2>
+            <CaseStudySummary summary={project.summary} />
+          </section>
+        )}
+
+        {/* Technical Highlights */}
+        {project.technicalHighlights &&
+          project.technicalHighlights.length > 0 && (
+            <section className="detail-section" aria-label="Điểm kỹ thuật">
+              <p className="section-label">Kỹ thuật</p>
+              <h2>Điểm Kỹ Thuật Nổi Bật</h2>
+              <TechnicalHighlights items={project.technicalHighlights} />
+            </section>
+          )}
+
+        {/* Challenges */}
+        {project.challenges && project.challenges.length > 0 && (
+          <section className="detail-section" aria-label="Thách thức">
+            <p className="section-label">Thách thức</p>
+            <h2>Thách Thức & Cách Xử Lý</h2>
+            <ChallengeSection challenges={project.challenges} />
+          </section>
+        )}
+
+        {/* ENVIRONMENT INFO (PAAS ONLY) */}
+        {project.environment && (
+          <EnvironmentInfo machines={project.environment} />
+        )}
+
         {/* LIGHTBOX */}
         <AnimatePresence>
           {selectedImgIdx !== null && project.screenshots && (
             <motion.div
               className={`lightbox-overlay ${isZoomed ? "is-zoomed" : ""}`}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Xem ảnh chi tiết"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -806,6 +604,7 @@ export default function ProjectDetail({
                 {!isZoomed && (
                   <motion.button
                     className="lightbox-close"
+                    aria-label="Đóng"
                     onClick={() => setSelectedImgIdx(null)}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -830,6 +629,7 @@ export default function ProjectDetail({
                 {!isZoomed && (
                   <motion.button
                     className="lightbox-nav lightbox-prev"
+                    aria-label="Ảnh trước"
                     onClick={handlePrev}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -855,7 +655,7 @@ export default function ProjectDetail({
                   initial={{ opacity: 0, scale: 0.92 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.92 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
                   onClick={() => setIsZoomed(!isZoomed)}
                   style={{ cursor: isZoomed ? "zoom-out" : "zoom-in" }}
                 >
@@ -879,6 +679,7 @@ export default function ProjectDetail({
                 {!isZoomed && (
                   <motion.button
                     className="lightbox-nav lightbox-next"
+                    aria-label="Ảnh tiếp"
                     onClick={handleNext}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}

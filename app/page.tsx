@@ -35,23 +35,6 @@ const ABOUT_STACK = {
 };
 
 /* ─── Icons (inline SVG) ─────────────────────────────────────────── */
-function IconArrowDown() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="12" y1="5" x2="12" y2="19" />
-      <polyline points="19 12 12 19 5 12" />
-    </svg>
-  );
-}
 function IconArrowRight() {
   return (
     <svg
@@ -115,7 +98,7 @@ function ProjectCard({
             alt={project.title}
             fill
             style={{ objectFit: "cover" }}
-            sizes="50vw"
+            sizes="(max-width: 820px) 100vw, 1200px"
             priority={index === 0}
           />
         ) : (
@@ -285,25 +268,21 @@ export default function Home() {
       </nav>
 
       {/* HERO */}
-      <section className="hero">
+      <section className="hero" aria-labelledby="hero-heading">
         <div className="container">
           <div className="hero-inner">
             <p className="section-label">Fresher/Junior Web Developer</p>
-            <h1>
+            <h1 id="hero-heading">
               <span className="hero-name">Ngô Gia Hạo</span>
             </h1>
             <p className="hero-subtitle">
-              Fresher Web Developer tập trung vào Backend/Full-stack, có kinh
-              nghiệm thực hành với NestJS, React/Next.js, PostgreSQL, Docker và
-              Kubernetes trong các project cá nhân. Tôi xây dựng portfolio này
-              để trình bày các project đã tự triển khai: e-commerce, công cụ hỗ
-              trợ AI workflow và thử nghiệm PaaS trên Kubernetes. Mục tiêu của
-              tôi là tìm cơ hội Fresher/Junior, học nhanh từ dự án thực tế và
-              đóng góp tốt ở các task web development.
+              Fresher Web Developer tập trung Backend/Full-stack. Đã thực hành
+              với NestJS, React/Next.js, PostgreSQL, Docker, Kubernetes qua các
+              project cá nhân: e-commerce, AI workflow, PaaS trên Kubernetes.
             </p>
             <div className="hero-actions">
               <a href="#projects" className="btn btn-primary">
-                Xem Dự Án <IconArrowDown />
+                Xem Dự Án <IconArrowRight />
               </a>
               <a href="#contact" className="btn btn-outline">
                 Liên hệ
@@ -316,9 +295,6 @@ export default function Home() {
               >
                 <IconGithub /> GitHub
               </a>
-            </div>
-            <div className="hero-scroll-hint">
-              <IconArrowDown /> Kéo xuống để khám phá
             </div>
           </div>
         </div>
