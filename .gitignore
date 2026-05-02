@@ -14,6 +14,7 @@ tsconfig.tsbuildinfo
 .impeccable-live/
 .qoder/
 .claude/worktrees/
+.worktrees/
 # testing
 /coverage
 
