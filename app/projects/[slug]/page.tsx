@@ -330,6 +330,15 @@ export default function ProjectDetail({
   const shouldReduceMotion = useReducedMotion();
   const [selectedImgIdx, setSelectedImgIdx] = useState<number | null>(null);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   if (!project) notFound();
 
@@ -406,24 +415,43 @@ export default function ProjectDetail({
   return (
     <>
       {/* NAV */}
-      <nav className="nav">
-        <div className="container nav-inner">
-          <Link href="/" className="nav-logo">
+      <motion.nav
+        className={`fixed-nav ${scrolled ? "scrolled" : ""}`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
+        <div className="container fixed-nav-inner">
+          <Link href="/" className="fixed-nav-logo">
             NGÔ GIA HẠO
           </Link>
-          <div className="nav-links">
-            <Link href="/#projects" className="nav-link">
-              Projects
+          <div className="fixed-nav-links">
+            <Link href="/#home" className="fixed-nav-link">
+              Trang chủ
             </Link>
-            <Link href="/#about" className="nav-link">
-              About
+            <Link href="/#projects" className="fixed-nav-link">
+              Dự án
             </Link>
-            <Link href="/#contact" className="nav-link">
-              Contact
+            <Link href="/#about" className="fixed-nav-link">
+              Về tôi
             </Link>
+            <Link href="/#journal" className="fixed-nav-link">
+              Ghi chú
+            </Link>
+            <Link href="/#contact" className="fixed-nav-link">
+              Liên hệ
+            </Link>
+            <a
+              href="https://github.com/HaoNgo232"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary btn-sm"
+            >
+              <IconGithub /> GitHub
+            </a>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
       <main>
         {/* HERO */}
