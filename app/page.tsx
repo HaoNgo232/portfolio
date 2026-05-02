@@ -240,7 +240,7 @@ function BentoProjectCard({
       ref={ref}
       className={`bento-card ${featured ? "bento-card-featured" : ""} fade-up`}
       style={{ transitionDelay: `${index * 80}ms` }}
-      whileHover={{ y: -4 }}
+      whileHover={typeof window !== 'undefined' && window.innerWidth > 768 ? { y: -4 } : {}}
       transition={{ duration: 0.3 }}
     >
       <Link href={`/projects/${project.slug}`} className="bento-card-link">

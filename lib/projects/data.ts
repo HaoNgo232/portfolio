@@ -21,7 +21,8 @@ export const PROJECTS: Project[] = [
     focus: [
       "Kubernetes deployment flow",
       "Docker image deployment",
-      "Buildpacks experiment",
+      "Microservices architecture",
+      "RabbitMQ integration",
       "Async deploy tasks",
       "Cluster resource management UI",
     ],
@@ -137,6 +138,7 @@ export const PROJECTS: Project[] = [
       { name: "Next.js", category: "frontend" },
       { name: "Kubernetes", category: "devops" },
       { name: "Docker", category: "devops" },
+      { name: "RabbitMQ", category: "backend" },
       { name: "BullMQ", category: "backend" },
       { name: "PostgreSQL", category: "database" },
       { name: "Ansible", category: "devops" },
