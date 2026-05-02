@@ -2,7 +2,13 @@
 
 import { PROJECTS } from "@/lib/projects/data";
 import { STACK_ICONS } from "@/lib/projects/stack-icons";
-import { IconGithub, Badge, IconEmail } from "@/components/ui/icons";
+import {
+  IconGithub,
+  Badge,
+  IconEmail,
+  IconCopy,
+  IconCheck,
+} from "@/components/ui/icons";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -60,6 +66,10 @@ const EXPLORATIONS = [
   {
     title: "Backend Development",
     desc: "NestJS, API design, database transaction",
+  },
+  {
+    title: "Frontend Development",
+    desc: "React, Next.js, Tailwind CSS, Shadcn UI",
   },
   { title: "Deployment", desc: "Docker, Kubernetes, CI/CD workflow" },
   { title: "E-commerce", desc: "Payment flow, order management, admin UI" },
@@ -224,6 +234,32 @@ function SiteNav() {
   );
 }
 
+function CopyEmailButton({ email }: { email: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="copy-email-wrapper">
+      <a href={`mailto:${email}`} className="contact-link">
+        <IconEmail /> {email}
+      </a>
+      <button
+        onClick={handleCopy}
+        className={`copy-btn ${copied ? "copied" : ""}`}
+        title="Sao chép email"
+        aria-label="Sao chép email"
+      >
+        {copied ? <IconCheck /> : <IconCopy />}
+      </button>
+    </div>
+  );
+}
+
 function BentoProjectCard({
   project,
   index,
@@ -240,7 +276,11 @@ function BentoProjectCard({
       ref={ref}
       className={`bento-card ${featured ? "bento-card-featured" : ""} fade-up`}
       style={{ transitionDelay: `${index * 80}ms` }}
-      whileHover={typeof window !== 'undefined' && window.innerWidth > 768 ? { y: -4 } : {}}
+      whileHover={
+        typeof window !== "undefined" && window.innerWidth > 768
+          ? { y: -4 }
+          : {}
+      }
       transition={{ duration: 0.3 }}
     >
       <Link href={`/projects/${project.slug}`} className="bento-card-link">
@@ -555,12 +595,7 @@ export default function Home() {
                     liên hệ qua email hoặc GitHub.
                   </p>
                   <div className="contact-redesign-links">
-                    <a
-                      href="mailto:hao.ngo.n.personal@gmail.com"
-                      className="contact-link"
-                    >
-                      <IconEmail /> hao.ngo.n.personal@gmail.com
-                    </a>
+                    <CopyEmailButton email="hao.ngo.n.personal@gmail.com" />
                     <a
                       href="https://github.com/HaoNgo232"
                       target="_blank"

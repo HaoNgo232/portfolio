@@ -1819,6 +1819,55 @@ ul {
   margin-top: 2rem;
 }
 
+.copy-email-wrapper {
+  display: inline-flex;
+  align-items: center;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  transition:
+    background var(--t-fast),
+    border-color var(--t-fast);
+}
+
+.copy-email-wrapper:hover {
+  border-color: var(--clr-primary);
+  background: var(--clr-primary-dim);
+}
+
+.copy-email-wrapper .contact-link {
+  border: none;
+  background: transparent;
+  padding-right: 0.5rem;
+}
+
+.copy-email-wrapper .contact-link:hover {
+  background: transparent;
+  border-color: transparent;
+}
+
+.copy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: none;
+  border-left: 1px solid var(--clr-border);
+  color: var(--clr-text-muted);
+  cursor: pointer;
+  transition: color var(--t-fast);
+}
+
+.copy-btn:hover {
+  color: var(--clr-primary);
+}
+
+.copy-btn.copied {
+  color: var(--clr-success);
+}
+
 /* ─── Responsive ────────────────────────────────────────────────── */
 @media (max-width: 820px) {
   .about-grid {
