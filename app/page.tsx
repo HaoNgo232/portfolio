@@ -467,11 +467,10 @@ export default function Home() {
                     </p>
                     <p>
                       Tôi sử dụng AI như công cụ hỗ trợ tra cứu, tạo boilerplate
-                      và rà soát hướng triển khai; phần tích hợp, debug và kiểm
-                      thử luồng chính vẫn do tôi tự thực hiện. Qua các project,
-                      tôi hiểu rõ hơn về cách xây dựng API, xử lý database
-                      transaction, tổ chức code theo module và triển khai ứng
-                      dụng với Docker/Kubernetes.
+                      và rà soát hướng triển khai. Qua các project, tôi hiểu rõ
+                      hơn về cách xây dựng API, xử lý database transaction, tổ
+                      chức code theo module và triển khai ứng dụng với
+                      Docker/Kubernetes.
                     </p>
                   </div>
                   <div className="about-stack">
